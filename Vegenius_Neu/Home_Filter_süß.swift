@@ -18,9 +18,9 @@ struct Recipe: Identifiable {
 }
 
 enum Category: String, CaseIterable {
-    case kochen = "Kochen"
-    case backen = "Backen"
+    case herzhaft = "Herzhaft"
     case suess = "Süß"
+    case unter_zwanzig = "<20min"
 }
 
 import SwiftUI
@@ -28,13 +28,18 @@ import SwiftUI
 struct HomeView: View {
     
     @State private var searchText = ""
-    @State private var selectedCategory: Category = .kochen
+    @State private var selectedCategory: Category = .herzhaft
     
     @State private var recipes: [Recipe] = [
-        Recipe(title: "Twisted Potatoe in Auflaufform", imageName: "recipe1", category: .kochen, isFavorite: false),
-        Recipe(title: "Mediterrane Reispfanne", imageName: "recipe2", category: .kochen, isFavorite: true),
-        Recipe(title: "Soychicken Couscous", imageName: "recipe3", category: .backen, isFavorite: false),
-        Recipe(title: "Gemüsegratin mit Zucchini", imageName: "recipe4", category: .suess, isFavorite: false)
+        Recipe(title: "Twisted Potatoe in Auflaufform", imageName: "recipe1", category: .herzhaft, isFavorite: false),
+        Recipe(title: "Mediterrane Reispfanne", imageName: "recipe2", category: .unter_zwanzig, isFavorite: true),
+        Recipe(title: "Soychicken Couscous", imageName: "recipe3", category: .herzhaft, isFavorite: false),
+        Recipe(title: "Gemüsegratin mit Zucchini", imageName: "recipe4", category: .herzhaft, isFavorite: false),
+        Recipe(title: "Bananenbrot", imageName: "Bananenbrot", category: .suess, isFavorite: false),
+        Recipe(title: "Chocolate Chip Cookies", imageName: "Chocolate Chip Cookies", category: .suess, isFavorite: false),
+        Recipe(title: "Süßkartoffel Brownies", imageName: "Süßkartoffel Brownies", category: .suess, isFavorite: false),
+        Recipe(title: "Zimtschnecken", imageName: "Zimtschnecken", category: .suess, isFavorite: false),
+        
     ]
     
     var filteredRecipes: [Recipe] {
@@ -79,22 +84,39 @@ struct HomeView: View {
                 // MARK: - Kategorien
                 HStack(spacing: 12) {
                     ForEach(Category.allCases, id: \.self) { category in
+                        //Button {
+                            //selectedCategory = category
+                        //} label: {
+                            //Text(category.rawValue)
+                                //.fontWeight(.medium)
+                                //.foregroundColor(.black)
+                                //.padding(.horizontal, 20)
+                                //.padding(.vertical, 10)
+                                //.background(
+                                  //  selectedCategory == category
+                                    //? Color(hex: "#52C7B9")
+                                    //? Color.init(red: 82, green: 199, blue: 185)
+                                   // : Color.white
+                               // )
+                               // .cornerRadius(25)
+                        //}
+                    
                         Button {
                             selectedCategory = category
                         } label: {
-                            Text(category.rawValue)
+                            Text(category.rawValue)//rawValue gibt String an zu der Kategorie (zeigt also Herzhaft etc. auf den Buttons
                                 .fontWeight(.medium)
-                                .foregroundColor(.black)
+                                .foregroundColor(selectedCategory == category ? .white : .black)//if-else-Struktur
                                 .padding(.horizontal, 20)
                                 .padding(.vertical, 10)
                                 .background(
                                     selectedCategory == category
-                                    //? Color(hex: "#52C7B9")
-                                    ? Color.init(red: 82, green: 199, blue: 185)
+                                    ? Color(red: 80/255, green: 196/255, blue: 182/255)
                                     : Color.white
                                 )
                                 .cornerRadius(25)
-                        }
+                        } //So gibt es Buttons mit den Kategorien die man auswählen kann.
+
                     }
                 }
                 
@@ -106,6 +128,7 @@ struct HomeView: View {
                     .padding(.horizontal)
                 
                 
+                
                 // MARK: - Rezept Grid
                 ScrollView {
                     LazyVGrid(columns: [
@@ -113,8 +136,14 @@ struct HomeView: View {
                         GridItem(.flexible())
                     ], spacing: 16) {
                         
-                        ForEach(filteredRecipes.indices, id: \.self) { index in
-                            RecipeCard(recipe: $recipes[index])
+                        //ForEach(filteredRecipes.indices, id: \.self) { index in
+                            //RecipeCard(recipe: $recipes[index])
+                        ForEach(filteredRecipes) { recipe in
+                            if let index = recipes.firstIndex(where: { $0.id == recipe.id }) {
+                                RecipeCard(recipe: $recipes[index])
+                            }
+                        }
+
                             
                         }
                     }
@@ -128,7 +157,7 @@ struct HomeView: View {
             }
         }
     }
-}
+//}
 
 struct RecipeCard: View {
     @Binding var recipe: Recipe
