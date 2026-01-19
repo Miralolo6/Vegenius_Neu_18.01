@@ -32,7 +32,7 @@ struct HomeView: View {
     
     @State private var recipes: [Recipe] = [
         Recipe(title: "Twisted Potatoe in Auflaufform", imageName: "recipe1", category: .herzhaft, isFavorite: false),
-        Recipe(title: "Mediterrane Reispfanne", imageName: "recipe2", category: .unter_zwanzig, isFavorite: true),
+        Recipe(title: "Mediterrane Reispfanne", imageName: "recipe2", category: .unter_zwanzig, isFavorite: false),
         Recipe(title: "Soychicken Couscous", imageName: "recipe3", category: .herzhaft, isFavorite: false),
         Recipe(title: "Gemüsegratin mit Zucchini", imageName: "recipe4", category: .herzhaft, isFavorite: false),
         Recipe(title: "Bananenbrot", imageName: "Bananenbrot", category: .suess, isFavorite: false),
@@ -49,7 +49,8 @@ struct HomeView: View {
     var body: some View {
         ZStack(alignment: .bottom) { //fixiert BottomBar am unteren Rand
             //Color(hex: "#F7FDFC")
-            Color.init(red: 247, green: 253, blue: 252)
+            //Color.init(red: 247, green: 253, blue: 252)
+            Color(red: 247/255, green: 253/255, blue: 252/255)
                 .ignoresSafeArea()
             
             VStack(spacing: 20) {
@@ -75,7 +76,9 @@ struct HomeView: View {
                         Image(systemName: "line.3.horizontal")
                             .font(.title2)
                             //.foregroundColor(Color(hex: "#52C7B9"))
-                            .foregroundColor(Color.init(red: 82, green: 199, blue: 185))
+                            //.foregroundColor(Color.init(red: 82, green: 199, blue: 185))
+                            .foregroundColor(Color(red: 82/255, green: 199/255, blue: 185/255))
+
                     }
                 }
                 .padding(.horizontal)
@@ -206,8 +209,9 @@ struct BottomBarView: View {
             Spacer()
             
             VStack {
-                Image(systemName: "chef.hat")
-                Text("Favoriten")
+                //Image(systemName: "chef.hat")
+                Image(systemName: "bookmark.circle")
+                Text("Gespeichert")
                     .font(.caption)
             }
             
@@ -216,10 +220,12 @@ struct BottomBarView: View {
             ZStack {
                 Circle()
                     //.fill(Color(hex: "#3BA194"))
-                    .fill(Color.init(red: 59, green: 161, blue: 148))
+                    //.fill(Color.init(red: 59, green: 161, blue: 148))
+                    .fill(Color(red: 59/255, green: 161/255, blue: 148/255))
                     .frame(width: 60, height: 60)
                 
-                Image(systemName: "arrow.left.arrow.right")
+                //Image(systemName: "arrow.left.arrow.right")
+                Image(systemName: "arrow.right.arrow.left")
                     .foregroundColor(.white)
                     .font(.title2)
             }
@@ -235,7 +241,9 @@ struct BottomBarView: View {
             Spacer()
         }
         .padding(.vertical, 10)
-        .background(Color.init(red: 82, green: 199, blue: 185))
+        //.background(Color.init(red: 82, green: 199, blue: 185))
+        .background(Color(red: 126/255, green: 222/255, blue: 211/255))
+        .foregroundColor(.white)//Schriftfarbe von "Gespeichert" und Meine Rezepte mit Icon weiß
         .ignoresSafeArea(edges: .bottom) //Bottom Bar geht ganz nach unten
     }
 }
