@@ -47,7 +47,7 @@ struct HomeView: View {
     }
     
     var body: some View {
-        ZStack {
+        ZStack(alignment: .bottom) { //fixiert BottomBar am unteren Rand
             //Color(hex: "#F7FDFC")
             Color.init(red: 247, green: 253, blue: 252)
                 .ignoresSafeArea()
@@ -148,14 +148,20 @@ struct HomeView: View {
                         }
                     }
                     .padding(.horizontal)
+                    .padding(.bottom, 100) //verhindert Überlappung, Platz für BottomBar bleibt frei
                 }
                 
-                Spacer()
+                //Spacer()
                 
                 // MARK: - Bottom Bar
-                BottomBarView()
+                //BottomBarView()
             }
+        
+        BottomBarView()
+        
         }
+
+    
     }
 //}
 
@@ -230,6 +236,7 @@ struct BottomBarView: View {
         }
         .padding(.vertical, 10)
         .background(Color.init(red: 82, green: 199, blue: 185))
+        .ignoresSafeArea(edges: .bottom) //Bottom Bar geht ganz nach unten
     }
 }
 
