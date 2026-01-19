@@ -31,13 +31,13 @@ struct HomeView: View {
     @State private var selectedCategory: Category = .herzhaft
     
     @State private var recipes: [Recipe] = [
-        Recipe(title: "Twisted Potatoe in Auflaufform", imageName: "recipe1", category: .herzhaft, isFavorite: false),
-        Recipe(title: "Mediterrane Reispfanne", imageName: "recipe2", category: .unter_zwanzig, isFavorite: false),
-        Recipe(title: "Soychicken Couscous", imageName: "recipe3", category: .herzhaft, isFavorite: false),
-        Recipe(title: "Gemüsegratin mit Zucchini", imageName: "recipe4", category: .herzhaft, isFavorite: false),
+        Recipe(title: "Twisted Potatoes", imageName: "Twisted Potatoe", category: .herzhaft, isFavorite: false),
+        Recipe(title: "Mediterrane Reispfanne", imageName: "Mediterrane Reispfanne", category: .unter_zwanzig, isFavorite: false),
+        Recipe(title: "Soychicken mit Couscous", imageName: "Soychicken Couscous", category: .herzhaft, isFavorite: false),
+        Recipe(title: "Gemüsegratin mit Zucchini", imageName: "Gemüsegratin mit Zucchini", category: .herzhaft, isFavorite: false),
         Recipe(title: "Bananenbrot", imageName: "Bananenbrot", category: .suess, isFavorite: false),
         Recipe(title: "Chocolate Chip Cookies", imageName: "Chocolate Chip Cookies", category: .suess, isFavorite: false),
-        Recipe(title: "Süßkartoffel Brownies", imageName: "Süßkartoffel Brownies", category: .suess, isFavorite: false),
+        Recipe(title: "Süßkartoffel-Brownies", imageName: "Süßkartoffel Brownies", category: .suess, isFavorite: false),
         Recipe(title: "Zimtschnecken", imageName: "Zimtschnecken", category: .suess, isFavorite: false),
         
     ]
@@ -198,6 +198,7 @@ struct RecipeCard: View {
                 .font(.subheadline)
                 .fontWeight(.medium)
                 .lineLimit(2)
+                .frame(height: 40, alignment: .top)//alle Rezeptelemente auf gleichen Höhe
         }
     }
 }
