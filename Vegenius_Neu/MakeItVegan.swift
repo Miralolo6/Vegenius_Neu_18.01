@@ -1,13 +1,12 @@
 //
-//  ContentView.swift
+//  MakeItVegan.swift
 //  Vegenius_Neu
 //
-//  Created by TA604 on 18.01.26.
+//  Created by TA617 on 18.01.26.
 //
-
 import SwiftUI
 
-struct ContentView: View {
+struct MakeItVegan: View {
     var body: some View {
         VStack {
             Image(systemName: "globe")
@@ -20,5 +19,5 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView()
+    MakeItVegan()
 }
