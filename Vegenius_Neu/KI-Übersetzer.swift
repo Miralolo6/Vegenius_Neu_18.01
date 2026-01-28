@@ -101,9 +101,6 @@ func veganizeRecipe(_ text: String) -> String {
     return result
 }
 
-
-
-
 struct Translater_View: View {
 
     @State private var inputRecipe = ""
@@ -131,10 +128,6 @@ struct Translater_View: View {
         .padding()
     }
 }
-
-
-
-
 
 #Preview {
     Translater_View()
