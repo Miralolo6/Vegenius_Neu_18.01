@@ -5,10 +5,58 @@
 //  Created by TA617 on 18.01.26.
 //
 import SwiftUI
+import UIKit
+
+
+
+struct CameraPicker: UIViewControllerRepresentable {
+
+    @Environment(\.dismiss) var dismiss
+    @Binding var image: UIImage?
+
+    func makeUIViewController(context: Context) -> UIImagePickerController {
+        let picker = UIImagePickerController()
+        picker.sourceType = .camera
+        picker.delegate = context.coordinator
+        return picker
+    }
+
+    func updateUIViewController(_ uiViewController: UIImagePickerController, context: Context) {}
+
+    func makeCoordinator() -> Coordinator {
+        Coordinator(self)
+    }
+
+    class Coordinator: NSObject, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
+
+        let parent: CameraPicker
+
+        init(_ parent: CameraPicker) {
+            self.parent = parent
+        }
+
+        func imagePickerController(
+            _ picker: UIImagePickerController,
+            didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]
+        ) {
+            if let image = info[.originalImage] as? UIImage {
+                parent.image = image
+            }
+            parent.dismiss()
+        }
+
+        func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+            parent.dismiss()
+        }
+    }
+}
 
 struct MakeItVeganView: View {
     
     @State private var recipeText: String = ""
+    @State private var showCamera = false
+    @State private var selectedImage: UIImage?
+
     
     var body: some View {
         
@@ -81,10 +129,12 @@ struct MakeItVeganView: View {
                             }
                             
                             HStack(spacing: 16) {
-                                Image(systemName: "photo")
+                                Button {
+                                    showCamera = true
+                                } label: {
+                                    Image(systemName: "camera")
+                                }
                                 Image(systemName: "mic")
-                                Image(systemName: "camera")
-                                
                                 Spacer()
                                 
                                 Button(action: {
@@ -108,7 +158,9 @@ struct MakeItVeganView: View {
                         
                         Spacer(minLength: 500)
                         
-                        
+                            .sheet(isPresented: $showCamera) {
+                                CameraPicker(image: $selectedImage)
+                            }
                         
                     }
                     .padding(.top)
