@@ -132,6 +132,7 @@ import SwiftUI
                         }
                         .padding(.horizontal)
                         .padding(.top, 5)
+                        .padding(.bottom, 20)
 
                         // MARK: - Zubereitung
                         VStack(alignment: .leading, spacing: 8) {
@@ -140,6 +141,7 @@ import SwiftUI
                                 .padding(.top)
 
                             Text("""
+    
     1.⁠ ⁠Kartoffeln waschen. 
 
     2.⁠ ⁠Holzspieß längs durch jede Kartoffel stecken. 
@@ -186,10 +188,8 @@ struct RecipeShareSheet: UIViewControllerRepresentable {
     func updateUIViewController(_ uiViewController: UIActivityViewController, context: Context) {}
 }
 
-    // MARK: - Preview
-    struct TwistedPotatoesView_Previews: PreviewProvider {
-        static var previews: some View {
-            TwistedPotatoesView()
-        }
-    }
+
     
+#Preview {
+    TwistedPotatoesView()
+}
