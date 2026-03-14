@@ -16,31 +16,30 @@ import SwiftUI
         let shareText = """
     🍗🌱 Soychicken mit Couscous
         Zutaten:
-        🌱 Sojachunks
-        🌾 Couscous
-        🧅 Zwiebel
-        🧄 Knoblauch
-        🫑 Paprika (optional)
-        🫒 Olivenöl
-        🥫 Tomatenmark oder Sojasauce
-        🧂 Gewürze: Salz, Pfeffer, Paprikapulver, ggf. Chili
-        💧 Wasser / Gemüsebrühe
+        🌱 100 g Sojachunks (trocken)
+        🌾 160–200 g Couscous
+        🧅 1 Zwiebel
+        🧄 1–2 Knoblauchzehen
+        🫑 1 Paprika (optional)
+        🫒 1 EL Olivenöl
+        🥫 1 EL Tomatenmark oder 2 EL Sojasauce
+        🧂 Gewürze: Salz, Pfeffer, Paprikapulver, optional Chili
+        💧 ca. 300 ml Gemüsebrühe (für Sojachunks + Couscous)
     
 
     1.  Sojachunks mit heißer Brühe übergießen, 5–10 Min ziehen lassen, ausdrücken.
     
-    2.  Holzspieß längs durch jede Kartoffel stecken.
+    2.  Zwiebel, Knoblauch (optional Paprika) klein schneiden.
     
-    3.  Kartoffel spiralförmig einschneiden.
+    3.  Öl erhitzen, Gemüse 2–3 Min anbraten.
     
-    4.  Spirale vorsichtig auseinanderziehen.
+    4.  Sojachunks zugeben, knusprig braten.
     
-    5.  Mit Olivenöl einreiben.
+    5.  Tomatenmark oder Sojasauce + Gewürze einrühren.
     
-    6.  Mit Gewürzen bestreuen.
+    6.  Couscous mit heißer Brühe übergießen, 5 Min quellen lassen, mit Gabel auflockern.
     
-    7.  Backofen: 200 °C, 30–40 Min backen
-        oder 🌪️ Airfryer: 180 °C, 20–25 Min.
+    7.  Couscous mit Soychicken servieren.
 
     Rezept aus meiner App 🙂
     """
@@ -76,7 +75,7 @@ import SwiftUI
 
                             // Bild + Favorit
                             ZStack(alignment: .topTrailing) {
-                                Image("Twisted Potatoe")
+                                Image("Soychicken Couscous")
                                     .resizable()
                                     .scaledToFit()
                                     .frame(height: 260)
@@ -100,7 +99,7 @@ import SwiftUI
                         // MARK: - Zutaten + Share
                         VStack(alignment: .leading, spacing: 5) {
                             HStack {
-                                Text("📝 Zutatenliste (für 1-2 Personen)")
+                                Text("📝 Zutatenliste (für 2 Personen)")
                                     .font(.headline)
                                     .padding(.leading)
 
@@ -123,14 +122,16 @@ import SwiftUI
 
                         // MARK: - Zutaten Liste
                         VStack(alignment: .leading, spacing: 8) {
-                            Zutaten(text: "🥔 4 große Kartoffeln (festkochend)")
-                            Zutaten(text: "🫒 2–3 EL Olivenöl")
-                            Zutaten(text: "🧂 1 TL Salz")
-                            Zutaten(text: "🌶️ 1 TL Paprikapulver (edelsüß oder geräuchert)")
-                            Zutaten(text: "🧄 ½ TL Knoblauchpulver")
-                            Zutaten(text: "🧅 ½ TL Zwiebelpulver")
-                            Zutaten(text: "🌿 ½ TL getrocknete Kräuter (z. B. Oregano oder Thymian)")
-                            Zutaten(text: "🌶️ Optional: etwas Chili oder Cayennepfeffer für Schärfe")
+                            Zutaten(text: "🌱 100 g Sojachunks (trocken)")
+                            Zutaten(text: "🌾 160–200 g Couscous")
+                            Zutaten(text: "🧅 1 Zwiebel")
+                            Zutaten(text: "🧄 1–2 Knoblauchzehen")
+                            Zutaten(text: "🫑 1 Paprika (optional)")
+                            Zutaten(text: "🫒 1 EL Olivenöl")
+                            Zutaten(text: "🥫 1 EL Tomatenmark oder 2 EL Sojasauce")
+                            Zutaten(text: "🧂 Gewürze: Salz, Pfeffer, Paprikapulver, optional Chili")
+                            Zutaten(text: "💧 ca. 300 ml Gemüsebrühe (für Sojachunks + Couscous)")
+                        
                         }
                         .padding(.horizontal)
                         .padding(.top, 5)
@@ -144,20 +145,19 @@ import SwiftUI
 
                             Text("""
     
-    1.⁠ ⁠Kartoffeln waschen. 
+    1.⁠ ⁠Sojachunks mit heißer Brühe übergießen, 5–10 Min ziehen lassen, ausdrücken.
 
-    2.⁠ ⁠Holzspieß längs durch jede Kartoffel stecken. 
+    2.⁠ ⁠Zwiebel, Knoblauch (optional Paprika) klein schneiden.
 
-    3.⁠ ⁠Kartoffel spiralförmig einschneiden. 
+    3.⁠ ⁠Öl erhitzen, Gemüse 2–3 Min anbraten. 
 
-    4.⁠ ⁠Spirale vorsichtig auseinanderziehen. 
+    4.⁠ ⁠Sojachunks zugeben, knusprig braten.
 
-    5.⁠ ⁠Mit Olivenöl einreiben. 
+    5.⁠ ⁠Tomatenmark oder Sojasauce + Gewürze einrühren.
 
-    6.⁠ ⁠Mit Gewürzen bestreuen. 
+    6.⁠ ⁠Couscous mit heißer Brühe übergießen, 5 Min quellen lassen, mit Gabel auflockern.
 
-    7.⁠ ⁠Backofen: 200 °C, 30–40 Min backen
-        oder Airfryer: 180 °C, 20–25 Min. 
+    7.⁠ ⁠Couscous mit Soychicken servieren.
 
     """)
                             .font(.body)
