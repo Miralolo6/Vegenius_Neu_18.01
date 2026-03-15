@@ -44,7 +44,7 @@ import SwiftUI
     """
 
         var body: some View {
-            ZStack {
+            ZStack(alignment: .bottom) {
                 ScrollView {
                     VStack(spacing: 0) {
 
@@ -166,9 +166,9 @@ import SwiftUI
                     .padding(.bottom, 120)
                 }
 
-                VStack {
-                    Spacer()
-                    HomeFilterBottomBar()
+                ZStack(alignment: .bottom) {
+                    BottomBarView()
+                    TranslationCenterButton()
                 }
             }
             .sheet(isPresented: $showShareSheet) {
