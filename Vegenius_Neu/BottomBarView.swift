@@ -1,15 +1,23 @@
 import SwiftUI
 
-struct BottomBarView: View { // minzgrüne Balken unten mit den Buttons
+struct BottomBarView: View {
+
     var body: some View {
-        ZStack(alignment: .top) {
 
-            // VOLLE Bottom Bar Fläche
-            Color(red: 126/255, green: 222/255, blue: 211/255)
+        ZStack(alignment: .bottom) {
+
+            CurvedBottomBarShape()
+                .fill(Color(red: 126/255, green: 222/255, blue: 211/255))
+                .frame(height: 90)
                 .ignoresSafeArea(edges: .bottom)
+            HalfCircle()
+                .fill(Color(red: 126/255, green: 222/255, blue: 211/255))
+                .frame(width: 140, height: 70)
+                .offset(y: -45)
+            
 
-            // Inhalte
             HStack {
+
                 Spacer()
 
                 Button {
@@ -18,17 +26,16 @@ struct BottomBarView: View { // minzgrüne Balken unten mit den Buttons
                     VStack {
                         Image("Gespeichert_Seite")
                             .resizable()
-                            .resizable()
                             .scaledToFit()
                             .frame(width: 50, height: 50)
-                            .font(.system(size: 48, weight: .semibold))
+
                         Text("Gespeichert")
                             .font(.system(size: 16, weight: .medium))
                     }
                 }
 
                 Spacer()
-                Spacer() // Platz für Center Button
+                Spacer()
                 Spacer()
 
                 Button {
@@ -39,6 +46,7 @@ struct BottomBarView: View { // minzgrüne Balken unten mit den Buttons
                             .resizable()
                             .scaledToFit()
                             .frame(width: 50, height: 50)
+
                         Text("Meine Rezepte")
                             .font(.system(size: 16, weight: .medium))
                     }
@@ -47,8 +55,8 @@ struct BottomBarView: View { // minzgrüne Balken unten mit den Buttons
                 Spacer()
             }
             .foregroundColor(.white)
-            .padding(.top, 28)
+            .padding(.top, 20)
         }
-        .frame(height: 60)
+        .frame(height: 27)
     }
 }

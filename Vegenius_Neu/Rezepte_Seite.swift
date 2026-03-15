@@ -237,7 +237,7 @@ import SwiftUI
         }
     }
 
-    struct TranslationCenterButton: View {
+    /*struct TranslationCenterButton: View {
         var body: some View {
             Button { print("Übersetzen gedrückt") } label: {
                 Circle()
@@ -253,7 +253,7 @@ import SwiftUI
                     .offset(y: -24)
             }
         }
-    }
+    }*/
 
     // MARK: - Share Sheet
     struct ShareSheet: UIViewControllerRepresentable {
