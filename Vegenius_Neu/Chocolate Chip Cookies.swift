@@ -1,48 +1,44 @@
 //
-//  Gemüsegratin mit Zucchini.swift
+//  Chocolate Chip Cookies.swift
 //  Vegenius_Neu
 //
 //  Created by TA620 on 15.03.26.
 //
 
-
-
-
 import SwiftUI
 
-struct GemüsegratinMitZucchiniView: View {
+struct ChocolateChipCookiesView: View {
     @Environment(\.dismiss) private var dismiss
     @State private var isFavorite: Bool = false
     @State private var showShareSheet = false
     
     let shareText = """
-Gemüsegratin mit Zucchini
+Chocolate Chip Cookies
     Zutaten:
-    🥒 2 kleine Zucchini
-    🥕 1 Karotte
-    🧅 1 Zwiebel
-    🧄 1 Knoblauchzehe
-    🍅 100 g passierte Tomaten
-    🫒 1 EL Olivenöl
-    🧂 Gewürze: Salz, Pfeffer, Paprikapulver, Kräuter nach Wahl (z. B. Thymian, Oregano)
-    🌾 50 g glutenfreie Haferflocken
-    💧 50 ml Pflanzenmilch (z. B. Hafer- oder Sojamilch, ungesüßt)
+    🌾 150 g Mehl
+    🥄 50 g Rohrzucker oder Kokosblütenzucker
+    🥄 50 g brauner Zucker
+    🫒 60 ml Pflanzenöl
+    💧 50 ml Pflanzenmilch (Hafer- oder Sojamilch)
+    🧂 1 Prise Salz
+    🥄 1 TL Vanilleextrakt
+    🧂 1 TL Backpulver
+    🍫 50–70 g vegane, nussfreie Schokotropfen
 
-1.  Zucchini, Karotte, Zwiebel und Knoblauch klein schneiden.
 
-2.  Öl in Pfanne erhitzen, Zwiebel & Knoblauch 2–3 Min anbraten.
+1.  Zucker, Öl, Pflanzenmilch und Vanilleextrakt verrühren.
 
-3.  Karotte & Zucchini kurz mitbraten 3–4 Min.
+2.  Mehl, Backpulver und Salz mischen, dann kurz unter die feuchten Zutaten rühren.
 
-4.  Passierte Tomaten + Gewürze einrühren, 2–3 Min köcheln.
+3.  Schokotropfen unterheben.
 
-5.  Haferflocken mit Pflanzenmilch mischen, als Topping auf das Gemüse geben.
+4.  Teig in Portionen auf Backblech setzen, leicht flachdrücken.
 
-6.  In Auflaufform füllen, Backofen 180 °C, 20–25 Min backen.
+5.  Backofen 180 °C, 10–12 Min backen.
 
-7.  Kurz abkühlen lassen, servieren.
+6.  Kurz abkühlen lassen, servieren.
 
-💡 Tipp: Für extra Geschmack kannst du etwas Hefeflocken über das Topping streuen.
+💡 Tipp: Nicht zu lange backen – außen knusprig, innen weich.
 
 Rezept aus meiner App 🙂
 """
@@ -72,7 +68,7 @@ Rezept aus meiner App 🙂
                                 .opacity(0)
                         }
                         .overlay(
-                            Text("Gemüsegratin mit Zucchini")
+                            Text("Chocolate Chip Cookies")
                                 .font(.headline)
                                 .multilineTextAlignment(.center)
                         )
@@ -80,7 +76,7 @@ Rezept aus meiner App 🙂
 
                         // Bild + Favorit
                         ZStack(alignment: .topTrailing) {
-                            Image("Gemüsegratin mit Zucchini")
+                            Image("Chocolate Chip Cookies")
                                 .resizable()
                                 .scaledToFit()
                                 .frame(height: 310)
@@ -104,7 +100,7 @@ Rezept aus meiner App 🙂
                     // MARK: - Zutaten + Share
                     VStack(alignment: .leading, spacing: 5) {
                         HStack {
-                            Text("📝 Zutatenliste (für 2 Personen)")
+                            Text("📝 Zutatenliste (für 12–14 Cookies)")
                                 .font(.headline)
                                 .padding(.leading)
 
@@ -127,15 +123,15 @@ Rezept aus meiner App 🙂
 
                     // MARK: - Zutaten Liste
                     VStack(alignment: .leading, spacing: 8) {
-                        Zutaten(text: "🥒 2 kleine Zucchini")
-                        Zutaten(text: "🥕 1 Karotte")
-                        Zutaten(text: "🧅 1 Zwiebel")
-                        Zutaten(text: "🧄 1 Knoblauchzehe")
-                        Zutaten(text: "🍅 100 g passierte Tomaten")
-                        Zutaten(text: "🫒 1 EL Olivenöl")
-                        Zutaten(text: "🧂 Gewürze: Salz, Pfeffer, Paprikapulver, Kräuter nach Wahl (z. B. Thymian, Oregano)")
-                        Zutaten(text: "🌾 50 g glutenfreie Haferflocken")
-                        Zutaten(text: "💧 50 ml Pflanzenmilch (z. B. Hafer- oder Sojamilch, ungesüßt)")
+                        Zutaten(text: "🌾 150 g Mehl")
+                        Zutaten(text: "🥄 50 g Rohrzucker oder Kokosblütenzucker")
+                        Zutaten(text: "🥄 50 g brauner Zucker")
+                        Zutaten(text: "🫒 60 ml Pflanzenöl")
+                        Zutaten(text: "💧 50 ml Pflanzenmilch (Hafer- oder Sojamilch)")
+                        Zutaten(text: "🧂 1 Prise Salz")
+                        Zutaten(text: "🥄 1 TL Vanilleextrakt")
+                        Zutaten(text: "🧂 1 TL Backpulver")
+                        Zutaten(text: "🍫 50–70 g vegane, nussfreie Schokotropfen")
                     
                     }//Ende Zutatenliste
                     .padding(.horizontal)
@@ -150,21 +146,19 @@ Rezept aus meiner App 🙂
 
                         Text("""
     
-1.  Zucchini, Karotte, Zwiebel und Knoblauch klein schneiden.
+1.  Zucker, Öl, Pflanzenmilch und Vanilleextrakt verrühren.
 
-2.  Öl in Pfanne erhitzen, Zwiebel & Knoblauch 2–3 Min anbraten.
+2.  Mehl, Backpulver und Salz mischen, dann kurz unter die feuchten Zutaten rühren.
 
-3.  Karotte & Zucchini kurz mitbraten 3–4 Min.
+3.  Schokotropfen unterheben.
 
-4.  Passierte Tomaten + Gewürze einrühren, 2–3 Min köcheln.
+4.  Teig in Portionen auf Backblech setzen, leicht flachdrücken.
 
-5.  Haferflocken mit Pflanzenmilch mischen, als Topping auf das Gemüse geben.
+5.  Backofen 180 °C, 10–12 Min backen.
 
-6.  In Auflaufform füllen, Backofen 180 °C, 20–25 Min backen.
+6.  Kurz abkühlen lassen, servieren.
 
-7.  Kurz abkühlen lassen, servieren.
-
-💡 Tipp: Für extra Geschmack kannst du etwas Hefeflocken über das Topping streuen.
+💡 Tipp: Nicht zu lange backen – außen knusprig, innen weich.
 
 
 """)
@@ -192,6 +186,6 @@ Rezept aus meiner App 🙂
 
 
 #Preview {
-    GemüsegratinMitZucchiniView()
+    ChocolateChipCookiesView()
 }
     
