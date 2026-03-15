@@ -79,7 +79,7 @@ import SwiftUI
                                 Image("Twisted Potatoe")
                                     .resizable()
                                     .scaledToFit()
-                                    .frame(height: 260)
+                                    .frame(height: 310)
                                     .clipped()
 
                                 Button {
