@@ -46,6 +46,8 @@ Rezept aus meiner App 🙂
 
     var body: some View {
         ZStack(alignment: .bottom) { //Bottom Bar bleibt unten
+            Color(red: 247/255, green: 253/255, blue: 252/255)
+                .ignoresSafeArea() // damit sie den ganzen Bildschirm füllt
             ScrollView {
                 VStack(spacing: 0) {
 

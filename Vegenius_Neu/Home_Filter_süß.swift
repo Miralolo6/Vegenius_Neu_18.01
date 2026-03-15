@@ -37,68 +37,6 @@ enum FilterType: String, CaseIterable, Identifiable { //enum = Liste mit vorgege
 
 
 
-/*struct HalfCircle: Shape {
-    func path(in rect: CGRect) -> Path {
-        var path = Path()
-        path.addArc(
-            center: CGPoint(x: rect.midX, y: rect.maxY),
-            radius: rect.width / 2,
-            startAngle: .degrees(180),
-            endAngle: .degrees(0),
-            clockwise: false
-        )
-        return path
-    }
-}
-
-
-struct CurvedBottomBarShape: Shape {
-    func path(in rect: CGRect) -> Path {
-        var path = Path()
-
-        let curveHeight: CGFloat = 35
-        let curveWidth: CGFloat = 90
-        let centerX = rect.midX
-
-        path.move(to: CGPoint(x: 0, y: 0))
-        path.addLine(to: CGPoint(x: centerX - curveWidth, y: 0))
-
-        path.addQuadCurve(
-            to: CGPoint(x: centerX, y: -curveHeight),
-            control: CGPoint(x: centerX - curveWidth / 2, y: 0)
-        )
-
-        path.addQuadCurve(
-            to: CGPoint(x: centerX + curveWidth, y: 0),
-            control: CGPoint(x: centerX + curveWidth / 2, y: 0)
-        )
-
-        path.addLine(to: CGPoint(x: rect.width, y: 0))
-        path.addLine(to: CGPoint(x: rect.width, y: rect.height))
-        path.addLine(to: CGPoint(x: 0, y: rect.height))
-        path.closeSubpath()
-
-        return path
-    }
-}//kurvige Bottom Bar
-
-struct HalfEllipse: Shape {
-    func path(in rect: CGRect) -> Path {
-        var path = Path()
-
-        path.addEllipse(
-            in: CGRect(
-                x: 0,
-                y: rect.height / 2,
-                width: rect.width,
-                height: rect.height
-            )
-        )
-
-        return path
-    }
-}*/
-
 
 struct HomeView: View {
     
@@ -390,35 +328,7 @@ struct HomeView: View {
         }
     }
     
-    /*struct TranslationCenterButton: View { //die Eigenschaften vom Übersetzungsbutton
-     var body: some View {
-     Button {
-     print("Übersetzen Button gedrückt")
-     // HIER kommt später Navigation oder Aktion rein
-     } label: {
-     ZStack {
-     // Halber Kreis HINTER dem Button
-     HalfCircle()
-     .fill(Color(red: 126/255, green: 222/255, blue: 211/255))
-     .frame(width: 120, height: 60)
-     .offset(y: -30)
-     
-     // Runder Button
-     Circle()
-     .fill(Color(red: 59/255, green: 161/255, blue: 148/255))
-     .frame(width: 90, height: 90)
-     .shadow(color: .black.opacity(0.25), radius: 4, y: 4)
-     .overlay(
-     Image("Übersetzung_Pfeile")
-     .resizable()
-     .scaledToFit()
-     .frame(width: 80, height: 80)
-     )
-     }
-     }
-     .buttonStyle(.plain)
-     }//Ende Body
-     }*/
+
     
      
 }
