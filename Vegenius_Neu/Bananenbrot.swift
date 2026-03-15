@@ -1,48 +1,47 @@
 //
-//  Gemüsegratin mit Zucchini.swift
+//  Bananenbrot.swift
 //  Vegenius_Neu
 //
 //  Created by TA620 on 15.03.26.
 //
 
-
-
-
 import SwiftUI
 
-struct GemüsegratinMitZucchiniView: View {
+struct BananenbrotView: View {
     @Environment(\.dismiss) private var dismiss
     @State private var isFavorite: Bool = false
     @State private var showShareSheet = false
     
     let shareText = """
-Gemüsegratin mit Zucchini
+Bananenbrot
     Zutaten:
-    🥒 2 kleine Zucchini
-    🥕 1 Karotte
-    🧅 1 Zwiebel
-    🧄 1 Knoblauchzehe
-    🍅 100 g passierte Tomaten
-    🫒 1 EL Olivenöl
-    🧂 Gewürze: Salz, Pfeffer, Paprikapulver, Kräuter nach Wahl (z. B. Thymian, Oregano)
-    🌾 50 g glutenfreie Haferflocken
-    💧 50 ml Pflanzenmilch (z. B. Hafer- oder Sojamilch, ungesüßt)
+    🍌 3 reife Bananen
+    🌾 200 g glutenfreies Mehl
+    🥄 50 g Ahornsirup (oder Agavendicksaft)
+    🫒 50 ml Pflanzenöl (z. B. Sonnenblumen- oder Rapsöl)
+    💧 50 ml Pflanzenmilch (Hafer- oder Sojamilch, ungesüßt)
+    🧂 1 TL Backpulver
+    🧂 1 Prise Salz
+    🥄 1 TL Zimt (optional)
+    🌾 1 TL Leinsamen + 3 TL Wasser
 
-1.  Zucchini, Karotte, Zwiebel und Knoblauch klein schneiden.
 
-2.  Öl in Pfanne erhitzen, Zwiebel & Knoblauch 2–3 Min anbraten.
+1.  Bananen mit Gabel zerdrücken.
 
-3.  Karotte & Zucchini kurz mitbraten 3–4 Min.
+2.  Leinsamen mit Wasser mischen, 5 Min quellen lassen.
 
-4.  Passierte Tomaten + Gewürze einrühren, 2–3 Min köcheln.
+3.  Öl, Pflanzenmilch und Ahornsirup zu den Bananen geben, gut verrühren.
 
-5.  Haferflocken mit Pflanzenmilch mischen, als Topping auf das Gemüse geben.
+4.  Mehl, Backpulver, Salz und Zimt dazugeben, kurz zu einem Teig verrühren.
 
-6.  In Auflaufform füllen, Backofen 180 °C, 20–25 Min backen.
+5.  Teig in eine gefettete oder mit Backpapier ausgelegte Kastenform füllen.
 
-7.  Kurz abkühlen lassen, servieren.
+6.  Backofen 180 °C, 40–45 Min backen, Stäbchenprobe machen.
 
-💡 Tipp: Für extra Geschmack kannst du etwas Hefeflocken über das Topping streuen.
+7.  Abkühlen lassen, in Scheiben schneiden.
+
+💡 Tipp: Für extra Saftigkeit Bananen leicht überreif verwenden und den Teig nicht zu lange rühren.
+
 
 Rezept aus meiner App 🙂
 """
@@ -72,7 +71,7 @@ Rezept aus meiner App 🙂
                                 .opacity(0)
                         }
                         .overlay(
-                            Text("Gemüsegratin mit Zucchini")
+                            Text("Bananenbrot")
                                 .font(.headline)
                                 .multilineTextAlignment(.center)
                         )
@@ -80,7 +79,7 @@ Rezept aus meiner App 🙂
 
                         // Bild + Favorit
                         ZStack(alignment: .topTrailing) {
-                            Image("Gemüsegratin mit Zucchini")
+                            Image("Bananenbrot")
                                 .resizable()
                                 .scaledToFit()
                                 .frame(height: 310)
@@ -104,7 +103,7 @@ Rezept aus meiner App 🙂
                     // MARK: - Zutaten + Share
                     VStack(alignment: .leading, spacing: 5) {
                         HStack {
-                            Text("📝 Zutatenliste (für 2 Personen)")
+                            Text("📝 Zutatenliste (für 8 Scheiben)")
                                 .font(.headline)
                                 .padding(.leading)
 
@@ -127,15 +126,15 @@ Rezept aus meiner App 🙂
 
                     // MARK: - Zutaten Liste
                     VStack(alignment: .leading, spacing: 8) {
-                        Zutaten(text: "🥒 2 kleine Zucchini")
-                        Zutaten(text: "🥕 1 Karotte")
-                        Zutaten(text: "🧅 1 Zwiebel")
-                        Zutaten(text: "🧄 1 Knoblauchzehe")
-                        Zutaten(text: "🍅 100 g passierte Tomaten")
-                        Zutaten(text: "🫒 1 EL Olivenöl")
-                        Zutaten(text: "🧂 Gewürze: Salz, Pfeffer, Paprikapulver, Kräuter nach Wahl (z. B. Thymian, Oregano)")
-                        Zutaten(text: "🌾 50 g glutenfreie Haferflocken")
-                        Zutaten(text: "💧 50 ml Pflanzenmilch (z. B. Hafer- oder Sojamilch, ungesüßt)")
+                        Zutaten(text: "🍌 3 reife Bananen")
+                        Zutaten(text: "🌾 200 g glutenfreies Mehl")
+                        Zutaten(text: "🥄 50 g Ahornsirup (oder Agavendicksaft)")
+                        Zutaten(text: "🫒 50 ml Pflanzenöl (z. B. Sonnenblumen- oder Rapsöl)")
+                        Zutaten(text: "💧 50 ml Pflanzenmilch (Hafer- oder Sojamilch, ungesüßt)")
+                        Zutaten(text: "🧂 1 TL Backpulver")
+                        Zutaten(text: "🧂 1 Prise Salz")
+                        Zutaten(text: "🥄 1 TL Zimt (optional)")
+                        Zutaten(text: "🌾 1 TL Leinsamen + 3 TL Wasser")
                     
                     }//Ende Zutatenliste
                     .padding(.horizontal)
@@ -150,22 +149,21 @@ Rezept aus meiner App 🙂
 
                         Text("""
     
-1.  Zucchini, Karotte, Zwiebel und Knoblauch klein schneiden.
+1.  Bananen mit Gabel zerdrücken.
 
-2.  Öl in Pfanne erhitzen, Zwiebel & Knoblauch 2–3 Min anbraten.
+2.  Leinsamen mit Wasser mischen, 5 Min quellen lassen.
 
-3.  Karotte & Zucchini kurz mitbraten 3–4 Min.
+3.  Öl, Pflanzenmilch und Ahornsirup zu den Bananen geben, gut verrühren.
 
-4.  Passierte Tomaten + Gewürze einrühren, 2–3 Min köcheln.
+4.  Mehl, Backpulver, Salz und Zimt dazugeben, kurz zu einem Teig verrühren.
 
-5.  Haferflocken mit Pflanzenmilch mischen, als Topping auf das Gemüse geben.
+5.  Teig in eine gefettete oder mit Backpapier ausgelegte Kastenform füllen.
 
-6.  In Auflaufform füllen, Backofen 180 °C, 20–25 Min backen.
+6.  Backofen 180 °C, 40–45 Min backen, Stäbchenprobe machen.
 
-7.  Kurz abkühlen lassen, servieren.
+7.  Abkühlen lassen, in Scheiben schneiden.
 
-💡 Tipp: Für extra Geschmack kannst du etwas Hefeflocken über das Topping streuen.
-
+💡 Tipp: Für extra Saftigkeit Bananen leicht überreif verwenden und den Teig nicht zu lange rühren.
 
 """)
                         .font(.body)
@@ -192,6 +190,6 @@ Rezept aus meiner App 🙂
 
 
 #Preview {
-    GemüsegratinMitZucchiniView()
+    BananenbrotView()
 }
     
