@@ -1,45 +1,48 @@
 //
-//  SoychickenMitCouscous.swift
+//  Gemüsegratin mit Zucchini.swift
 //  Vegenius_Neu
 //
-//  Created by TA620 on 10.03.26.
+//  Created by TA620 on 15.03.26.
 //
+
+
 
 
 import SwiftUI
 
-struct SoychickenMitCouscousView: View {
+struct GemüsegratinMitZucchiniView: View {
     @Environment(\.dismiss) private var dismiss
     @State private var isFavorite: Bool = false
     @State private var showShareSheet = false
     
     let shareText = """
-🍗🌱 Soychicken mit Couscous
+Gemüsegratin mit Zucchini
     Zutaten:
-    🌱 100 g Sojachunks (trocken)
-    🌾 160–200 g Couscous
+    🥒 2 kleine Zucchini
+    🥕 1 Karotte
     🧅 1 Zwiebel
-    🧄 1–2 Knoblauchzehen
-    🫑 1 Paprika (optional)
+    🧄 1 Knoblauchzehe
+    🍅 100 g passierte Tomaten
     🫒 1 EL Olivenöl
-    🥫 1 EL Tomatenmark oder 2 EL Sojasauce
-    🧂 Gewürze: Salz, Pfeffer, Paprikapulver, optional Chili
-    💧 ca. 300 ml Gemüsebrühe (für Sojachunks + Couscous)
+    🧂 Gewürze: Salz, Pfeffer, Paprikapulver, Kräuter nach Wahl (z. B. Thymian, Oregano)
+    🌾 50 g glutenfreie Haferflocken
+    💧 50 ml Pflanzenmilch (z. B. Hafer- oder Sojamilch, ungesüßt)
 
+1.  Zucchini, Karotte, Zwiebel und Knoblauch klein schneiden.
 
-1.  Sojachunks mit heißer Brühe übergießen, 5–10 Min ziehen lassen, ausdrücken.
+2.  Öl in Pfanne erhitzen, Zwiebel & Knoblauch 2–3 Min anbraten.
 
-2.  Zwiebel, Knoblauch (optional Paprika) klein schneiden.
+3.  Karotte & Zucchini kurz mitbraten 3–4 Min.
 
-3.  Öl erhitzen, Gemüse 2–3 Min anbraten.
+4.  Passierte Tomaten + Gewürze einrühren, 2–3 Min köcheln.
 
-4.  Sojachunks zugeben, knusprig braten.
+5.  Haferflocken mit Pflanzenmilch mischen, als Topping auf das Gemüse geben.
 
-5.  Tomatenmark oder Sojasauce + Gewürze einrühren.
+6.  In Auflaufform füllen, Backofen 180 °C, 20–25 Min backen.
 
-6.  Couscous mit heißer Brühe übergießen, 5 Min quellen lassen, mit Gabel auflockern.
+7.  Kurz abkühlen lassen, servieren.
 
-7.  Couscous mit Soychicken servieren.
+Tipp: Für extra Geschmack kannst du etwas Hefeflocken über das Topping streuen.
 
 Rezept aus meiner App 🙂
 """
@@ -69,7 +72,7 @@ Rezept aus meiner App 🙂
                                 .opacity(0)
                         }
                         .overlay(
-                            Text("Soychicken mit Couscous")
+                            Text("Gemüsegratin mit Zucchini")
                                 .font(.headline)
                                 .multilineTextAlignment(.center)
                         )
@@ -77,7 +80,7 @@ Rezept aus meiner App 🙂
 
                         // Bild + Favorit
                         ZStack(alignment: .topTrailing) {
-                            Image("Soychicken Couscous")
+                            Image("Gemüsegratin mit Zucchini")
                                 .resizable()
                                 .scaledToFit()
                                 .frame(height: 310)
@@ -124,15 +127,15 @@ Rezept aus meiner App 🙂
 
                     // MARK: - Zutaten Liste
                     VStack(alignment: .leading, spacing: 8) {
-                        Zutaten(text: "🌱 100 g Sojachunks (trocken)")
-                        Zutaten(text: "🌾 160–200 g Couscous")
+                        Zutaten(text: "🥒 2 kleine Zucchini")
+                        Zutaten(text: "🥕 1 Karotte")
                         Zutaten(text: "🧅 1 Zwiebel")
-                        Zutaten(text: "🧄 1–2 Knoblauchzehen")
-                        Zutaten(text: "🫑 1 Paprika (optional)")
+                        Zutaten(text: "🧄 1 Knoblauchzehe")
+                        Zutaten(text: "🍅 100 g passierte Tomaten")
                         Zutaten(text: "🫒 1 EL Olivenöl")
-                        Zutaten(text: "🥫 1 EL Tomatenmark oder 2 EL Sojasauce")
-                        Zutaten(text: "🧂 Gewürze: Salz, Pfeffer, Paprikapulver, optional Chili")
-                        Zutaten(text: "💧 ca. 300 ml Gemüsebrühe (für Sojachunks + Couscous)")
+                        Zutaten(text: "🧂 Gewürze: Salz, Pfeffer, Paprikapulver, Kräuter nach Wahl (z. B. Thymian, Oregano)")
+                        Zutaten(text: "🌾 50 g glutenfreie Haferflocken")
+                        Zutaten(text: "💧 50 ml Pflanzenmilch (z. B. Hafer- oder Sojamilch, ungesüßt)")
                     
                     }//Ende Zutatenliste
                     .padding(.horizontal)
@@ -147,19 +150,22 @@ Rezept aus meiner App 🙂
 
                         Text("""
     
-1.⁠ ⁠Sojachunks mit heißer Brühe übergießen, 5–10 Min ziehen lassen, ausdrücken.
+1.  Zucchini, Karotte, Zwiebel und Knoblauch klein schneiden.
 
-2.⁠ ⁠Zwiebel, Knoblauch (optional Paprika) klein schneiden.
+2.  Öl in Pfanne erhitzen, Zwiebel & Knoblauch 2–3 Min anbraten.
 
-3.⁠ ⁠Öl erhitzen, Gemüse 2–3 Min anbraten. 
+3.  Karotte & Zucchini kurz mitbraten 3–4 Min.
 
-4.⁠ ⁠Sojachunks zugeben, knusprig braten.
+4.  Passierte Tomaten + Gewürze einrühren, 2–3 Min köcheln.
 
-5.⁠ ⁠Tomatenmark oder Sojasauce + Gewürze einrühren.
+5.  Haferflocken mit Pflanzenmilch mischen, als Topping auf das Gemüse geben.
 
-6.⁠ ⁠Couscous mit heißer Brühe übergießen, 5 Min quellen lassen, mit Gabel auflockern.
+6.  In Auflaufform füllen, Backofen 180 °C, 20–25 Min backen.
 
-7.⁠ ⁠Couscous mit Soychicken servieren.
+7.  Kurz abkühlen lassen, servieren.
+
+Tipp: Für extra Geschmack kannst du etwas Hefeflocken über das Topping streuen.
+
 
 """)
                         .font(.body)
@@ -186,6 +192,6 @@ Rezept aus meiner App 🙂
 
 
 #Preview {
-    SoychickenMitCouscousView()
+    GemüsegratinMitZucchiniView()
 }
     
