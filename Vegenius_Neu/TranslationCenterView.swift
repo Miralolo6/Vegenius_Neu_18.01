@@ -7,36 +7,32 @@
 
 import SwiftUI
 
-struct TranslationCenterButton: View {
-
-    var body: some View {
-
-        Button {
-
-            print("Übersetzen Button gedrückt")
-
-        } label: {
-
-            ZStack {
-
-                HalfCircle()
-                    .fill(Color(red: 126/255, green: 222/255, blue: 211/255))
-                    .frame(width: 120, height: 120)
-                    .offset(y: -60)
-
-                Circle()
-                    .fill(Color(red: 59/255, green: 161/255, blue: 148/255))
-                    .frame(width: 90, height: 90)
-                    .shadow(color: .black.opacity(0.25), radius: 4, y: 4)
-                    .overlay(
-                        Image("Übersetzung_Pfeile")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 80, height: 80)
-                    )
+struct TranslationCenterButton: View { //die Eigenschaften vom Übersetzungsbutton
+        var body: some View {
+            Button {
+                print("Übersetzen Button gedrückt")
+                // HIER kommt später Navigation oder Aktion rein
+            } label: {
+                ZStack {
+                    // Halber Kreis HINTER dem Button
+                    HalfCircle()
+                        .fill(Color(red: 126/255, green: 222/255, blue: 211/255))
+                        .frame(width: 120, height: 60)
+                        .offset(y: -30)
+                    
+                    // Runder Button
+                    Circle()
+                        .fill(Color(red: 59/255, green: 161/255, blue: 148/255))
+                        .frame(width: 90, height: 90)
+                        .shadow(color: .black.opacity(0.25), radius: 4, y: 4)
+                        .overlay(
+                            Image("Übersetzung_Pfeile")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 80, height: 80)
+                        )
+                }
             }
-            .offset(y: 30)
+            .buttonStyle(.plain)
         }
-        .buttonStyle(.plain)
     }
-}

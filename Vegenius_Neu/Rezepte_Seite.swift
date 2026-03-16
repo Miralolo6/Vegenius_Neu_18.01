@@ -21,7 +21,6 @@ import SwiftUI
         🌿 einige Blätter frisches Basilikum
         🧂 Salz & Pfeffer nch Geschmack
         🍋 optional: etwas Zitronensaft
-        🧀 optional: geriebener Parmesan oder Feta
     
     
     1.⁠ ⁠Zwiebel und Knoblauch fein würfeln. Paprika und Zucchini in kleine Würfel schneiden, Tomaten grob hacken.
@@ -40,14 +39,17 @@ import SwiftUI
 
     8.⁠ ⁠Vor dem Servieren 5 Minuten abgedeckt ziehen lassen, dann auf Tellern anrichten. Mit frischem Basilikum garnieren.
 
-    Tipps: Für extra Geschmack etwas geriebenen Parmesan oder Feta darüber streuen. Wer es scharf mag, kann Chili-Flocken hinzufügen.
+    Tipps: Wer es scharf mag, kann Chili-Flocken hinzufügen.
 
     Rezept aus meiner App 🙂
     """
 
         var body: some View {
-            ZStack {
+            ZStack(alignment: .bottom) {
+                Color(red: 247/255, green: 253/255, blue: 252/255)
+                    .ignoresSafeArea() // damit sie den ganzen Bildschirm füllt
                 ScrollView {
+                    
                     VStack(spacing: 0) {
 
                         // MARK: - HEADER
@@ -135,7 +137,6 @@ import SwiftUI
                             Zutaten(text: "🌿 einige Blätter frisches Basilikum")
                             Zutaten(text: "🧂 Salz & Pfeffer nach Geschmack")
                             Zutaten(text: "🍋 optional: etwas Zitronensaft")
-                            Zutaten(text: "🧀 optional: geriebener Parmesan oder Feta")
                         }
                         .padding(.horizontal)
                         .padding(.top, 5)
@@ -163,7 +164,7 @@ import SwiftUI
 
     8.⁠ ⁠Vor dem Servieren 5 Minuten abgedeckt ziehen lassen, dann auf Tellern anrichten. Mit frischem Basilikum garnieren.  
 
-    Tipps: Für extra Geschmack etwas geriebenen Parmesan oder Feta darüber streuen. Wer es scharf mag, kann Chili-Flocken hinzufügen.
+    Tipps: Wer es scharf mag, kann Chili-Flocken hinzufügen.
 
     """)
                             .font(.body)
@@ -174,9 +175,9 @@ import SwiftUI
                     .padding(.bottom, 120)
                 }
 
-                VStack {
-                    Spacer()
-                    HomeFilterBottomBar()
+                ZStack(alignment: .bottom) {
+                    BottomBarView()
+                    TranslationCenterButton()
                 }
             }
             .sheet(isPresented: $showShareSheet) {
@@ -196,64 +197,8 @@ import SwiftUI
         }
     }
 
-    // MARK: - Bottom Bar
-    struct HomeFilterBottomBar: View {
-        var body: some View {
-            ZStack {
-                Rectangle()
-                    .fill(Color.white)
-                    .shadow(color: .black.opacity(0.1), radius: 8, y: -2)
-                    .frame(height: 80)
-                    .padding(.bottom, -34)
-                    .overlay(
-                        TranslationCenterButton()
-                            .frame(width: 120, height: 72)
-                            .offset(y: -24),
-                        alignment: .top
-                    )
-
-                HStack {
-                    Spacer()
-
-                    Button { print("Home tapped") } label: {
-                        Image(systemName: "house")
-                            .font(.system(size: 22, weight: .semibold))
-                            .foregroundColor(.mintDark)
-                    }
-
-                    Spacer()
-                    Spacer()
-
-                    Button { print("Favoriten tapped") } label: {
-                        Image(systemName: "bookmark")
-                            .font(.system(size: 22, weight: .semibold))
-                            .foregroundColor(.mintDark)
-                    }
-
-                    Spacer()
-                }
-                .padding(.horizontal)
-            }
-        }
-    }
-
-    /*struct TranslationCenterButton: View {
-        var body: some View {
-            Button { print("Übersetzen gedrückt") } label: {
-                Circle()
-                    .fill(Color.mintDark)
-                    .frame(width: 72, height: 72)
-                    .shadow(color: .black.opacity(0.25), radius: 4, y: 4)
-                    .overlay(
-                        Image("Übersetzung_Pfeile")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 58, height: 58)
-                    )
-                    .offset(y: -24)
-            }
-        }
-    }*/
+    
+    
 
     // MARK: - Share Sheet
     struct ShareSheet: UIViewControllerRepresentable {
