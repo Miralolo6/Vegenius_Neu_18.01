@@ -55,7 +55,6 @@ Rezept aus meiner App 🙂
 
                     // MARK: - HEADER
                     VStack(spacing: 12) {
-
                         HStack {
                             Button(action: {
                                 dismiss()
@@ -65,6 +64,7 @@ Rezept aus meiner App 🙂
                                     .foregroundColor(.black)
                             }
                             .padding()
+
                             Spacer()
 
                             Image(systemName: "chevron.left")
@@ -179,6 +179,7 @@ Rezept aus meiner App 🙂
                 TranslationCenterButton()
             }
         }
+        .navigationBarBackButtonHidden(true)
         .sheet(isPresented: $showShareSheet) {
             RecipeShareSheet(activityItems: [shareText])
         }
