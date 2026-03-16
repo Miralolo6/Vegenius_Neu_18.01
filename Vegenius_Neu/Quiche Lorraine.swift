@@ -188,6 +188,7 @@ Rezept aus meiner App 🙂
                 TranslationCenterButton()
             }
         }
+        .navigationBarBackButtonHidden(true)
         .sheet(isPresented: $showShareSheet) {
             RecipeShareSheet(activityItems: [shareText])
         }

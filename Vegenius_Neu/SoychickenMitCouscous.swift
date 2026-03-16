@@ -14,7 +14,7 @@ struct SoychickenMitCouscousView: View {
     @State private var showShareSheet = false
     
     let shareText = """
-🍗🌱 Soychicken mit Couscous
+Soychicken mit Couscous
     Zutaten:
     🌱 100 g Sojachunks (trocken)
     🌾 160–200 g Couscous
@@ -175,6 +175,7 @@ Rezept aus meiner App 🙂
                 TranslationCenterButton()
             }
         }
+        .navigationBarBackButtonHidden(true)
         .sheet(isPresented: $showShareSheet) {
             RecipeShareSheet(activityItems: [shareText])
         }

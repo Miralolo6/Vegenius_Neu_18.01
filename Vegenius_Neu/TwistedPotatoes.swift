@@ -13,7 +13,7 @@ import SwiftUI
         @State private var showShareSheet = false
         
         let shareText = """
-    🥔🌱 Vegane Twisted Potatoes
+    Vegane Twisted Potatoes
         Zutaten:
         🥔 4 große Kartoffeln (festkochend)
         🫒 2–3 EL Olivenöl
@@ -173,6 +173,7 @@ import SwiftUI
                     TranslationCenterButton()
                 }
             }
+            .navigationBarBackButtonHidden(true)
             .sheet(isPresented: $showShareSheet) {
                 RecipeShareSheet(activityItems: [shareText])
             }
