@@ -5,6 +5,8 @@ struct BottomBarView: View {
     var body: some View {
 
         ZStack(alignment: .bottom) {
+            Color(red: 126/255, green: 222/255, blue: 211/255)
+                .ignoresSafeArea(edges: .bottom)
 
             CurvedBottomBarShape()
                 .fill(Color(red: 126/255, green: 222/255, blue: 211/255))
@@ -28,6 +30,7 @@ struct BottomBarView: View {
                             .resizable()
                             .scaledToFit()
                             .frame(width: 50, height: 50)
+                            .font(.system(size: 48, weight: .semibold))
 
                         Text("Gespeichert")
                             .font(.system(size: 16, weight: .medium))
@@ -55,8 +58,8 @@ struct BottomBarView: View {
                 Spacer()
             }
             .foregroundColor(.white)
-            .padding(.top, 20)
+            .padding(.top, 28)
         }
-        .frame(height: 27)
+        .frame(height: 60)
     }
 }
