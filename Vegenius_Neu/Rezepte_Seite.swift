@@ -6,7 +6,7 @@ import SwiftUI
         @State private var showShareSheet = false
         
         let shareText = """
-    Mediterrane Reispfanne🍅🫑
+    Mediterrane Reispfanne
         Zutaten:
         🧅 1 große rote Zwiebel
         🧄 2 Knoblauchzehen
@@ -180,6 +180,7 @@ import SwiftUI
                     TranslationCenterButton()
                 }
             }
+            .navigationBarBackButtonHidden(true)
             .sheet(isPresented: $showShareSheet) {
                 ShareSheet(activityItems: [shareText])
             }

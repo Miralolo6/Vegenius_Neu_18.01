@@ -8,6 +8,23 @@
 //Hallo
 
 import SwiftUI
+import Combine
+
+final class RecipeStore: ObservableObject {
+    @Published var recipes: [Recipe]
+
+    init(recipes: [Recipe] = []) {
+        self.recipes = recipes
+    }
+
+    func binding(for recipeID: UUID) -> Binding<Recipe>? {
+        guard let index = recipes.firstIndex(where: { $0.id == recipeID }) else { return nil }
+        return Binding(
+            get: { self.recipes[index] },
+            set: { self.recipes[index] = $0 }
+        )
+    }
+}
 
 struct Recipe: Identifiable { //definiert wie Rezept aufgebaut
     let id = UUID() //edes Rezept eine eindeutige Kennung, damit SwiftUI jedes Element in der Liste sicher erkennen und verwalten kann
@@ -46,7 +63,7 @@ struct HomeView: View {
     @FocusState private var searchFieldIsFocused: Bool//Variable zum öffnen der Tastatur
     
     
-    @State private var recipes: [Recipe] = [ //Liste von Rezepten
+    @StateObject private var store = RecipeStore(recipes: [
         Recipe(title: "Twisted Potatoes", imageName: "Twisted Potatoe", category: .herzhaft,filters: [.glutenFree, .nutFree], isFavorite: false),
         Recipe(title: "Mediterrane Reispfanne", imageName: "Mediterrane Reispfanne", category: .unter_zwanzig, filters: [.glutenFree, .nutFree], isFavorite: false),
         Recipe(title: "Soychicken mit Couscous", imageName: "Soychicken Couscous", category: .herzhaft,  filters: [.highProtein], isFavorite: false),
@@ -65,7 +82,7 @@ struct HomeView: View {
         Recipe(title: "Miso-Ramen-Suppe", imageName: "Miso-Ramen-Suppe", category: .unter_zwanzig, filters: [.nutFree, .highProtein], isFavorite: false),
         Recipe(title: "Tex-Mex-Salat", imageName: "Tex-Mex-Salat", category: .unter_zwanzig, filters: [.nutFree, .highProtein, .glutenFree], isFavorite: false),
         Recipe(title: "Pasta mit Pistazienpesto & Pilzen", imageName: "Pistazienpesto", category: .unter_zwanzig, filters: [], isFavorite: false)
-    ]
+    ])
     
     
     
@@ -74,7 +91,7 @@ struct HomeView: View {
     
     
     var filteredRecipes: [Recipe] { //nur Rezepte, die zur Kategorie, zum Hashtag und deren Titel passt, werden angezeigt
-        recipes.filter { recipe in
+        store.recipes.filter { recipe in
             
             // 1. Kategorie (nur filtern, wenn NICHT "Alle")
             if selectedCategory != .alle {
@@ -261,18 +278,181 @@ struct HomeView: View {
                                                ], spacing: 16) {
                                                    
                                                    ForEach(filteredRecipes) { recipe in
-                                                       if let index = recipes.firstIndex(where: { $0.id == recipe.id }) {
+                                                       if let recipeBinding = store.binding(for: recipe.id) {
                                                            if recipe.title == "Bananenbrot" {
                                                                NavigationLink {
-                                                                   BananenbrotView()
+                                                                   RecipeDetailWrapper(recipe: recipeBinding) {
+                                                                       BananenbrotView()
+                                                                   }
                                                                } label: {
-                                                                   RecipeCard(recipe: $recipes[index])
+                                                                   RecipeCard(recipe: recipeBinding)
+                                                               }
+                                                               .buttonStyle(.plain)
+                                                           } else if recipe.title == "Chana Masala" {
+                                                               NavigationLink {
+                                                                   RecipeDetailWrapper(recipe: recipeBinding) {
+                                                                       ChanaMasalaView()
+                                                                   }
+                                                               } label: {
+                                                                   RecipeCard(recipe: recipeBinding)
+                                                               }
+                                                               .buttonStyle(.plain)
+                                                           } else if recipe.title == "Chocolate Chip Cookies" {
+                                                               NavigationLink {
+                                                                   RecipeDetailWrapper(recipe: recipeBinding) {
+                                                                       ChocolateChipCookiesView()
+                                                                   }
+                                                               } label: {
+                                                                   RecipeCard(recipe: recipeBinding)
+                                                               }
+                                                               .buttonStyle(.plain)
+                                                           } else if recipe.title == "Gemüse-Lasagne" {
+                                                               NavigationLink {
+                                                                   RecipeDetailWrapper(recipe: recipeBinding) {
+                                                                       GemueseLasagneView()
+                                                                   }
+                                                               } label: {
+                                                                   RecipeCard(recipe: recipeBinding)
+                                                               }
+                                                               .buttonStyle(.plain)
+                                                           } else if recipe.title == "Gemüsegratin mit Zucchini" {
+                                                               NavigationLink {
+                                                                   RecipeDetailWrapper(recipe: recipeBinding) {
+                                                                       GemüsegratinMitZucchiniView()
+                                                                   }
+                                                               } label: {
+                                                                   RecipeCard(recipe: recipeBinding)
+                                                               }
+                                                               .buttonStyle(.plain)
+                                                           } else if recipe.title == "Kimchi-Pancakes mit Gochujang-Dip" {
+                                                               NavigationLink {
+                                                                   RecipeDetailWrapper(recipe: recipeBinding) {
+                                                                       KimchiPancakesView()
+                                                                   }
+                                                               } label: {
+                                                                   RecipeCard(recipe: recipeBinding)
+                                                               }
+                                                               .buttonStyle(.plain)
+                                                           } else if recipe.title == "Miso-Ramen-Suppe" {
+                                                               NavigationLink {
+                                                                   RecipeDetailWrapper(recipe: recipeBinding) {
+                                                                       MisoRamenSuppeView()
+                                                                   }
+                                                               } label: {
+                                                                   RecipeCard(recipe: recipeBinding)
+                                                               }
+                                                               .buttonStyle(.plain)
+                                                           } else if recipe.title == "Pasta mit Pistazienpesto & Pilzen" {
+                                                               NavigationLink {
+                                                                   RecipeDetailWrapper(recipe: recipeBinding) {
+                                                                       PistazienPestoView()
+                                                                   }
+                                                               } label: {
+                                                                   RecipeCard(recipe: recipeBinding)
+                                                               }
+                                                               .buttonStyle(.plain)
+                                                           } else if recipe.title == "Quiche Lorraine" {
+                                                               NavigationLink {
+                                                                   RecipeDetailWrapper(recipe: recipeBinding) {
+                                                                       QuicheLorraineView()
+                                                                   }
+                                                               } label: {
+                                                                   RecipeCard(recipe: recipeBinding)
+                                                               }
+                                                               .buttonStyle(.plain)
+                                                           } else if recipe.title == "Mediterrane Reispfanne" {
+                                                               NavigationLink {
+                                                                   RecipeDetailWrapper(recipe: recipeBinding) {
+                                                                       RezeptDetailView()
+                                                                   }
+                                                               } label: {
+                                                                   RecipeCard(recipe: recipeBinding)
+                                                               }
+                                                               .buttonStyle(.plain)
+                                                           } else if recipe.title == "Soychicken mit Couscous" {
+                                                               NavigationLink {
+                                                                   RecipeDetailWrapper(recipe: recipeBinding) {
+                                                                       SoychickenMitCouscousView()
+                                                                   }
+                                                               } label: {
+                                                                   RecipeCard(recipe: recipeBinding)
+                                                               }
+                                                               .buttonStyle(.plain)
+                                                           } else if recipe.title == "Spaghetti Aglio e Olio" {
+                                                               NavigationLink {
+                                                                   RecipeDetailWrapper(recipe: recipeBinding) {
+                                                                       SpaghettiView()
+                                                                   }
+                                                               } label: {
+                                                                   RecipeCard(recipe: recipeBinding)
+                                                               }
+                                                               .buttonStyle(.plain)
+                                                           } else if recipe.title == "Süßkartoffel-Brownies" {
+                                                               NavigationLink {
+                                                                   RecipeDetailWrapper(recipe: recipeBinding) {
+                                                                       SuesskartorffelBrowniesView()
+                                                                   }
+                                                               } label: {
+                                                                   RecipeCard(recipe: recipeBinding)
+                                                               }
+                                                               .buttonStyle(.plain)
+                                                           } else if recipe.title == "Tex-Mex-Salat" {
+                                                               NavigationLink {
+                                                                   RecipeDetailWrapper(recipe: recipeBinding) {
+                                                                       TexMexSalatView()
+                                                                   }
+                                                               } label: {
+                                                                   RecipeCard(recipe: recipeBinding)
+                                                               }
+                                                               .buttonStyle(.plain)
+                                                           } else if recipe.title == "Tiramisu" {
+                                                               NavigationLink {
+                                                                   RecipeDetailWrapper(recipe: recipeBinding) {
+                                                                       TiramisuView()
+                                                                   }
+                                                               } label: {
+                                                                   RecipeCard(recipe: recipeBinding)
+                                                               }
+                                                               .buttonStyle(.plain)
+                                                           } else if recipe.title == "Twisted Potatoes" {
+                                                               NavigationLink {
+                                                                   RecipeDetailWrapper(recipe: recipeBinding) {
+                                                                       TwistedPotatoesView()
+                                                                   }
+                                                               } label: {
+                                                                   RecipeCard(recipe: recipeBinding)
+                                                               }
+                                                               .buttonStyle(.plain)
+                                                           } else if recipe.title == "Zimtschnecken" {
+                                                               NavigationLink {
+                                                                   RecipeDetailWrapper(recipe: recipeBinding) {
+                                                                       ZimtschneckenView()
+                                                                   }
+                                                               } label: {
+                                                                   RecipeCard(recipe: recipeBinding)
+                                                               }
+                                                               .buttonStyle(.plain)
+                                                           } else if recipe.title == "Zitronen-Blaubeer-Torte" {
+                                                               NavigationLink {
+                                                                   RecipeDetailWrapper(recipe: recipeBinding) {
+                                                                       ZitronenBlaubeerTorteView()
+                                                                   }
+                                                               } label: {
+                                                                   RecipeCard(recipe: recipeBinding)
                                                                }
                                                                .buttonStyle(.plain)
                                                            } else {
-                                                               RecipeCard(recipe: $recipes[index])
+                                                               NavigationLink {
+                                                                   RecipeDetailWrapper(recipe: recipeBinding) {
+                                                                       RecipeDetailHost(recipe: recipeBinding)
+                                                                   }
+                                                               } label: {
+                                                                   RecipeCard(recipe: recipeBinding)
+                                                               }
+                                                               .buttonStyle(.plain)
                                                            }
                                                        }
+                                                       
                                                    }
                                                }
                         }
@@ -302,6 +482,23 @@ struct HomeView: View {
         
     }
     
+    struct FavoriteButton: View {
+        @Binding var isSet: Bool
+        var body: some View {
+            Button {
+                isSet.toggle()
+            } label: {
+                Image(systemName: isSet ? "bookmark.fill" : "bookmark")
+                    .font(.system(size: 15, weight: .bold))
+                    .foregroundColor(Color(red: 82/255, green: 199/255, blue: 185/255))
+                    .padding(12)
+                    .background(Color(red: 247/255,    green: 253/255,  blue: 252/255))
+                    .clipShape(Circle())
+                    .contentShape(Circle())
+            }
+        }
+    }
+    
     struct RecipeCard: View {
         @Binding var recipe: Recipe
         
@@ -316,18 +513,8 @@ struct HomeView: View {
                         .clipped()
                         .cornerRadius(15)
                     
-                    Button {
-                        recipe.isFavorite.toggle() //man kann zwischen gefülltem und leerem Lesezeichen wechseln als Speicherung
-                    } label: {
-                        Image(systemName: recipe.isFavorite ? "bookmark.fill" : "bookmark")
-                            .font(.system(size: 15, weight: .bold))
-                            .foregroundColor(Color(red: 82/255, green: 199/255, blue: 185/255))
-                            .padding(12)
-                            .background(Color(red: 247/255,    green: 253/255,  blue: 252/255))//)(0.45))
-                            .clipShape(Circle())
-                            .contentShape(Circle())
-                    }
-                    .padding(10)
+                    FavoriteButton(isSet: $recipe.isFavorite)
+                        .padding(10)
                 }
                 
                 Text(recipe.title)
@@ -336,6 +523,52 @@ struct HomeView: View {
                     .lineLimit(2)
                     .frame(height: 40, alignment: .top)//alle Rezeptelemente auf gleichen Höhe
             }
+        }
+    }
+    
+    struct RecipeDetailHost: View {
+        @Binding var recipe: Recipe
+
+        var body: some View {
+            ScrollView {
+                VStack(alignment: .leading, spacing: 16) {
+                    Image(recipe.imageName)
+                        .resizable()
+                        .scaledToFill()
+                        .frame(height: 240)
+                        .clipped()
+                        .cornerRadius(16)
+                    Text(recipe.title)
+                        .font(.title2)
+                        .fontWeight(.semibold)
+                    // Placeholder for future detail content
+                    Text("Weitere Details zum Rezept …")
+                        .foregroundStyle(.secondary)
+                    Spacer(minLength: 0)
+                }
+                .padding()
+            }
+            .navigationTitle(recipe.title)
+            .navigationBarTitleDisplayMode(.inline)
+            .background(Color(red: 247/255, green: 253/255, blue: 252/255).ignoresSafeArea())
+        }
+    }
+    
+    struct RecipeDetailWrapper<Content: View>: View {
+        @Binding var recipe: Recipe
+        @ViewBuilder var content: () -> Content
+
+        var body: some View {
+            content()
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+                .navigationTitle(recipe.title)
+                .navigationBarTitleDisplayMode(.inline)
+                .toolbar {
+                    ToolbarItem(placement: .topBarTrailing) {
+                        FavoriteButton(isSet: $recipe.isFavorite)
+                    }
+                }
+                .background(Color(red: 247/255, green: 253/255, blue: 252/255).ignoresSafeArea())
         }
     }
     
@@ -349,8 +582,4 @@ struct HomeView: View {
     HomeView()
 }
     
-    
-    
-    
-
 
