@@ -8,7 +8,7 @@
 import SwiftUI
 import PhotosUI
 
-struct Recipe: Identifiable {
+struct Recipe3: Identifiable {
     let id = UUID()
     var title: String
     var image: UIImage?
@@ -17,11 +17,11 @@ struct Recipe: Identifiable {
 
 struct MyRecipesView: View {
 
-    @State private var recipes: [Recipe] = [
-        Recipe(title: "Vegane Brownies - saftig und einfach"),
-        Recipe(title: "Saftiger Schoko-Bananen-Kuchen"),
-        Recipe(title: "Veganisierte Lasagne mit Hack-Alternative"),
-        Recipe(title: "Veganisierte Spaghetti Carbonara")
+    @State private var recipes: [Recipe3] = [
+        Recipe3(title: "Vegane Brownies - saftig und einfach"),
+        Recipe3(title: "Saftiger Schoko-Bananen-Kuchen"),
+        Recipe3(title: "Veganisierte Lasagne mit Hack-Alternative"),
+        Recipe3(title: "Veganisierte Spaghetti Carbonara")
     ]
 
     let columns = [
@@ -56,7 +56,7 @@ struct MyRecipesView: View {
 
 struct RecipeCard: View {
 
-    @Binding var recipe: Recipe
+    @Binding var recipe: Recipe3
 
     @State private var selectedItem: PhotosPickerItem?
 

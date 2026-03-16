@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ContentView: View {
+struct AnimationView: View {
     // Bildnamen in der richtigen Reihenfolge
     let frames = ["S1", "S2", "S3", "S4", "S5"]
 
@@ -76,5 +76,5 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView()
+    AnimationView()
 }
