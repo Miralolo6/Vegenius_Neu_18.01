@@ -27,12 +27,17 @@ struct OnboardingView: View {
                 // Logo + Titel
                 VStack(spacing: 24) {
                     Text("Vegenius")
+                        .foregroundColor(
+                            Color(
+                                red:231/255,
+                                green: 161/255,
+                                blue: 176/255
+                            )
+                        )
                         .font(.system(size: 48, weight: .bold, design: .rounded))
                         .foregroundColor(Color(red: 0xE0/255, green: 0x9E/255, blue: 0xB4/255))
                     
-                    Text("Dein veganer Koch‑KI‑Assistent")
-                        .font(.title3)
-                        .foregroundColor(.secondary)
+                   
                 }
                 .scaleEffect(isAnimating ? 1.0 : 0.8)
                 .opacity(isAnimating ? 1.0 : 0.0)
