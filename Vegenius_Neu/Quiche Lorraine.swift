@@ -1,0 +1,204 @@
+//
+//  Quiche Lorraine.swift
+//  Vegenius_Neu
+//
+//  Created by TA620 on 16.03.26.
+//
+
+import SwiftUI
+
+struct QuicheLorraineView: View {
+    @Environment(\.dismiss) private var dismiss
+    @State private var isFavorite: Bool = false
+    @State private var showShareSheet = false
+    
+    let shareText = """
+Quiche Lorraine
+    Zutaten:
+    🌾 200 g Mehl
+    🫒 60 ml Olivenöl
+    💧 80 ml Wasser
+    🧂 1 Prise Salz
+    🧅 1 Zwiebel
+    🧄 1 Knoblauchzehe
+    🥓 120 g Räuchertofu
+    🥣 200 g Seidentofu
+    🌾 40 g Kichererbsenmehl
+    💧 80 ml Pflanzenmilch
+    🧂 Gewürze: Salz, Pfeffer, Muskat
+    🌿 Schnittlauch oder Petersilie (optional)
+
+
+1.  Mehl, Salz, Öl und Wasser zu einem Teig kneten.
+
+2.  Teig in Quiche- oder Springform drücken.
+
+3.  Zwiebel, Knoblauch und Räuchertofu klein schneiden.
+
+4.  In Pfanne 3–4 Min anbraten.
+
+5.  Seidentofu, Kichererbsenmehl, Pflanzenmilch und Gewürze glatt mixen.
+
+6.  Tofu-Zwiebel-Mischung auf dem Teig verteilen.
+
+7.  Tofu-Creme darüber gießen.
+
+8.  Backofen 180 °C, 35–40 Min backen.
+
+9.  Kurz abkühlen lassen, anschneiden und servieren.
+
+Rezept aus meiner App 🙂
+"""
+
+    var body: some View {
+        ZStack(alignment: .bottom) { //Bottom Bar bleibt unten
+            Color(red: 247/255, green: 253/255, blue: 252/255)
+                .ignoresSafeArea() // damit sie den ganzen Bildschirm füllt
+            ScrollView {
+                VStack(spacing: 0) {
+
+                    // MARK: - HEADER
+                    VStack(spacing: 12) {
+
+                        HStack {
+                            Button(action: {
+                                dismiss()
+                            }) {
+                                Image(systemName: "arrow.left")
+                                    .font(.title3)
+                                    .foregroundColor(.black)
+                            }
+                            .padding()
+                            Spacer()
+
+                            Image(systemName: "chevron.left")
+                                .opacity(0)
+                        }
+                        .overlay(
+                            Text("Quiche Lorraine")
+                                .font(.headline)
+                                .multilineTextAlignment(.center)
+                        )
+                        .padding(.horizontal)
+
+                        // Bild + Favorit
+                        ZStack(alignment: .topTrailing) {
+                            Image("Quiche_Lorraine")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(height: 310)
+                                .clipped()
+
+                            Button {
+                                isFavorite.toggle()
+                            } label: {
+                                Image(systemName: isFavorite ? "bookmark.fill" : "bookmark")
+                                    .font(.system(size: 15, weight: .bold))
+                                    .foregroundColor(Color(red: 82/255, green: 199/255, blue: 185/255))
+                                    .padding(12)
+                                    .background(Color(red: 247/255, green: 253/255, blue: 252/255))
+                                    .clipShape(Circle())
+                            }
+                            .padding(10)
+                        }
+                    }
+                    .padding(.top)
+
+                    // MARK: - Zutaten + Share
+                    VStack(alignment: .leading, spacing: 5) {
+                        HStack {
+                            Text("📝 Zutatenliste (für 4 Personen)")
+                                .font(.headline)
+                                .padding(.leading)
+
+                            Spacer()
+
+                            Button {
+                                showShareSheet = true
+                            } label: {
+                                Image(systemName: "square.and.arrow.up.circle.fill")
+                                    .font(.system(size: 50))
+                                    .foregroundColor(.mintDark)
+                                    .padding(10)
+                                    .background(Color.white)
+                                    .clipShape(Circle())
+                            }
+                            .padding(.trailing)
+                        }
+                    }
+                    .padding(.top)
+
+                    // MARK: - Zutaten Liste
+                    VStack(alignment: .leading, spacing: 8) {
+                        Zutaten(text: "🌾 200 g Mehl")
+                        Zutaten(text: "🫒 60 ml Olivenöl")
+                        Zutaten(text: "💧 80 ml Wasser")
+                        Zutaten(text: "🧂 1 Prise Salz")
+                        Zutaten(text: "🧅 1 Zwiebel")
+                        Zutaten(text: "🧄 1 Knoblauchzehe")
+                        Zutaten(text: "🥓 120 g Räuchertofu")
+                        Zutaten(text: "🥣 200 g Seidentofu")
+                        Zutaten(text: "🌾 40 g Kichererbsenmehl")
+                        Zutaten(text: "💧 80 ml Pflanzenmilch")
+                        Zutaten(text: "🧂 Gewürze: Salz, Pfeffer, Muskat")
+                        Zutaten(text: "🌿 Schnittlauch oder Petersilie (optional)")
+                    
+                    }//Ende Zutatenliste
+                    .padding(.horizontal)
+                    .padding(.top, 5)
+                    .padding(.bottom, 20)
+
+                    // MARK: - Zubereitung
+                    VStack(alignment: .leading, spacing: 8) {
+                        Text("📝 Zubereitung")
+                            .font(.headline)
+                            .padding(.top)
+
+                        Text("""
+    
+1.  Mehl, Salz, Öl und Wasser zu einem Teig kneten.
+
+2.  Teig in Quiche- oder Springform drücken.
+
+3.  Zwiebel, Knoblauch und Räuchertofu klein schneiden.
+
+4.  In Pfanne 3–4 Min anbraten.
+
+5.  Seidentofu, Kichererbsenmehl, Pflanzenmilch und Gewürze glatt mixen.
+
+6.  Tofu-Zwiebel-Mischung auf dem Teig verteilen.
+
+7.  Tofu-Creme darüber gießen.
+
+8.  Backofen 180 °C, 35–40 Min backen.
+
+9.  Kurz abkühlen lassen, anschneiden und servieren.
+
+""")
+                        .font(.body)
+                        .padding(.bottom, 20)
+                    }//Ende VStackZubereitung
+                    .padding(.horizontal)
+                }
+                .padding(.bottom, 120)
+            }
+
+            ZStack(alignment: .bottom) {
+                BottomBarView()
+                TranslationCenterButton()
+            }
+        }
+        .sheet(isPresented: $showShareSheet) {
+            RecipeShareSheet(activityItems: [shareText])
+        }
+    }
+}
+
+
+
+
+
+#Preview {
+    QuicheLorraineView()
+}
+    
