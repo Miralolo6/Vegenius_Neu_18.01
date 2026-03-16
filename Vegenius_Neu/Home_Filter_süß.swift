@@ -103,190 +103,201 @@ struct HomeView: View {
     
     
     var body: some View {
-        ZStack(alignment: .bottom) { //fixiert BottomBar am unteren Rand
-            //Color(hex: "#F7FDFC")
-            //Color.init(red: 247, green: 253, blue: 252)
-            Color(red: 247/255, green: 253/255, blue: 252/255)
-                .ignoresSafeArea()
-            
-            VStack(spacing: 20) {
+        NavigationStack {
+            ZStack(alignment: .bottom) { //fixiert BottomBar am unteren Rand
+                //Color(hex: "#F7FDFC")
+                //Color.init(red: 247, green: 253, blue: 252)
+                Color(red: 247/255, green: 253/255, blue: 252/255)
+                    .ignoresSafeArea()
                 
-                // MARK: - Suchleiste + Menü
-                HStack {
+                VStack(spacing: 20) {
+                    
+                    // MARK: - Suchleiste + Menü
                     HStack {
-                        Image(systemName: "magnifyingglass")
-                            .foregroundColor(.gray)
-                        
-                        TextField("Search", text: $searchText)
-                            .focused($searchFieldIsFocused)//selbst entscheiden durch antippen, wann die Suchleiste aktiv ist
-                        
-                            .onChange(of: searchText) { newValue in
-                                if !newValue.contains("#") {
-                                    activeFilters.removeAll()
-                                }
-                            }
-                        
-                        
-                        
-                        Image(systemName: "mic.fill")
-                            .foregroundColor(.gray)
-                    }
-                    .padding()
-                    .background(Color(.systemGray6))
-                    .cornerRadius(15)
-                    
-                    
-                    
-                    Button {
-                        print("Menü geöffnet")
-                    } label: {
-                        Image(systemName: "line.3.horizontal")
-                            .font(.system(size: 30, weight: .bold))
-                            .foregroundColor(Color(red: 82/255, green: 199/255, blue: 185/255))
-                    }
-                    .padding(8)
-                    .contentShape(Rectangle())
-                }
-                .padding(.horizontal)
-                
-                // MARK: - Hashtag Filter
-                
-                if searchText.contains("#") {
-                    VStack(spacing: 12) {
-                        ForEach(FilterType.allCases) { filter in
-                            Button {
-                                if activeFilters.contains(filter) {
-                                    activeFilters.remove(filter)
-                                } else {
-                                    activeFilters.insert(filter)
-                                }
-                                
-                                // Aktive Hashtags im Suchfeld anzeigen
-                                searchText = activeFilters
-                                    .map { $0.rawValue }
-                                    .sorted()
-                                    .joined(separator: " ")
-                                
-                            } label: {
-                                HStack {
-                                    Text(filter.rawValue)
-                                        .font(.headline)
-                                        .foregroundColor(.black)
-                                    
-                                    Spacer()
-                                    
-                                    if activeFilters.contains(filter) {
-                                        Image(systemName: "checkmark.circle.fill")
-                                            .foregroundColor(.black)
+                        HStack {
+                            Image(systemName: "magnifyingglass")
+                                .foregroundColor(.gray)
+                            
+                            TextField("Search", text: $searchText)
+                                .focused($searchFieldIsFocused)//selbst entscheiden durch antippen, wann die Suchleiste aktiv ist
+                            
+                                .onChange(of: searchText) { newValue in
+                                    if !newValue.contains("#") {
+                                        activeFilters.removeAll()
                                     }
                                 }
-                                .padding()
-                                .background(
-                                    activeFilters.contains(filter)
-                                    ? Color(red: 160/255, green: 220/255, blue: 215/255)
-                                    : Color(red: 200/255, green: 240/255, blue: 235/255)
-                                )
-                                .cornerRadius(25)
+                            
+                            
+                            
+                            Image(systemName: "mic.fill")
+                                .foregroundColor(.gray)
+                        }
+                        .padding()
+                        .background(Color(.systemGray6))
+                        .cornerRadius(15)
+                        
+                        
+                        
+                        Button {
+                            print("Menü geöffnet")
+                        } label: {
+                            Image(systemName: "line.3.horizontal")
+                                .font(.system(size: 30, weight: .bold))
+                                .foregroundColor(Color(red: 82/255, green: 199/255, blue: 185/255))
+                        }
+                        .padding(8)
+                        .contentShape(Rectangle())
+                    }
+                    .padding(.horizontal)
+                    
+                    // MARK: - Hashtag Filter
+                    
+                    if searchText.contains("#") {
+                        VStack(spacing: 12) {
+                            ForEach(FilterType.allCases) { filter in
+                                Button {
+                                    if activeFilters.contains(filter) {
+                                        activeFilters.remove(filter)
+                                    } else {
+                                        activeFilters.insert(filter)
+                                    }
+                                    
+                                    // Aktive Hashtags im Suchfeld anzeigen
+                                    searchText = activeFilters
+                                        .map { $0.rawValue }
+                                        .sorted()
+                                        .joined(separator: " ")
+                                    
+                                } label: {
+                                    HStack {
+                                        Text(filter.rawValue)
+                                            .font(.headline)
+                                            .foregroundColor(.black)
+                                        
+                                        Spacer()
+                                        
+                                        if activeFilters.contains(filter) {
+                                            Image(systemName: "checkmark.circle.fill")
+                                                .foregroundColor(.black)
+                                        }
+                                    }
+                                    .padding()
+                                    .background(
+                                        activeFilters.contains(filter)
+                                        ? Color(red: 160/255, green: 220/255, blue: 215/255)
+                                        : Color(red: 200/255, green: 240/255, blue: 235/255)
+                                    )
+                                    .cornerRadius(25)
+                                }
                             }
+                        }
+                        .padding(.horizontal)
+                    }
+                    
+                    
+                    
+                    // MARK: - Kategorien
+                    HStack(spacing: 12) {
+                        ForEach(Category.allCases, id: \.self) { category in
+                            Button {  //Kategorie-Buttons optische Eigenschaften
+                                selectedCategory = category
+                            } label: {
+                                Text(category.rawValue)//rawValue gibt String an zu der Kategorie (zeigt also Herzhaft etc. auf den Buttons
+                                    .fontWeight(.medium)
+                                    .foregroundColor(selectedCategory == category ? .white : .black)//if-else-Struktur
+                                    .padding(.horizontal, 20)
+                                    .padding(.vertical, 10)
+                                
+                                    .background(
+                                        RoundedRectangle(cornerRadius: 25)
+                                            .fill(
+                                                selectedCategory == category
+                                                ? Color(red: 80/255, green: 196/255, blue: 182/255)
+                                                : Color.white
+                                            )
+                                        
+                                            .overlay(
+                                                RoundedRectangle(cornerRadius: 25)
+                                                    .stroke(
+                                                        selectedCategory == category
+                                                        ? Color.clear
+                                                        : Color.gray.opacity(0.35),
+                                                        lineWidth: 1.5
+                                                    )
+                                            )
+                                        
+                                    )
+                                
+                                    .cornerRadius(25)
+                                    .offset(y: selectedCategory == category ? -2 : 0)
+                                
+                            } //So gibt es Buttons mit den Kategorien die man auswählen kann.
+                            
+                        }
+                    }
+                    
+                    
+                    // MARK: - Überschrift
+                    Text("Diese veganen Rezepte könnten Dir gefallen:")
+                        .font(.headline)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding(.horizontal)
+                    
+                    
+                    
+                    // MARK: - Rezept Grid
+                    
+                    ScrollView {
+                        if filteredRecipes.isEmpty {
+                            Text("0 Ergebnisse zu „\(searchText)“")
+                                .font(.headline)
+                                .foregroundColor(.gray)
+                                .padding()
+                                .frame(maxWidth: .infinity, alignment: .center)
+                        } else {
+                            LazyVGrid(columns: [ //Rezepte in 2 Spalten angezeigt, da 2*GridItem
+                                GridItem(.flexible()),
+                                GridItem(.flexible())
+                                               ], spacing: 16) {
+                                                   
+                                                   ForEach(filteredRecipes) { recipe in
+                                                       if let index = recipes.firstIndex(where: { $0.id == recipe.id }) {
+                                                           if recipe.title == "Bananenbrot" {
+                                                               NavigationLink {
+                                                                   BananenbrotView()
+                                                               } label: {
+                                                                   RecipeCard(recipe: $recipes[index])
+                                                               }
+                                                               .buttonStyle(.plain)
+                                                           } else {
+                                                               RecipeCard(recipe: $recipes[index])
+                                                           }
+                                                       }
+                                                   }
+                                               }
                         }
                     }
                     .padding(.horizontal)
-                }
-                
-                
-                
-                // MARK: - Kategorien
-                HStack(spacing: 12) {
-                    ForEach(Category.allCases, id: \.self) { category in
-                        Button {  //Kategorie-Buttons optische Eigenschaften
-                            selectedCategory = category
-                        } label: {
-                            Text(category.rawValue)//rawValue gibt String an zu der Kategorie (zeigt also Herzhaft etc. auf den Buttons
-                                .fontWeight(.medium)
-                                .foregroundColor(selectedCategory == category ? .white : .black)//if-else-Struktur
-                                .padding(.horizontal, 20)
-                                .padding(.vertical, 10)
-                            
-                                .background(
-                                    RoundedRectangle(cornerRadius: 25)
-                                        .fill(
-                                            selectedCategory == category
-                                            ? Color(red: 80/255, green: 196/255, blue: 182/255)
-                                            : Color.white
-                                        )
-                                    
-                                        .overlay(
-                                            RoundedRectangle(cornerRadius: 25)
-                                                .stroke(
-                                                    selectedCategory == category
-                                                    ? Color.clear
-                                                    : Color.gray.opacity(0.35),
-                                                    lineWidth: 1.5
-                                                )
-                                        )
-                                    
-                                )
-                            
-                                .cornerRadius(25)
-                                .offset(y: selectedCategory == category ? -2 : 0)
-                            
-                        } //So gibt es Buttons mit den Kategorien die man auswählen kann.
-                        
-                    }
-                }
-                
-                
-                // MARK: - Überschrift
-                Text("Diese veganen Rezepte könnten Dir gefallen:")
-                    .font(.headline)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(.horizontal)
-                
-                
-                
-                // MARK: - Rezept Grid
-                
-                ScrollView {
-                    if filteredRecipes.isEmpty {
-                        Text("0 Ergebnisse zu „\(searchText)“")
-                            .font(.headline)
-                            .foregroundColor(.gray)
-                            .padding()
-                            .frame(maxWidth: .infinity, alignment: .center)
-                    } else {
-                        LazyVGrid(columns: [ //Rezepte in 2 Spalten angezeigt, da 2*GridItem
-                            GridItem(.flexible()),
-                            GridItem(.flexible())
-                                           ], spacing: 16) {
-                                               
-                                               ForEach(filteredRecipes) { recipe in
-                                                   if let index = recipes.firstIndex(where: { $0.id == recipe.id }) {
-                                                       RecipeCard(recipe: $recipes[index])
-                                                   }
-                                               }
-                                           }
-                    }
-                }
-                .padding(.horizontal)
-                
-            }
-            
-            ZStack(alignment: .bottom) {
-                
-                VStack {
-                    // dein ganzer Inhalt (Search, Kategorien, Rezepte)
-                }
-                
-                ZStack(alignment: .bottom) {
-                    BottomBarView()
-                    TranslationCenterButton()
                     
                 }
                 
-                
+                ZStack(alignment: .bottom) {
+                    
+                    VStack {
+                        // dein ganzer Inhalt (Search, Kategorien, Rezepte)
+                    }
+                    
+                    ZStack(alignment: .bottom) {
+                        BottomBarView()
+                        TranslationCenterButton()
+                        
+                    }
+                    
+                    
+                    
+                }
                 
             }
-            
         }
         
     }
@@ -341,4 +352,5 @@ struct HomeView: View {
     
     
     
+
 
