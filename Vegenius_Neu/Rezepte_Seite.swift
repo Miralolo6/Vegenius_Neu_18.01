@@ -1,8 +1,9 @@
 import SwiftUI
 
     struct RezeptDetailView: View {
+        @Binding var recipe: Recipe
         @Environment(\.dismiss) private var dismiss
-        @State private var isFavorite: Bool = false
+        //@State private var isFavorite: Bool = false
         @State private var showShareSheet = false
         
         let shareText = """
@@ -84,9 +85,9 @@ import SwiftUI
                                     .clipped()
 
                                 Button {
-                                    isFavorite.toggle()
+                                    recipe.isFavorite.toggle()
                                 } label: {
-                                    Image(systemName: isFavorite ? "bookmark.fill" : "bookmark")
+                                    Image(systemName: recipe.isFavorite ? "bookmark.fill" : "bookmark")
                                         .font(.system(size: 15, weight: .bold))
                                         .foregroundColor(Color(red: 82/255, green: 199/255, blue: 185/255))
                                         .padding(12)
@@ -223,5 +224,15 @@ import SwiftUI
     }
 
 #Preview {
-    RezeptDetailView()
+    RezeptDetailView(
+        recipe: .constant(
+            Recipe(
+                title: "Mediterrane Reispfanne – Tomaten\nPaprika Basis",
+                imageName: "Mediterrane Reispfanne",
+                category: .unter_zwanzig,
+                filters: [.glutenFree, .nutFree],
+                isFavorite: false
+            )
+        )
+    )
 }

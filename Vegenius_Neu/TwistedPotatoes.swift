@@ -8,8 +8,9 @@
 import SwiftUI
 
     struct TwistedPotatoesView: View {
+        @Binding var recipe: Recipe
         @Environment(\.dismiss) private var dismiss
-        @State private var isFavorite: Bool = false
+        //@State private var isFavorite: Bool = false
         @State private var showShareSheet = false
         
         let shareText = """
@@ -83,9 +84,9 @@ import SwiftUI
                                     .clipped()
 
                                 Button {
-                                    isFavorite.toggle()
+                                    recipe.isFavorite.toggle()
                                 } label: {
-                                    Image(systemName: isFavorite ? "bookmark.fill" : "bookmark")
+                                    Image(systemName: recipe.isFavorite ? "bookmark.fill" : "bookmark")
                                         .font(.system(size: 15, weight: .bold))
                                         .foregroundColor(Color(red: 82/255, green: 199/255, blue: 185/255))
                                         .padding(12)
@@ -194,5 +195,16 @@ struct RecipeShareSheet: UIViewControllerRepresentable {
 
     
 #Preview {
-    TwistedPotatoesView()
+    TwistedPotatoesView(
+        recipe: .constant(
+            Recipe(
+                title: "Twisted Potatoes",
+                imageName: "Twisted Potatoe",
+                category: .herzhaft,
+                filters: [.glutenFree, .nutFree],
+                isFavorite: false
+            )
+        )
+    )
 }
+   

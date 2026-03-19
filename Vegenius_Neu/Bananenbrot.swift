@@ -8,8 +8,9 @@
 import SwiftUI
 
 struct BananenbrotView: View {
+    @Binding var recipe: Recipe
     @Environment(\.dismiss) private var dismiss
-    @State private var isFavorite: Bool = false
+    //@State private var isFavorite: Bool = false
     @State private var showShareSheet = false
     
     let shareText = """
@@ -45,14 +46,14 @@ Bananenbrot
 
 Rezept aus meiner App 🙂
 """
-
+    
     var body: some View {
         ZStack(alignment: .bottom) { //Bottom Bar bleibt unten
             Color(red: 247/255, green: 253/255, blue: 252/255)
                 .ignoresSafeArea() // damit sie den ganzen Bildschirm füllt
             ScrollView {
                 VStack(spacing: 0) {
-
+                    
                     // MARK: - HEADER
                     VStack(spacing: 12) {
                         HStack {
@@ -64,9 +65,9 @@ Rezept aus meiner App 🙂
                                     .foregroundColor(.black)
                             }
                             .padding()
-
+                            
                             Spacer()
-
+                            
                             Image(systemName: "chevron.left")
                                 .opacity(0)
                         }
@@ -76,7 +77,7 @@ Rezept aus meiner App 🙂
                                 .multilineTextAlignment(.center)
                         )
                         .padding(.horizontal)
-
+                        
                         // Bild + Favorit
                         ZStack(alignment: .topTrailing) {
                             Image("Bananenbrot")
@@ -84,11 +85,11 @@ Rezept aus meiner App 🙂
                                 .scaledToFit()
                                 .frame(height: 310)
                                 .clipped()
-
+                            
                             Button {
-                                isFavorite.toggle()
+                                recipe.isFavorite.toggle()
                             } label: {
-                                Image(systemName: isFavorite ? "bookmark.fill" : "bookmark")
+                                Image(systemName: recipe.isFavorite ? "bookmark.fill" : "bookmark")
                                     .font(.system(size: 15, weight: .bold))
                                     .foregroundColor(Color(red: 82/255, green: 199/255, blue: 185/255))
                                     .padding(12)
@@ -99,16 +100,16 @@ Rezept aus meiner App 🙂
                         }
                     }
                     .padding(.top)
-
+                    
                     // MARK: - Zutaten + Share
                     VStack(alignment: .leading, spacing: 5) {
                         HStack {
                             Text("📝 Zutatenliste (für 8 Scheiben)")
                                 .font(.headline)
                                 .padding(.leading)
-
+                            
                             Spacer()
-
+                            
                             Button {
                                 showShareSheet = true
                             } label: {
@@ -123,7 +124,7 @@ Rezept aus meiner App 🙂
                         }
                     }
                     .padding(.top)
-
+                    
                     // MARK: - Zutaten Liste
                     VStack(alignment: .leading, spacing: 8) {
                         Zutaten(text: "🍌 3 reife Bananen")
@@ -135,18 +136,18 @@ Rezept aus meiner App 🙂
                         Zutaten(text: "🧂 1 Prise Salz")
                         Zutaten(text: "🥄 1 TL Zimt (optional)")
                         Zutaten(text: "🌾 1 TL Leinsamen + 3 TL Wasser")
-                    
+                        
                     }//Ende Zutatenliste
                     .padding(.horizontal)
                     .padding(.top, 5)
                     .padding(.bottom, 20)
-
+                    
                     // MARK: - Zubereitung
                     VStack(alignment: .leading, spacing: 8) {
                         Text("📝 Zubereitung")
                             .font(.headline)
                             .padding(.top)
-
+                        
                         Text("""
     
 1.  Bananen mit Gabel zerdrücken.
@@ -173,7 +174,7 @@ Rezept aus meiner App 🙂
                 }
                 .padding(.bottom, 120)
             }
-
+            
             ZStack(alignment: .bottom) {
                 BottomBarView()
                 TranslationCenterButton()
@@ -190,7 +191,18 @@ Rezept aus meiner App 🙂
 
 
 
+
 #Preview {
-    BananenbrotView()
+    BananenbrotView(
+        recipe: .constant(
+            Recipe(
+                title: "Bananenbrot",
+                imageName: "Bananenbrot",
+                category: .suess,
+                filters: [.nutFree, .glutenFree],
+                isFavorite: false
+            )
+        )
+    )
 }
     
