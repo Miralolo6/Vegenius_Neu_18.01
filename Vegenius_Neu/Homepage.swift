@@ -282,7 +282,7 @@ struct HomeView: View {
                                                            if recipe.title == "Bananenbrot" {
                                                                NavigationLink {
                                                                    RecipeDetailWrapper(recipe: recipeBinding) {
-                                                                       BananenbrotView()
+                                                                       BananenbrotView(recipe: recipeBinding)
                                                                    }
                                                                } label: {
                                                                    RecipeCard(recipe: recipeBinding)
@@ -291,7 +291,7 @@ struct HomeView: View {
                                                            } else if recipe.title == "Chana Masala" {
                                                                NavigationLink {
                                                                    RecipeDetailWrapper(recipe: recipeBinding) {
-                                                                       ChanaMasalaView()
+                                                                       ChanaMasalaView(recipe: recipeBinding)
                                                                    }
                                                                } label: {
                                                                    RecipeCard(recipe: recipeBinding)
@@ -300,7 +300,7 @@ struct HomeView: View {
                                                            } else if recipe.title == "Chocolate Chip Cookies" {
                                                                NavigationLink {
                                                                    RecipeDetailWrapper(recipe: recipeBinding) {
-                                                                       ChocolateChipCookiesView()
+                                                                       ChocolateChipCookiesView(recipe: recipeBinding)
                                                                    }
                                                                } label: {
                                                                    RecipeCard(recipe: recipeBinding)
@@ -309,7 +309,7 @@ struct HomeView: View {
                                                            } else if recipe.title == "Gemüse-Lasagne" {
                                                                NavigationLink {
                                                                    RecipeDetailWrapper(recipe: recipeBinding) {
-                                                                       GemueseLasagneView()
+                                                                       GemueseLasagneView(recipe: recipeBinding)
                                                                    }
                                                                } label: {
                                                                    RecipeCard(recipe: recipeBinding)
@@ -318,7 +318,7 @@ struct HomeView: View {
                                                            } else if recipe.title == "Gemüsegratin mit Zucchini" {
                                                                NavigationLink {
                                                                    RecipeDetailWrapper(recipe: recipeBinding) {
-                                                                       GemüsegratinMitZucchiniView()
+                                                                       GemüsegratinMitZucchiniView(recipe: recipeBinding)
                                                                    }
                                                                } label: {
                                                                    RecipeCard(recipe: recipeBinding)
@@ -327,7 +327,7 @@ struct HomeView: View {
                                                            } else if recipe.title == "Kimchi-Pancakes mit Gochujang-Dip" {
                                                                NavigationLink {
                                                                    RecipeDetailWrapper(recipe: recipeBinding) {
-                                                                       KimchiPancakesView()
+                                                                       KimchiPancakesView(recipe: recipeBinding)
                                                                    }
                                                                } label: {
                                                                    RecipeCard(recipe: recipeBinding)
@@ -336,7 +336,7 @@ struct HomeView: View {
                                                            } else if recipe.title == "Miso-Ramen-Suppe" {
                                                                NavigationLink {
                                                                    RecipeDetailWrapper(recipe: recipeBinding) {
-                                                                       MisoRamenSuppeView()
+                                                                       MisoRamenSuppeView(recipe: recipeBinding)
                                                                    }
                                                                } label: {
                                                                    RecipeCard(recipe: recipeBinding)
@@ -345,7 +345,7 @@ struct HomeView: View {
                                                            } else if recipe.title == "Pasta mit Pistazienpesto & Pilzen" {
                                                                NavigationLink {
                                                                    RecipeDetailWrapper(recipe: recipeBinding) {
-                                                                       PistazienPestoView()
+                                                                       PistazienPestoView(recipe: recipeBinding)
                                                                    }
                                                                } label: {
                                                                    RecipeCard(recipe: recipeBinding)
@@ -354,7 +354,7 @@ struct HomeView: View {
                                                            } else if recipe.title == "Quiche Lorraine" {
                                                                NavigationLink {
                                                                    RecipeDetailWrapper(recipe: recipeBinding) {
-                                                                       QuicheLorraineView()
+                                                                       QuicheLorraineView(recipe: recipeBinding)
                                                                    }
                                                                } label: {
                                                                    RecipeCard(recipe: recipeBinding)
@@ -363,7 +363,7 @@ struct HomeView: View {
                                                            } else if recipe.title == "Mediterrane Reispfanne" {
                                                                NavigationLink {
                                                                    RecipeDetailWrapper(recipe: recipeBinding) {
-                                                                       RezeptDetailView()
+                                                                       RezeptDetailView(recipe: recipeBinding)
                                                                    }
                                                                } label: {
                                                                    RecipeCard(recipe: recipeBinding)
@@ -372,7 +372,7 @@ struct HomeView: View {
                                                            } else if recipe.title == "Soychicken mit Couscous" {
                                                                NavigationLink {
                                                                    RecipeDetailWrapper(recipe: recipeBinding) {
-                                                                       SoychickenMitCouscousView()
+                                                                       SoychickenMitCouscousView(recipe: recipeBinding)
                                                                    }
                                                                } label: {
                                                                    RecipeCard(recipe: recipeBinding)
@@ -381,7 +381,7 @@ struct HomeView: View {
                                                            } else if recipe.title == "Spaghetti Aglio e Olio" {
                                                                NavigationLink {
                                                                    RecipeDetailWrapper(recipe: recipeBinding) {
-                                                                       SpaghettiView()
+                                                                       SpaghettiView(recipe: recipeBinding)
                                                                    }
                                                                } label: {
                                                                    RecipeCard(recipe: recipeBinding)
@@ -390,7 +390,7 @@ struct HomeView: View {
                                                            } else if recipe.title == "Süßkartoffel-Brownies" {
                                                                NavigationLink {
                                                                    RecipeDetailWrapper(recipe: recipeBinding) {
-                                                                       SuesskartorffelBrowniesView()
+                                                                       SuesskartorffelBrowniesView(recipe: recipeBinding)
                                                                    }
                                                                } label: {
                                                                    RecipeCard(recipe: recipeBinding)
@@ -399,7 +399,7 @@ struct HomeView: View {
                                                            } else if recipe.title == "Tex-Mex-Salat" {
                                                                NavigationLink {
                                                                    RecipeDetailWrapper(recipe: recipeBinding) {
-                                                                       TexMexSalatView()
+                                                                       TexMexSalatView(recipe: recipeBinding)
                                                                    }
                                                                } label: {
                                                                    RecipeCard(recipe: recipeBinding)
@@ -408,7 +408,7 @@ struct HomeView: View {
                                                            } else if recipe.title == "Tiramisu" {
                                                                NavigationLink {
                                                                    RecipeDetailWrapper(recipe: recipeBinding) {
-                                                                       TiramisuView()
+                                                                       TiramisuView(recipe: recipeBinding)
                                                                    }
                                                                } label: {
                                                                    RecipeCard(recipe: recipeBinding)
@@ -417,7 +417,7 @@ struct HomeView: View {
                                                            } else if recipe.title == "Twisted Potatoes" {
                                                                NavigationLink {
                                                                    RecipeDetailWrapper(recipe: recipeBinding) {
-                                                                       TwistedPotatoesView()
+                                                                       TwistedPotatoesView(recipe: recipeBinding)
                                                                    }
                                                                } label: {
                                                                    RecipeCard(recipe: recipeBinding)
@@ -426,7 +426,7 @@ struct HomeView: View {
                                                            } else if recipe.title == "Zimtschnecken" {
                                                                NavigationLink {
                                                                    RecipeDetailWrapper(recipe: recipeBinding) {
-                                                                       ZimtschneckenView()
+                                                                       ZimtschneckenView(recipe: recipeBinding)
                                                                    }
                                                                } label: {
                                                                    RecipeCard(recipe: recipeBinding)
@@ -435,7 +435,7 @@ struct HomeView: View {
                                                            } else if recipe.title == "Zitronen-Blaubeer-Torte" {
                                                                NavigationLink {
                                                                    RecipeDetailWrapper(recipe: recipeBinding) {
-                                                                       ZitronenBlaubeerTorteView()
+                                                                       ZitronenBlaubeerTorteView(recipe: recipeBinding)
                                                                    }
                                                                } label: {
                                                                    RecipeCard(recipe: recipeBinding)
@@ -561,13 +561,8 @@ struct HomeView: View {
         var body: some View {
             content()
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
-                .navigationTitle(recipe.title)
-                .navigationBarTitleDisplayMode(.inline)
-                .toolbar {
-                    ToolbarItem(placement: .topBarTrailing) {
-                        FavoriteButton(isSet: $recipe.isFavorite)
-                    }
-                }
+                .navigationBarBackButtonHidden(true)
+                .toolbar(.hidden, for: .navigationBar)
                 .background(Color(red: 247/255, green: 253/255, blue: 252/255).ignoresSafeArea())
         }
     }
