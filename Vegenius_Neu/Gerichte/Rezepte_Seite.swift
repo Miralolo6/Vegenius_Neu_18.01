@@ -81,7 +81,7 @@ import SwiftUI
                                 Image("Mediterrane Reispfanne")
                                     .resizable()
                                     .scaledToFit()
-                                    .frame(height: 260)
+                                    .frame(height: 310)
                                     .clipped()
 
                                 Button {
