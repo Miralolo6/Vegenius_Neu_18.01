@@ -64,7 +64,7 @@ struct PasswortAendernView: View {
                     .foregroundColor(.white)
                     .frame(maxWidth: .infinity)
                     .padding()
-                    .background(Color.blue)
+                    .background(Color(red: 126/255, green: 222/255, blue: 211/255))
                     .cornerRadius(12)
             }
             .padding(.top, 10)
@@ -121,7 +121,7 @@ struct AnmeldungView: View {
                     .foregroundColor(.white)
                     .frame(maxWidth: .infinity)
                     .padding()
-                    .background(Color.blue)
+                    .background(Color(red: 126/255, green: 222/255, blue: 211/255))
                     .cornerRadius(12)
             }
             .padding(.top, 10)
@@ -184,7 +184,7 @@ struct RegistrierenView: View {
                     .foregroundColor(.white)
                     .frame(maxWidth: .infinity)
                     .padding()
-                    .background(Color.blue)
+                    .background(Color(red: 126/255, green: 222/255, blue: 211/255))
                     .cornerRadius(12)
             }
             .padding(.top, 10)
@@ -323,7 +323,7 @@ struct ProblemMeldenView: View {
                     .foregroundColor(.white)
                     .frame(maxWidth: .infinity)
                     .padding()
-                    .background(Color.blue)
+                    .background(Color(red: 126/255, green: 222/255, blue: 211/255))
                     .cornerRadius(12)
             }
 
