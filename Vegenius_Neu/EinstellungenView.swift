@@ -371,7 +371,7 @@ struct EinstellungenView: View {
                         Spacer()
 
                         Text("Einstellungen")
-                            .font(.title2)
+                            .font(.largeTitle)
                             .fontWeight(.semibold)
                             .foregroundColor(Color("TitelRosa"))
 
