@@ -22,15 +22,13 @@ struct BottomBarView: View {
 
                 Spacer()
 
-                Button {
-                    print("Gespeichert gedrückt")
-                } label: {
+                NavigationLink(destination: RezepteView()) {
                     VStack {
                         Image("Gespeichert_Seite")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 50, height: 50)
-                            .font(.system(size: 48, weight: .semibold))
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 50, height: 50)
+                                .font(.system(size: 48, weight: .semibold))
 
                         Text("Gespeichert")
                             .font(.system(size: 16, weight: .medium))
@@ -41,9 +39,7 @@ struct BottomBarView: View {
                 Spacer()
                 Spacer()
 
-                Button {
-                    print("Meine_Rezepte gedrückt")
-                } label: {
+                NavigationLink(destination: MyRecipesView()) {
                     VStack {
                         Image("Meine_Rezepte")
                             .resizable()
