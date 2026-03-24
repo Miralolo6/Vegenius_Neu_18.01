@@ -362,11 +362,23 @@ struct EinstellungenView: View {
                 VStack(spacing: 30) {
 
                     HStack {
-                        Button("x") {
+                        /*Button("x") {
                             print("Close tapped")
                         }
                         .font(.title)
-                        .foregroundColor(.black)
+                        .foregroundColor(.black)*/
+                        
+                        Button {
+                            print("Close tapped")
+                        } label: {
+                            VStack {
+                                Image(systemName: "xmark")
+                                    .foregroundColor(.black)
+                                    .font(.title)
+                                    .scaledToFit()
+                                    .frame(width: 50, height: 50)
+                            }
+                        }
 
                         Spacer()
 
@@ -377,11 +389,23 @@ struct EinstellungenView: View {
 
                         Spacer()
 
-                        Button("⚙︎") {
+                        /*Button("⚙︎") {
                             print("Settings tapped")
                         }
                         .font(.title)
-                        .foregroundColor(.black)
+                        .foregroundColor(.black)*/
+                        
+                        Button {
+                            print("Settings tapped")
+                        } label: {
+                            VStack {
+                                Image(systemName: "gearshape")
+                                    .foregroundColor(.black)
+                                    .font(.title)
+                                    .scaledToFit()
+                                    .frame(width: 55, height: 55)
+                            }
+                        }
                     }
                     .padding(.horizontal)
 
