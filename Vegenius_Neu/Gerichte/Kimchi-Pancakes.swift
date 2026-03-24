@@ -72,7 +72,7 @@ Rezept aus meiner App 🙂
                                 .opacity(0)
                         }
                         .overlay(
-                            Text("Kimchi-Pancakes mit Gochujang-Dip")
+                            Text("Kimchi-Pancakes\nmit Gochujang-Dip")
                                 .font(.headline)
                                 .multilineTextAlignment(.center)
                         )
