@@ -154,16 +154,17 @@ struct HomeView: View {
                         .cornerRadius(15)
                         
                         
-                        
-                        Button {
-                            print("Menü geöffnet")
-                        } label: {
-                            Image(systemName: "line.3.horizontal")
-                                .font(.system(size: 30, weight: .bold))
-                                .foregroundColor(Color(red: 82/255, green: 199/255, blue: 185/255))
+                        NavigationLink(destination: EinstellungenView()) {
+                            VStack {
+                                Image(systemName: "line.3.horizontal")
+                                    .font(.system(size: 30, weight: .bold))
+                                    .foregroundColor(Color(red: 82/255, green: 199/255, blue: 185/255))
+
+                            }
                         }
                         .padding(8)
                         .contentShape(Rectangle())
+                        
                     }
                     .padding(.horizontal)
                     
