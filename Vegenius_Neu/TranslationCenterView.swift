@@ -9,10 +9,7 @@ import SwiftUI
 
 struct TranslationCenterButton: View { //die Eigenschaften vom Übersetzungsbutton
         var body: some View {
-            Button {
-                print("Übersetzen Button gedrückt")
-                // HIER kommt später Navigation oder Aktion rein
-            } label: {
+            
                 ZStack {
                     // Halber Kreis HINTER dem Button
                     HalfCircle()
@@ -31,7 +28,6 @@ struct TranslationCenterButton: View { //die Eigenschaften vom Übersetzungsbutt
                                 .scaledToFit()
                                 .frame(width: 80, height: 80)
                         )
-                }
             }
             .buttonStyle(.plain)
         }
