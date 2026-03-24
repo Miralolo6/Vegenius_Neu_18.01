@@ -13,6 +13,7 @@ struct CameraPicker: UIViewControllerRepresentable {
 
     @Environment(\.dismiss) var dismiss
     @Binding var image: UIImage?
+    
 
     func makeUIViewController(context: Context) -> UIImagePickerController {
         let picker = UIImagePickerController()
@@ -53,6 +54,7 @@ struct CameraPicker: UIViewControllerRepresentable {
 
 struct MakeItVeganView: View {
     
+    @Environment(\.dismiss) var dismiss
     @State private var recipeText: String = ""
     @State private var showCamera = false
     @State private var selectedImage: UIImage?
@@ -78,13 +80,14 @@ struct MakeItVeganView: View {
                         
                         // MARK: - Header
                         HStack {
-                            Button(action: {
-                                // Back action
-                            }) {
+                            Button{
+                                dismiss()
+                            } label: {
                                 Image(systemName: "arrow.left")
                                     .font(.title3)
                                     .foregroundColor(.black)
                             }
+                            
                             
                             
                             Spacer()
