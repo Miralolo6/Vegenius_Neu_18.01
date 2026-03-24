@@ -461,22 +461,21 @@ struct HomeView: View {
                     
                 }
                 
+                
+                    
                 ZStack(alignment: .bottom) {
-                    
-                    VStack {
-                        // dein ganzer Inhalt (Search, Kategorien, Rezepte)
-                    }
-                    
-                    ZStack(alignment: .bottom) {
-                        BottomBarView()
+                    BottomBarView()
+                    NavigationLink {
+                        MakeItVeganView()
+                            .navigationBarBackButtonHidden(true)
+                            .toolbar(.hidden, for: .navigationBar)
+                    } label: {
                         TranslationCenterButton()
-                        
                     }
-                    
-                    
+                    .buttonStyle(.plain)
                     
                 }
-                
+
             }
         }
         

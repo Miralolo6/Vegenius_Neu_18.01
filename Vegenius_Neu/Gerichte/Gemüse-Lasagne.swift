@@ -51,145 +51,155 @@ Rezept aus meiner App 🙂
 """
 
     var body: some View {
-        ZStack(alignment: .bottom) { //Bottom Bar bleibt unten
-            Color(red: 247/255, green: 253/255, blue: 252/255)
-                .ignoresSafeArea() // damit sie den ganzen Bildschirm füllt
-            ScrollView {
-                VStack(spacing: 0) {
-
-                    // MARK: - HEADER
-                    VStack(spacing: 12) {
-
-                        HStack {
-                            Button(action: {
-                                dismiss()
-                            }) {
-                                Image(systemName: "arrow.left")
-                                    .font(.title3)
-                                    .foregroundColor(.black)
+        NavigationStack {
+            ZStack(alignment: .bottom) { //Bottom Bar bleibt unten
+                Color(red: 247/255, green: 253/255, blue: 252/255)
+                    .ignoresSafeArea() // damit sie den ganzen Bildschirm füllt
+                ScrollView {
+                    VStack(spacing: 0) {
+                        
+                        // MARK: - HEADER
+                        VStack(spacing: 12) {
+                            
+                            HStack {
+                                Button(action: {
+                                    dismiss()
+                                }) {
+                                    Image(systemName: "arrow.left")
+                                        .font(.title3)
+                                        .foregroundColor(.black)
+                                }
+                                .padding()
+                                Spacer()
+                                
+                                Image(systemName: "chevron.left")
+                                    .opacity(0)
                             }
-                            .padding()
-                            Spacer()
-
-                            Image(systemName: "chevron.left")
-                                .opacity(0)
+                            .overlay(
+                                Text("Gemüse-Lasagne")
+                                    .font(.headline)
+                                    .multilineTextAlignment(.center)
+                            )
+                            .padding(.horizontal)
+                            
+                            // Bild + Favorit
+                            ZStack(alignment: .topTrailing) {
+                                Image("Gemüse-Lasagne")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(height: 310)
+                                    .clipped()
+                                
+                                Button {
+                                    recipe.isFavorite.toggle()
+                                } label: {
+                                    Image(systemName: recipe.isFavorite ? "bookmark.fill" : "bookmark")
+                                        .font(.system(size: 15, weight: .bold))
+                                        .foregroundColor(Color(red: 82/255, green: 199/255, blue: 185/255))
+                                        .padding(12)
+                                        .background(Color(red: 247/255, green: 253/255, blue: 252/255))
+                                        .clipShape(Circle())
+                                }
+                                .padding(10)
+                            }
                         }
-                        .overlay(
-                            Text("Gemüse-Lasagne")
-                                .font(.headline)
-                                .multilineTextAlignment(.center)
-                        )
+                        .padding(.top)
+                        
+                        // MARK: - Zutaten + Share
+                        VStack(alignment: .leading, spacing: 5) {
+                            HStack {
+                                Text("📝 Zutatenliste (für 3 Personen)")
+                                    .font(.headline)
+                                    .padding(.leading)
+                                
+                                Spacer()
+                                
+                                Button {
+                                    showShareSheet = true
+                                } label: {
+                                    Image(systemName: "square.and.arrow.up.circle.fill")
+                                        .font(.system(size: 50))
+                                        .foregroundColor(.mintDark)
+                                        .padding(10)
+                                        .background(Color.white)
+                                        .clipShape(Circle())
+                                }
+                                .padding(.trailing)
+                            }
+                        }
+                        .padding(.top)
+                        
+                        // MARK: - Zutaten Liste
+                        VStack(alignment: .leading, spacing: 8) {
+                            Zutaten(text: "🍝 200 g glutenfreie Lasagneplatten")
+                            Zutaten(text: "🥒 1 Zucchini")
+                            Zutaten(text: "🥕 1 Karotte")
+                            Zutaten(text: "🫑 1 Paprika")
+                            Zutaten(text: "🧅 1 Zwiebel")
+                            Zutaten(text: "🧄 1 Knoblauchzehe")
+                            Zutaten(text: "🍅 400 g gehackte Tomaten (Dose)")
+                            Zutaten(text: "🫒 1 EL Olivenöl")
+                            Zutaten(text: "💧 150 ml Pflanzenmilch")
+                            Zutaten(text: "🌾 1 EL Maisstärke")
+                            Zutaten(text: "🧂 Gewürze: Salz, Pfeffer, Oregano oder Basilikum")
+                            
+                        }//Ende Zutatenliste
                         .padding(.horizontal)
-
-                        // Bild + Favorit
-                        ZStack(alignment: .topTrailing) {
-                            Image("Gemüse-Lasagne")
-                                .resizable()
-                                .scaledToFit()
-                                .frame(height: 310)
-                                .clipped()
-
-                            Button {
-                                recipe.isFavorite.toggle()
-                            } label: {
-                                Image(systemName: recipe.isFavorite ? "bookmark.fill" : "bookmark")
-                                    .font(.system(size: 15, weight: .bold))
-                                    .foregroundColor(Color(red: 82/255, green: 199/255, blue: 185/255))
-                                    .padding(12)
-                                    .background(Color(red: 247/255, green: 253/255, blue: 252/255))
-                                    .clipShape(Circle())
-                            }
-                            .padding(10)
-                        }
-                    }
-                    .padding(.top)
-
-                    // MARK: - Zutaten + Share
-                    VStack(alignment: .leading, spacing: 5) {
-                        HStack {
-                            Text("📝 Zutatenliste (für 3 Personen)")
-                                .font(.headline)
-                                .padding(.leading)
-
-                            Spacer()
-
-                            Button {
-                                showShareSheet = true
-                            } label: {
-                                Image(systemName: "square.and.arrow.up.circle.fill")
-                                    .font(.system(size: 50))
-                                    .foregroundColor(.mintDark)
-                                    .padding(10)
-                                    .background(Color.white)
-                                    .clipShape(Circle())
-                            }
-                            .padding(.trailing)
-                        }
-                    }
-                    .padding(.top)
-
-                    // MARK: - Zutaten Liste
-                    VStack(alignment: .leading, spacing: 8) {
-                        Zutaten(text: "🍝 200 g glutenfreie Lasagneplatten")
-                        Zutaten(text: "🥒 1 Zucchini")
-                        Zutaten(text: "🥕 1 Karotte")
-                        Zutaten(text: "🫑 1 Paprika")
-                        Zutaten(text: "🧅 1 Zwiebel")
-                        Zutaten(text: "🧄 1 Knoblauchzehe")
-                        Zutaten(text: "🍅 400 g gehackte Tomaten (Dose)")
-                        Zutaten(text: "🫒 1 EL Olivenöl")
-                        Zutaten(text: "💧 150 ml Pflanzenmilch")
-                        Zutaten(text: "🌾 1 EL Maisstärke")
-                        Zutaten(text: "🧂 Gewürze: Salz, Pfeffer, Oregano oder Basilikum")
-                    
-                    }//Ende Zutatenliste
-                    .padding(.horizontal)
-                    .padding(.top, 5)
-                    .padding(.bottom, 20)
-
-                    // MARK: - Zubereitung
-                    VStack(alignment: .leading, spacing: 8) {
-                        Text("📝 Zubereitung")
-                            .font(.headline)
-                            .padding(.top)
-
-                        Text("""
-    
-1.  Zucchini, Karotte, Paprika, Zwiebel und Knoblauch klein schneiden.
-
-2.  Öl in Pfanne erhitzen, Zwiebel und Knoblauch 2–3 Min anbraten.
-
-3.  Restliches Gemüse zugeben, 4–5 Min braten.
-
-4.  Gehackte Tomaten und Gewürze einrühren, 5 Min köcheln lassen.
-
-5.  Pflanzenmilch mit Maisstärke verrühren, in kleinem Topf 2–3 Min erhitzen bis dicklich.
-
-6.  In Auflaufform schichten: Gemüsesauce → Lasagneplatten → Sauce → wiederholen.
-
-7.  Weiße Sauce darüber verteilen.
-
-8.  Backofen 180 °C, 30–35 Min backen.
-
-9.  Kurz abkühlen lassen, servieren.
-
-""")
-                        .font(.body)
+                        .padding(.top, 5)
                         .padding(.bottom, 20)
-                    }//Ende VStackZubereitung
-                    .padding(.horizontal)
+                        
+                        // MARK: - Zubereitung
+                        VStack(alignment: .leading, spacing: 8) {
+                            Text("📝 Zubereitung")
+                                .font(.headline)
+                                .padding(.top)
+                            
+                            Text("""
+        
+    1.  Zucchini, Karotte, Paprika, Zwiebel und Knoblauch klein schneiden.
+    
+    2.  Öl in Pfanne erhitzen, Zwiebel und Knoblauch 2–3 Min anbraten.
+    
+    3.  Restliches Gemüse zugeben, 4–5 Min braten.
+    
+    4.  Gehackte Tomaten und Gewürze einrühren, 5 Min köcheln lassen.
+    
+    5.  Pflanzenmilch mit Maisstärke verrühren, in kleinem Topf 2–3 Min erhitzen bis dicklich.
+    
+    6.  In Auflaufform schichten: Gemüsesauce → Lasagneplatten → Sauce → wiederholen.
+    
+    7.  Weiße Sauce darüber verteilen.
+    
+    8.  Backofen 180 °C, 30–35 Min backen.
+    
+    9.  Kurz abkühlen lassen, servieren.
+    
+    """)
+                            .font(.body)
+                            .padding(.bottom, 20)
+                        }//Ende VStackZubereitung
+                        .padding(.horizontal)
+                    }
+                    .padding(.bottom, 120)
                 }
-                .padding(.bottom, 120)
+                
+                ZStack(alignment: .bottom) {
+                    BottomBarView()
+                    NavigationLink {
+                        MakeItVeganView()
+                            .navigationBarBackButtonHidden(true)
+                            .toolbar(.hidden, for: .navigationBar)
+                    } label: {
+                        TranslationCenterButton()
+                    }
+                    .buttonStyle(.plain)
+                    
+                }
             }
-
-            ZStack(alignment: .bottom) {
-                BottomBarView()
-                TranslationCenterButton()
+            .navigationBarBackButtonHidden(true)
+            .sheet(isPresented: $showShareSheet) {
+                RecipeShareSheet(activityItems: [shareText])
             }
-        }
-        .navigationBarBackButtonHidden(true)
-        .sheet(isPresented: $showShareSheet) {
-            RecipeShareSheet(activityItems: [shareText])
         }
     }
 }
