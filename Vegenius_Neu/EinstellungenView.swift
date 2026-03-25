@@ -282,15 +282,20 @@ struct SicherheitView: View {
 // MARK: - Support
 struct SupportView: View {
     var body: some View {
-        VStack(alignment: .leading, spacing: 35) {
-            Text("Hilfe/FAQ")
-            Text("Kontakt/Support")
-            NavigationLink(destination: ProblemMeldenView()) {
-                Text("Problem melden")
-                    .foregroundColor(.primary)
+        ZStack(alignment: .bottom) {
+            
+            Color("BackgroundMint")
+                .ignoresSafeArea()
+            VStack(alignment: .leading, spacing: 35) {
+                Text("Hilfe/FAQ")
+                Text("Kontakt/Support")
+                NavigationLink(destination: ProblemMeldenView()) {
+                    Text("Problem melden")
+                        .foregroundColor(.primary)
+                }
+                Text("App Version")
+                Spacer()
             }
-            Text("App Version")
-            Spacer()
         }
         .padding(.horizontal, 25)
         .padding(.top, 30)
@@ -340,10 +345,35 @@ struct ProblemMeldenView: View {
 // MARK: - Tutorial
 struct TutorialView: View {
     var body: some View {
-        Text("Tutorial Video")
-            .navigationTitle("Tutorial")
-            .background(Color("BackgroundMint").ignoresSafeArea())
-            .onAppear { setTitelFarbe() }
+        ZStack(alignment: .bottom) {
+            
+            Color("BackgroundMint")
+                .ignoresSafeArea()
+            Text("Tutorial Video")
+                .navigationTitle("Tutorial")
+                .background(Color("BackgroundMint").ignoresSafeArea())
+                .onAppear { setTitelFarbe() }
+        }
+        .padding(.horizontal, 25)
+        .padding(.top, 30)
+        .navigationTitle("Support")
+        .background(Color("BackgroundMint").ignoresSafeArea())
+        .onAppear { setTitelFarbe() }
+        ZStack(alignment: .bottom) {
+            
+            Color("BackgroundMint")
+                .ignoresSafeArea()
+            VStack(alignment: .leading, spacing: 35) {
+                Text("Hilfe/FAQ")
+                Text("Kontakt/Support")
+                NavigationLink(destination: ProblemMeldenView()) {
+                    Text("Problem melden")
+                        .foregroundColor(.primary)
+                }
+                Text("App Version")
+                Spacer()
+            }
+        }
     }
 }
 
