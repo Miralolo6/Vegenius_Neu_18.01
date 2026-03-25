@@ -11,7 +11,7 @@ import SwiftUI
 struct Vegenius_NeuApp: App {
     var body: some Scene {
         WindowGroup {
-            MakeItVeganView()
+            ContentView()
         }
     }
 }
