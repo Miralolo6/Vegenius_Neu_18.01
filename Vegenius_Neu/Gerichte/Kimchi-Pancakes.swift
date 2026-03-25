@@ -196,7 +196,7 @@ Rezept aus meiner App 🙂
     KimchiPancakesView(
         recipe: .constant(
             Recipe(
-                title: "Kimchi-Pancakes mit Gochujang-Dip",
+                title: "Kimchi-Pancakes\nmit Gochujang-Dip",
                 imageName: "Kimchi-Pancakes",
                 category: .unter_zwanzig,
                 filters: [.nutFree, .highProtein],
