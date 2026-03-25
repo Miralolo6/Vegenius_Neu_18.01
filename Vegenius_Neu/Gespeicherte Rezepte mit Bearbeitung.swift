@@ -35,7 +35,8 @@ struct MyRecipesView: View {
 
             ScrollView {
 
-                LazyVGrid(columns: columns, spacing: 20) {
+                LazyVGrid(columns: columns, spacing: 20)
+                {
 
                     ForEach($recipes) { $recipe in
                         RecipeCard(recipe: $recipe)
@@ -44,12 +45,21 @@ struct MyRecipesView: View {
                 }
                 .padding()
             }
-
-            .navigationTitle("Meine Rezepte")
-            
-            
+            .toolbar {
+                ToolbarItem(placement: .principal) {
+                    Text("Meine Rezepte")
+                        .font(.largeTitle)
+                        .fontWeight(.semibold)
+                        .foregroundColor(
+                            Color(
+                                red: 231/255,
+                                green: 161/255,
+                                blue: 176/255
+                            )
+                        )
+                }
+            }
             .navigationBarTitleDisplayMode(.inline)
-            
         }
     }
 }
@@ -82,7 +92,13 @@ struct RecipeCard: View {
             } else {
 
                 RoundedRectangle(cornerRadius: 10)
-                    .fill(Color.gray.opacity(0.2))
+                    .fill(
+                        Color(
+                            red: 246/255,
+                            green: 242/255,
+                            blue: 236/255
+                        )
+                    )
                     .frame(height: 90)
                     .overlay(
                         Image(systemName: "camera")
@@ -95,9 +111,16 @@ struct RecipeCard: View {
             PhotosPicker(selection: $selectedItem, matching: .images) {
 
                 Label("Foto hinzufügen", systemImage: "camera")
-                    .font(.caption)
+                    .font(.footnote)
                     .padding(6)
-                    .background(Color.teal.opacity(0.6))
+                    .background(
+                        Color(
+                            red: 126/255,
+                            green: 222/255,
+                            blue: 211/255
+                        )
+                    )
+                    .foregroundColor(.black)
                     .cornerRadius(8)
             }
             .onChange(of: selectedItem) { newItem in
@@ -109,14 +132,31 @@ struct RecipeCard: View {
             }
 
             // Notizfeld
-            TextField("Notiz hinzufügen", text: $recipe.note)
-                .padding(8)
-                .background(Color.gray.opacity(0.2))
-                .cornerRadius(8)
+            HStack(spacing: 6) {
+                Image(systemName: "pencil")
+                    .foregroundColor(.gray)
+                TextField("Notiz hinzufügen", text: $recipe.note)
+            }
+            .padding(8)
+            .frame(minHeight: 44)
+            .background(
+                Color(
+                    red: 246/255,
+                    green: 242/255,
+                    blue: 236/255
+                )
+            )
+            .cornerRadius(8)
 
         }
         .padding()
-        .background(Color.teal.opacity(0.35))
+        .background(
+            Color(
+                red: 190/255,
+                green: 234/255,
+                blue: 229/255
+            )
+        )
         .cornerRadius(20)
     }
 }
