@@ -51,7 +51,7 @@ struct RezepteView: View {
             Text("Meine Rezepte")
                 .font(.largeTitle)
                 .bold()
-                .foregroundColor(Color(red: 236/255, green: 143/255, blue: 170/255))
+                .foregroundColor(Color(red: 231/255, green: 161/255, blue: 176/255))
                 .frame(maxWidth: .infinity, alignment: .center)
                 .padding(.top, 12)
             

@@ -48,152 +48,142 @@ Rezept aus meiner App 🙂
 """
 
     var body: some View {
-        NavigationStack {
-            ZStack(alignment: .bottom) { //Bottom Bar bleibt unten
-                Color(red: 247/255, green: 253/255, blue: 252/255)
-                    .ignoresSafeArea() // damit sie den ganzen Bildschirm füllt
-                ScrollView {
-                    VStack(spacing: 0) {
-                        
-                        // MARK: - HEADER
-                        VStack(spacing: 12) {
-                            
-                            HStack {
-                                Button(action: {
-                                    dismiss()
-                                }) {
-                                    Image(systemName: "arrow.left")
-                                        .font(.title3)
-                                        .foregroundColor(.black)
-                                }
-                                .padding()
-                                Spacer()
-                                
-                                Image(systemName: "chevron.left")
-                                    .opacity(0)
+        ZStack(alignment: .bottom) { //Bottom Bar bleibt unten
+            Color(red: 247/255, green: 253/255, blue: 252/255)
+                .ignoresSafeArea() // damit sie den ganzen Bildschirm füllt
+            ScrollView {
+                VStack(spacing: 0) {
+
+                    // MARK: - HEADER
+                    VStack(spacing: 12) {
+
+                        HStack {
+                            Button(action: {
+                                dismiss()
+                            }) {
+                                Image(systemName: "arrow.left")
+                                    .font(.title3)
+                                    .foregroundColor(.black)
                             }
-                            .overlay(
-                                Text("Kimchi-Pancakes\nmit Gochujang-Dip")
-                                    .font(.headline)
-                                    .multilineTextAlignment(.center)
-                            )
-                            .padding(.horizontal)
-                            
-                            // Bild + Favorit
-                            ZStack(alignment: .topTrailing) {
-                                Image("Kimchi-Pancakes")
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(height: 290)
-                                    .clipped()
-                                
-                                Button {
-                                    recipe.isFavorite.toggle()
-                                } label: {
-                                    Image(systemName: recipe.isFavorite ? "bookmark.fill" : "bookmark")
-                                        .font(.system(size: 15, weight: .bold))
-                                        .foregroundColor(Color(red: 82/255, green: 199/255, blue: 185/255))
-                                        .padding(12)
-                                        .background(Color(red: 247/255, green: 253/255, blue: 252/255))
-                                        .clipShape(Circle())
-                                }
-                                .padding(10)
-                            }
+                            .padding()
+                            Spacer()
+
+                            Image(systemName: "chevron.left")
+                                .opacity(0)
                         }
-                        .padding(.top)
-                        
-                        // MARK: - Zutaten + Share
-                        VStack(alignment: .leading, spacing: 5) {
-                            HStack {
-                                Text("📝 Zutatenliste (für 2-3 Personen)")
-                                    .font(.headline)
-                                    .padding(.leading)
-                                
-                                Spacer()
-                                
-                                Button {
-                                    showShareSheet = true
-                                } label: {
-                                    Image(systemName: "square.and.arrow.up.circle.fill")
-                                        .font(.system(size: 50))
-                                        .foregroundColor(.mintDark)
-                                        .padding(10)
-                                        .background(Color.white)
-                                        .clipShape(Circle())
-                                }
-                                .padding(.trailing)
-                            }
-                        }
-                        .padding(.top)
-                        
-                        // MARK: - Zutaten Liste
-                        VStack(alignment: .leading, spacing: 8) {
-                            Zutaten(text: "🌾 150 g Mehl")
-                            Zutaten(text: "💧 200 ml Wasser")
-                            Zutaten(text: "🧂 1 Prise Salz")
-                            Zutaten(text: "🥬 120 g veganes Kimchi")
-                            Zutaten(text: "🧅 2 Frühlingszwiebeln")
-                            Zutaten(text: "🫒 1 EL Pflanzenöl (zum Braten)")
-                            Zutaten(text: "🌶️ 1 EL Gochujang")
-                            Zutaten(text: "🥄 1 TL Ahornsirup oder Zucker")
-                            Zutaten(text: "💧 1–2 TL Wasser")
-                            Zutaten(text: "🧂 1 TL Sojasauce")
-                            
-                        }//Ende Zutatenliste
-                        .padding(.horizontal)
-                        .padding(.top, 5)
-                        .padding(.bottom, 20)
-                        
-                        // MARK: - Zubereitung
-                        VStack(alignment: .leading, spacing: 8) {
-                            Text("📝 Zubereitung")
+                        .overlay(
+                            Text("Kimchi-Pancakes\nmit Gochujang-Dip")
                                 .font(.headline)
-                                .padding(.top)
-                            
-                            Text("""
-        
-    1.  Mehl, Wasser und Salz zu glattem Teig verrühren.
-    
-    2.  Kimchi und Frühlingszwiebeln klein schneiden.
-    
-    3.  Beides in den Teig rühren.
-    
-    4.  Öl in Pfanne erhitzen.
-    
-    5.  Teig portionsweise in Pfanne geben, flach drücken und 3–4 Min pro Seite braten.
-    
-    6.  Gochujang, Sojasauce, Ahornsirup und Wasser zu Dip verrühren.
-    
-    7.  Pancakes mit Dip servieren.
-    
-    💡 Tipp: Der Teig sollte relativ dick sein – sonst werden die Pancakes eher wie dünne Pfannkuchen statt knusprig.
-    
-    """)
-                            .font(.body)
-                            .padding(.bottom, 20)
-                        }//Ende VStackZubereitung
+                                .multilineTextAlignment(.center)
+                        )
                         .padding(.horizontal)
+
+                        // Bild + Favorit
+                        ZStack(alignment: .topTrailing) {
+                            Image("Kimchi-Pancakes")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(height: 290)
+                                .clipped()
+
+                            Button {
+                                recipe.isFavorite.toggle()
+                            } label: {
+                                Image(systemName: recipe.isFavorite ? "bookmark.fill" : "bookmark")
+                                    .font(.system(size: 15, weight: .bold))
+                                    .foregroundColor(Color(red: 82/255, green: 199/255, blue: 185/255))
+                                    .padding(12)
+                                    .background(Color(red: 247/255, green: 253/255, blue: 252/255))
+                                    .clipShape(Circle())
+                            }
+                            .padding(10)
+                        }
                     }
-                    .padding(.bottom, 120)
-                }
-                
-                ZStack(alignment: .bottom) {
-                    BottomBarView()
-                    NavigationLink {
-                        MakeItVeganView()
-                            .navigationBarBackButtonHidden(true)
-                            .toolbar(.hidden, for: .navigationBar)
-                    } label: {
-                        TranslationCenterButton()
+                    .padding(.top)
+
+                    // MARK: - Zutaten + Share
+                    VStack(alignment: .leading, spacing: 5) {
+                        HStack {
+                            Text("📝 Zutatenliste (für 2-3 Personen)")
+                                .font(.headline)
+                                .padding(.leading)
+
+                            Spacer()
+
+                            Button {
+                                showShareSheet = true
+                            } label: {
+                                Image(systemName: "square.and.arrow.up.circle.fill")
+                                    .font(.system(size: 50))
+                                    .foregroundColor(.mintDark)
+                                    .padding(10)
+                                    .background(Color.white)
+                                    .clipShape(Circle())
+                            }
+                            .padding(.trailing)
+                        }
                     }
-                    .buttonStyle(.plain)
+                    .padding(.top)
+
+                    // MARK: - Zutaten Liste
+                    VStack(alignment: .leading, spacing: 8) {
+                        Zutaten(text: "🌾 150 g Mehl")
+                        Zutaten(text: "💧 200 ml Wasser")
+                        Zutaten(text: "🧂 1 Prise Salz")
+                        Zutaten(text: "🥬 120 g veganes Kimchi")
+                        Zutaten(text: "🧅 2 Frühlingszwiebeln")
+                        Zutaten(text: "🫒 1 EL Pflanzenöl (zum Braten)")
+                        Zutaten(text: "🌶️ 1 EL Gochujang")
+                        Zutaten(text: "🥄 1 TL Ahornsirup oder Zucker")
+                        Zutaten(text: "💧 1–2 TL Wasser")
+                        Zutaten(text: "🧂 1 TL Sojasauce")
                     
+                    }//Ende Zutatenliste
+                    .padding(.horizontal)
+                    .padding(.top, 5)
+                    .padding(.bottom, 20)
+
+                    // MARK: - Zubereitung
+                    VStack(alignment: .leading, spacing: 8) {
+                        Text("📝 Zubereitung")
+                            .font(.headline)
+                            .padding(.top)
+
+                        Text("""
+    
+1.  Mehl, Wasser und Salz zu glattem Teig verrühren.
+
+2.  Kimchi und Frühlingszwiebeln klein schneiden.
+
+3.  Beides in den Teig rühren.
+
+4.  Öl in Pfanne erhitzen.
+
+5.  Teig portionsweise in Pfanne geben, flach drücken und 3–4 Min pro Seite braten.
+
+6.  Gochujang, Sojasauce, Ahornsirup und Wasser zu Dip verrühren.
+
+7.  Pancakes mit Dip servieren.
+
+💡 Tipp: Der Teig sollte relativ dick sein – sonst werden die Pancakes eher wie dünne Pfannkuchen statt knusprig.
+
+""")
+                        .font(.body)
+                        .padding(.bottom, 20)
+                    }//Ende VStackZubereitung
+                    .padding(.horizontal)
                 }
+                .padding(.bottom, 120)
             }
-            .navigationBarBackButtonHidden(true)
-            .sheet(isPresented: $showShareSheet) {
-                RecipeShareSheet(activityItems: [shareText])
+
+            ZStack(alignment: .bottom) {
+                BottomBarView()
+                TranslationCenterButton()
             }
+        }
+        .navigationBarBackButtonHidden(true)
+        .sheet(isPresented: $showShareSheet) {
+            RecipeShareSheet(activityItems: [shareText])
         }
     }
 }
@@ -206,7 +196,7 @@ Rezept aus meiner App 🙂
     KimchiPancakesView(
         recipe: .constant(
             Recipe(
-                title: "Kimchi-Pancakes\nmit Gochujang-Dip",
+                title: "Kimchi-Pancakes mit Gochujang-Dip",
                 imageName: "Kimchi-Pancakes",
                 category: .unter_zwanzig,
                 filters: [.nutFree, .highProtein],

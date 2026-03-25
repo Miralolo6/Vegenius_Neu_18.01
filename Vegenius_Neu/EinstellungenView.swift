@@ -64,7 +64,7 @@ struct PasswortAendernView: View {
                     .foregroundColor(.white)
                     .frame(maxWidth: .infinity)
                     .padding()
-                    .background(Color.blue)
+                    .background(Color(red: 126/255, green: 222/255, blue: 211/255))
                     .cornerRadius(12)
             }
             .padding(.top, 10)
@@ -121,7 +121,7 @@ struct AnmeldungView: View {
                     .foregroundColor(.white)
                     .frame(maxWidth: .infinity)
                     .padding()
-                    .background(Color.blue)
+                    .background(Color(red: 126/255, green: 222/255, blue: 211/255))
                     .cornerRadius(12)
             }
             .padding(.top, 10)
@@ -184,7 +184,7 @@ struct RegistrierenView: View {
                     .foregroundColor(.white)
                     .frame(maxWidth: .infinity)
                     .padding()
-                    .background(Color.blue)
+                    .background(Color(red: 126/255, green: 222/255, blue: 211/255))
                     .cornerRadius(12)
             }
             .padding(.top, 10)
@@ -323,7 +323,7 @@ struct ProblemMeldenView: View {
                     .foregroundColor(.white)
                     .frame(maxWidth: .infinity)
                     .padding()
-                    .background(Color.blue)
+                    .background(Color(red: 126/255, green: 222/255, blue: 211/255))
                     .cornerRadius(12)
             }
 
@@ -362,26 +362,50 @@ struct EinstellungenView: View {
                 VStack(spacing: 30) {
 
                     HStack {
-                        Button("x") {
+                        /*Button("x") {
                             print("Close tapped")
                         }
                         .font(.title)
-                        .foregroundColor(.black)
+                        .foregroundColor(.black)*/
+                        
+                        Button {
+                            print("Close tapped")
+                        } label: {
+                            VStack {
+                                Image(systemName: "xmark")
+                                    .foregroundColor(.black)
+                                    .font(.title)
+                                    .scaledToFit()
+                                    .frame(width: 50, height: 50)
+                            }
+                        }
 
                         Spacer()
 
                         Text("Einstellungen")
-                            .font(.title2)
+                            .font(.largeTitle)
                             .fontWeight(.semibold)
                             .foregroundColor(Color("TitelRosa"))
 
                         Spacer()
 
-                        Button("⚙︎") {
+                        /*Button("⚙︎") {
                             print("Settings tapped")
                         }
                         .font(.title)
-                        .foregroundColor(.black)
+                        .foregroundColor(.black)*/
+                        
+                        Button {
+                            print("Settings tapped")
+                        } label: {
+                            VStack {
+                                Image(systemName: "gearshape")
+                                    .foregroundColor(.black)
+                                    .font(.title)
+                                    .scaledToFit()
+                                    .frame(width: 55, height: 55)
+                            }
+                        }
                     }
                     .padding(.horizontal)
 

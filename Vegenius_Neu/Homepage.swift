@@ -137,9 +137,8 @@ struct HomeView: View {
                             
                             TextField("Search", text: $searchText)
                                 .focused($searchFieldIsFocused)//selbst entscheiden durch antippen, wann die Suchleiste aktiv ist
-                            
-                                .onChange(of: searchText) { newValue in
-                                    if !newValue.contains("#") {
+                                .onChange(of: searchText) {
+                                    if !searchText.contains("#") {
                                         activeFilters.removeAll()
                                     }
                                 }
