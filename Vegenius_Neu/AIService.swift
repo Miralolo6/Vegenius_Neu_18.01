@@ -18,12 +18,12 @@ class OpenAIService {
         let prompt = """
         Du bist ein Experte für vegane Ernährung.
         Ersetze alle nicht-veganen Zutaten durch passende vegane Alternativen.
-        Behalte den Kontext des Rezeptes (Backen, Kochen, Grillen etc.).
+        Behalte den Kontext des Rezeptes (Backen, Kochen, Grillen etc.). Es soll alles sehr übersichtlich. Die einzelnen Zutaten sollen in einzelnen Boxen untereinander stehen
         Gib das Ergebnis so aus:
 
         Original -> Vegan (kurze Erklärung)
 
-        Rezept:
+        
         \(recipe)
         """
         
