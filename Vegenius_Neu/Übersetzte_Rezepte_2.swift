@@ -10,61 +10,123 @@ import SwiftUI
 struct VeganResultView2: View {
     let text: String
 
-    var body: some View {
-        VStack(alignment: .leading, spacing: 16) {
-            
-            Text("Vegan Edition")
-                .font(.system(size: 30, weight: .bold, design: .default))
-                .foregroundColor(
-                    Color(red: 231/255, green: 161/255, blue: 176/255)
-                )
-            
-            let sections = text.components(separatedBy: "\n\n")
+    @State private var people: Int = 10
+    @State private var showIngredients = true
+    @State private var showInstructions = false
 
-            ForEach(sections, id: \.self) { section in
-                
-                if section.lowercased().contains("zutaten") {
-                    
-                    VStack(alignment: .leading, spacing: 8) {
+    // MARK: - Parsed Data
+    var ingredients: [String] {
+        extractSection(title: "zutaten")
+            .map { $0.replacingOccurrences(of: "- ", with: "") }
+    }
+
+    var steps: [String] {
+        extractSection(title: "zubereitung")
+    }
+
+    var body: some View {
+        NavigationStack {
+            ScrollView {
+                VStack(spacing: 24) {
+
+                    Text("Vegan Edition")
+                        .font(.system(size: 30, weight: .bold))
+                        .foregroundColor(
+                            Color(red: 231/255, green: 161/255, blue: 176/255)
+                        )
+
+                    // MARK: - Zutaten
+                    DisclosureGroup(isExpanded: $showIngredients) {
+                        ingredientsCard
+                    } label: {
                         Text("Zutaten")
                             .font(.headline)
-                            .font(.headline)
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .foregroundColor(
-                                Color(red: 231/255, green: 161/255, blue: 176/255)
-                            )
-                        
-                        ForEach(section.components(separatedBy: "\n").dropFirst(), id: \.self) { item in
-                            Text("• \(item.replacingOccurrences(of: "- ", with: ""))")
-                        }
                     }
-                    
-                } else if section.lowercased().contains("zubereitung") {
-                    
-                    VStack(alignment: .leading, spacing: 8) {
+                    .padding()
+                    .background(Color(.systemTeal).opacity(0.35))
+                    .clipShape(RoundedRectangle(cornerRadius: 14))
+
+                    // MARK: - Zubereitung
+                    DisclosureGroup(isExpanded: $showInstructions) {
+                        VStack(alignment: .leading, spacing: 8) {
+                            ForEach(steps, id: \.self) { step in
+                                Text(step)
+                            }
+                        }
+                        .padding(.top, 8)
+                    } label: {
                         Text("Zubereitung")
                             .font(.headline)
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .foregroundColor(
-                                Color(red: 231/255, green: 161/255, blue: 176/255))
-                        
-                        ForEach(section.components(separatedBy: "\n").dropFirst(), id: \.self) { step in
-                            Text(step)
-                        }
                     }
-                    
-                } else {
-                    Text(section)
+                    .padding()
+                    .background(Color(.systemTeal).opacity(0.35))
+                    .clipShape(RoundedRectangle(cornerRadius: 14))
                 }
+                .padding()
             }
         }
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .padding()
-        .background(
-            RoundedRectangle(cornerRadius: 16)
-                .fill(Color.white)
-                .shadow(radius: 2)
-        )
-        .padding(.horizontal)
+    }
+
+    // MARK: - Zutaten Card
+    private var ingredientsCard: some View {
+        VStack(spacing: 12) {
+
+            HStack {
+                Text("Für \(people) Person(en)")
+                Spacer()
+                Stepper("", value: $people, in: 1...24)
+                    .labelsHidden()
+            }
+            .padding()
+            .background(Color(.systemTeal).opacity(0.25))
+            .clipShape(RoundedRectangle(cornerRadius: 12))
+
+            ForEach(ingredients, id: \.self) { item in
+                ingredientRow(item)
+            }
+        }
+        .padding(12)
+        .background(Color(.systemGray6))
+        .clipShape(RoundedRectangle(cornerRadius: 18))
+    }
+
+    // MARK: - Ingredient Row (Pill Design)
+    private func ingredientRow(_ text: String) -> some View {
+        HStack {
+            Text(text)
+                .font(.subheadline)
+            Spacer()
+        }
+        .padding(.horizontal, 16)
+        .padding(.vertical, 8)
+        .background(Color(.systemTeal).opacity(0.4))
+        .clipShape(RoundedRectangle(cornerRadius: 18))
+    }
+
+    // MARK: - Parser
+    private func extractSection(title: String) -> [String] {
+        let lines = text.components(separatedBy: "\n")
+
+        var capture = false
+        var result: [String] = []
+
+        for line in lines {
+            let lower = line.lowercased()
+
+            if lower.contains(title) {
+                capture = true
+                continue
+            }
+
+            if capture && (lower.contains("zutaten") || lower.contains("zubereitung")) {
+                break
+            }
+
+            if capture && !line.trimmingCharacters(in: .whitespaces).isEmpty {
+                result.append(line)
+            }
+        }
+
+        return result
     }
 }
