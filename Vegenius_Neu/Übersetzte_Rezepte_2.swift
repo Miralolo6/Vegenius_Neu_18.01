@@ -7,70 +7,122 @@
 
 import SwiftUI
 
+// MARK: - MODEL
+struct Ingredient: Identifiable {
+    let id = UUID()
+    let baseAmount: Double?
+    let unit: String
+    let name: String
+    let alternatives: [String]
+}
+
+// MARK: - VIEW
 struct VeganResultView2: View {
+    
     let text: String
-
-    @State private var people: Int = 10
+    
+    @State private var people: Int = 2
+    @State private var basePeople: Int = 2 // 👈 wichtig für Umrechnung
+    
     @State private var showIngredients = true
-    @State private var showInstructions = false
-
-    // MARK: - Parsed Data
-    var ingredients: [String] {
-        extractSection(title: "zutaten")
-            .map { $0.replacingOccurrences(of: "- ", with: "") }
+    @State private var showInstructions = true
+    
+    // MARK: - PARSED INGREDIENTS
+    
+    var parsedIngredients: [Ingredient] {
+        extractSection(title: "zutaten").map { line in
+            
+            let cleaned = line.replacingOccurrences(of: "- ", with: "")
+            
+            // Split Alternatives
+            let parts = cleaned.components(separatedBy: "|")
+            let mainPart = parts[0]
+            
+            let alternatives: [String] = parts.count > 1
+                ? parts[1]
+                    .replacingOccurrences(of: "Alternative:", with: "")
+                    .components(separatedBy: ",")
+                    .map { $0.trimmingCharacters(in: .whitespaces) }
+                : []
+            
+            // Extract amount
+            let components = mainPart.components(separatedBy: " ")
+            
+            if let amount = Double(components.first?.replacingOccurrences(of: ",", with: ".") ?? "") {
+                let unit = components.count > 1 ? components[1] : ""
+                let name = components.dropFirst(2).joined(separator: " ")
+                
+                return Ingredient(
+                    baseAmount: amount,
+                    unit: unit,
+                    name: name,
+                    alternatives: alternatives
+                )
+            } else {
+                return Ingredient(
+                    baseAmount: nil,
+                    unit: "",
+                    name: mainPart,
+                    alternatives: alternatives
+                )
+            }
+        }
     }
-
+    
+    // MARK: - STEPS
+    
     var steps: [String] {
         extractSection(title: "zubereitung")
     }
-
+    
+    // MARK: - BODY
+    
     var body: some View {
         NavigationStack {
             ScrollView {
                 VStack(spacing: 24) {
-
+                    
                     Text("Vegan Edition")
                         .font(.system(size: 30, weight: .bold))
                         .foregroundColor(
                             Color(red: 231/255, green: 161/255, blue: 176/255)
                         )
-
-                    // MARK: - Zutaten
+                    
+                    // MARK: Zutaten
                     DisclosureGroup(isExpanded: $showIngredients) {
                         ingredientsCard
                     } label: {
-                        Text("Zutaten")
-                            .font(.headline)
+                        header("Zutaten")
                     }
-                    .padding()
-                    .background(Color(.systemTeal).opacity(0.35))
-                    .clipShape(RoundedRectangle(cornerRadius: 14))
-
-                    // MARK: - Zubereitung
+                    .cardStyle()
+                    
+                    // MARK: Zubereitung
                     DisclosureGroup(isExpanded: $showInstructions) {
-                        VStack(alignment: .leading, spacing: 8) {
-                            ForEach(steps, id: \.self) { step in
-                                Text(step)
-                            }
-                        }
-                        .padding(.top, 8)
+                        stepsCard
                     } label: {
-                        Text("Zubereitung")
-                            .font(.headline)
+                        header("Zubereitung")
                     }
-                    .padding()
-                    .background(Color(.systemTeal).opacity(0.35))
-                    .clipShape(RoundedRectangle(cornerRadius: 14))
+                    .cardStyle()
                 }
                 .padding()
             }
         }
     }
-
-    // MARK: - Zutaten Card
+    
+    // MARK: - HEADER
+    
+    private func header(_ text: String) -> some View {
+        Text(text)
+            .font(.headline)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .foregroundColor(Color(red: 231/255, green: 161/255, blue: 176/255))
+    }
+    
+    // MARK: - INGREDIENTS CARD
+    
     private var ingredientsCard: some View {
         VStack(spacing: 12) {
-
+            
             HStack {
                 Text("Für \(people) Person(en)")
                 Spacer()
@@ -80,53 +132,146 @@ struct VeganResultView2: View {
             .padding()
             .background(Color(.systemTeal).opacity(0.25))
             .clipShape(RoundedRectangle(cornerRadius: 12))
-
-            ForEach(ingredients, id: \.self) { item in
-                ingredientRow(item)
+            
+            ForEach(parsedIngredients) { ingredient in
+                IngredientRow(
+                    ingredient: ingredient,
+                    multiplier: Double(people) / Double(basePeople)
+                )
             }
         }
         .padding(12)
         .background(Color(.systemGray6))
         .clipShape(RoundedRectangle(cornerRadius: 18))
     }
-
-    // MARK: - Ingredient Row (Pill Design)
-    private func ingredientRow(_ text: String) -> some View {
-        HStack {
-            Text(text)
-                .font(.subheadline)
-            Spacer()
+    
+    // MARK: - STEPS CARD
+    
+    private var stepsCard: some View {
+        VStack(spacing: 12) {
+            ForEach(Array(steps.enumerated()), id: \.offset) { index, step in
+                stepRow(index: index + 1, text: step)
+            }
         }
-        .padding(.horizontal, 16)
-        .padding(.vertical, 8)
-        .background(Color(.systemTeal).opacity(0.4))
+        .padding(12)
+        .background(Color(.systemGray6))
         .clipShape(RoundedRectangle(cornerRadius: 18))
     }
-
-    // MARK: - Parser
+    
+    // MARK: - STEP ROW (wie Screenshot)
+    
+    private func stepRow(index: Int, text: String) -> some View {
+        HStack(alignment: .top) {
+            Text("\(index).")
+                .bold()
+            
+            Text(text)
+                .multilineTextAlignment(.leading)
+            
+            Spacer()
+        }
+        .padding()
+        .background(Color(.systemTeal).opacity(0.4))
+        .clipShape(RoundedRectangle(cornerRadius: 20))
+    }
+    
+    // MARK: - PARSER
+    
     private func extractSection(title: String) -> [String] {
         let lines = text.components(separatedBy: "\n")
-
+        
         var capture = false
         var result: [String] = []
-
+        
         for line in lines {
             let lower = line.lowercased()
-
+            
             if lower.contains(title) {
                 capture = true
                 continue
             }
-
+            
             if capture && (lower.contains("zutaten") || lower.contains("zubereitung")) {
                 break
             }
-
+            
             if capture && !line.trimmingCharacters(in: .whitespaces).isEmpty {
                 result.append(line)
             }
         }
-
+        
         return result
+    }
+}
+
+// MARK: - INGREDIENT ROW
+
+struct IngredientRow: View {
+    
+    let ingredient: Ingredient
+    let multiplier: Double
+    
+    @State private var expanded = false
+    
+    var scaledAmount: String {
+        guard let base = ingredient.baseAmount else {
+            return ingredient.name
+        }
+        
+        let newAmount = base * multiplier
+        return String(format: "%.1f", newAmount)
+            + " " + ingredient.unit + " " + ingredient.name
+    }
+    
+    var body: some View {
+        VStack(spacing: 0) {
+            
+            Button {
+                if !ingredient.alternatives.isEmpty {
+                    withAnimation {
+                        expanded.toggle()
+                    }
+                }
+            } label: {
+                HStack {
+                    Text(scaledAmount)
+                        .foregroundColor(.black)
+                    
+                    Spacer()
+                    
+                    if !ingredient.alternatives.isEmpty {
+                        Image(systemName: "chevron.down")
+                            .rotationEffect(.degrees(expanded ? 180 : 0))
+                    }
+                }
+                .padding()
+                .background(Color(.systemTeal).opacity(0.4))
+                .clipShape(RoundedRectangle(cornerRadius: 18))
+            }
+            
+            if expanded {
+                VStack {
+                    ForEach(ingredient.alternatives, id: \.self) { alt in
+                        Text(alt)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .padding()
+                            .background(Color(.systemTeal).opacity(0.2))
+                    }
+                }
+                .clipShape(RoundedRectangle(cornerRadius: 12))
+                .padding(.horizontal, 4)
+            }
+        }
+    }
+}
+
+// MARK: - STYLE EXTENSION
+
+extension View {
+    func cardStyle() -> some View {
+        self
+            .padding()
+            .background(Color(.systemTeal).opacity(0.35))
+            .clipShape(RoundedRectangle(cornerRadius: 14))
     }
 }
