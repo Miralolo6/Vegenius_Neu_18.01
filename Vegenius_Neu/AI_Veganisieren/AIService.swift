@@ -9,7 +9,7 @@ import Foundation
 
 class OpenAIService {
     
-    private let apiKey = "OPENAI_API_KEY_REMOVED" // ohne Zeilenumbrüche!
+    private let apiKey = "" // ohne Zeilenumbrüche!
     
     func veganize(recipe: String) async throws -> String {
         let url = URL(string: "https://api.openai.com/v1/chat/completions")!
