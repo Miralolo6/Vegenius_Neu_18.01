@@ -36,16 +36,32 @@ struct VeganResultView2: View {
             
             let cleaned = line.replacingOccurrences(of: "- ", with: "")
             
-            // Split Alternatives
-            let parts = cleaned.components(separatedBy: "|")
-            let mainPart = parts[0]
-            
-            let alternatives: [String] = parts.count > 1
-                ? parts[1]
-                    .replacingOccurrences(of: "Alternative:", with: "")
-                    .components(separatedBy: ",")
-                    .map { $0.trimmingCharacters(in: .whitespaces) }
-                : []
+            let lower = cleaned.lowercased()
+
+            var mainPart = cleaned
+            var alternatives: [String] = []
+
+            if lower.contains("alternative") {
+                let split = cleaned.components(separatedBy: "Alternative:")
+                
+                if split.count < 2 {
+                    // fallback für "Alternativen:"
+                    let splitAlt = cleaned.components(separatedBy: "Alternativen:")
+                    if splitAlt.count >= 2 {
+                        mainPart = splitAlt[0]
+                        alternatives = splitAlt[1]
+                            .components(separatedBy: ",")
+                            .map { $0.trimmingCharacters(in: .whitespaces) }
+                    }
+                } else {
+                    mainPart = split[0]
+                    alternatives = split[1]
+                        .components(separatedBy: ",")
+                        .map { $0.trimmingCharacters(in: .whitespaces) }
+                }
+            }
+
+            alternatives = alternatives.filter { !$0.isEmpty }
             
             // Extract amount
             let components = mainPart.components(separatedBy: " ")
