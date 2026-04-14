@@ -9,33 +9,46 @@ class VeganViewModel: ObservableObject {
     
     private let service = OpenAIService()
     
-    func veganize() {
-        // 1. Leeren Input prüfen
-        let trimmed = inputText.trimmingCharacters(in: .whitespacesAndNewlines)
-        guard !trimmed.isEmpty else {
-            self.resultText = "Bitte gib ein Rezept ein."
-            return
-        }
+    func veganize(completion: (() -> Void)? = nil) {
+        isLoading = true
 
         Task {
-            await MainActor.run { self.isLoading = true }
-
-            defer {
-                Task { @MainActor in self.isLoading = false }
-            }
-
             do {
-                // 2. API-Aufruf
-                let result = try await service.veganize(recipe: trimmed)
-                
-                // 3. Ergebnis sicher in UI anzeigen
+                let result = try await service.veganize(recipe: inputText)
+
                 await MainActor.run {
                     self.resultText = result
+                    self.isLoading = false
+                    completion?()
                 }
+
             } catch {
                 await MainActor.run {
-                    self.resultText = "Fehler beim Veganisieren: \(error.localizedDescription)"
+                    self.isLoading = false
                 }
+            }
+        }
+    }
+    func reprocessWithAlternative(baseRecipe: String, ingredients: [Ingredient]) {
+        
+        let modifiedIngredients = ingredients.map { ing in
+            ing.selectedAlternative ?? ing.name
+        }
+
+        let prompt = """
+        Überarbeite dieses vegane Rezept basierend auf folgenden Zutaten:
+        
+        \(modifiedIngredients.joined(separator: ", "))
+        
+        Original Rezept:
+        \(baseRecipe)
+        """
+
+        Task {
+            let result = try? await service.veganize(recipe: prompt)
+
+            await MainActor.run {
+                self.resultText = result ?? self.resultText
             }
         }
     }

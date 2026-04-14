@@ -14,6 +14,12 @@ struct Ingredient: Identifiable {
     let unit: String
     let name: String
     let alternatives: [String]
+    
+    var selectedAlternative: String? = nil
+    
+    var activeName: String {
+            selectedAlternative ?? name
+    }
 }
 
 // MARK: - VIEW
@@ -22,19 +28,27 @@ struct VeganResultView2: View {
     let text: String
     
     @State private var people: Int = 2
-    @State private var basePeople: Int = 2 // 👈 wichtig für Umrechnung
+    @State private var basePeople: Int = 2 //  wichtig für Umrechnung
     
     @State private var showIngredients = true
     @State private var showInstructions = true
+    
+    
+    @State private var ingredients: [Ingredient] = []
+    
+    
+    @StateObject private var vm = VeganViewModel()
     
     @Environment(\.dismiss) var dismiss
     
     // MARK: - PARSED INGREDIENTS
     
-    var parsedIngredients: [Ingredient] {
+    /*var parsedIngredients: [Ingredient] {
         extractSection(title: "zutaten").map { line in
             
-            let cleaned = line.replacingOccurrences(of: "- ", with: "")
+            let cleaned = line
+                .replacingOccurrences(of: "- ", with: "")
+                .replacingOccurrences(of: "|", with: "")
             
             let lower = cleaned.lowercased()
 
@@ -85,7 +99,7 @@ struct VeganResultView2: View {
                 )
             }
         }
-    }
+    }*/
     
     // MARK: - STEPS
     
@@ -150,6 +164,48 @@ struct VeganResultView2: View {
                 .padding()
             }
             .navigationBarBackButtonHidden(true)
+            .onAppear {
+                ingredients = extractSection(title: "zutaten").map { line in
+                    
+                    let cleaned = line.replacingOccurrences(of: "- ", with: "")
+                    
+                    let lower = cleaned.lowercased()
+                    var mainPart = cleaned
+                    var alternatives: [String] = []
+
+                    if lower.contains("alternative") {
+                        let split = cleaned.components(separatedBy: "Alternative:")
+                        mainPart = split[0]
+
+                        if split.count > 1 {
+                            alternatives = split[1]
+                                .components(separatedBy: ",")
+                                .map { $0.trimmingCharacters(in: .whitespaces) }
+                        }
+                    }
+
+                    let components = mainPart.components(separatedBy: " ")
+
+                    if let amount = Double(components.first ?? "") {
+                        let unit = components.count > 1 ? components[1] : ""
+                        let name = components.dropFirst(2).joined(separator: " ")
+
+                        return Ingredient(
+                            baseAmount: amount,
+                            unit: unit,
+                            name: name,
+                            alternatives: alternatives
+                        )
+                    } else {
+                        return Ingredient(
+                            baseAmount: nil,
+                            unit: "",
+                            name: mainPart,
+                            alternatives: alternatives
+                        )
+                    }
+                }
+            }
         }
     }
     
@@ -177,10 +233,16 @@ struct VeganResultView2: View {
             .background(Color(.systemTeal).opacity(0.25))
             .clipShape(RoundedRectangle(cornerRadius: 12))
             
-            ForEach(parsedIngredients) { ingredient in
+            ForEach($ingredients) { $ingredient in
                 IngredientRow(
-                    ingredient: ingredient,
-                    multiplier: Double(people) / Double(basePeople)
+                    ingredient: $ingredient,
+                    multiplier: Double(people) / Double(basePeople),
+                    onChange: {
+                        vm.reprocessWithAlternative(
+                            baseRecipe: text,
+                            ingredients: ingredients
+                        )
+                    }
                 )
             }
         }
@@ -252,8 +314,14 @@ struct VeganResultView2: View {
 
 struct IngredientRow: View {
     
-    let ingredient: Ingredient
+    @Binding var ingredient: Ingredient
     let multiplier: Double
+    
+    var onChange: () -> Void
+    
+
+    
+    
     
     @State private var expanded = false
     
@@ -264,7 +332,7 @@ struct IngredientRow: View {
         
         let newAmount = base * multiplier
         return String(format: "%.1f", newAmount)
-            + " " + ingredient.unit + " " + ingredient.name
+            + " " + ingredient.unit
     }
     
     var body: some View {
@@ -278,7 +346,8 @@ struct IngredientRow: View {
                 }
             } label: {
                 HStack {
-                    Text(scaledAmount)
+                    
+                    Text("\(scaledAmount) \(ingredient.activeName)")
                         .foregroundColor(.black)
                     
                     Spacer()
@@ -300,6 +369,14 @@ struct IngredientRow: View {
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .padding()
                             .background(Color(.systemTeal).opacity(0.2))
+                            .onTapGesture {
+                                withAnimation {
+                                    ingredient.selectedAlternative = alt
+                                    expanded = false
+                                }
+
+                                onChange()
+                            }
                     }
                 }
                 .clipShape(RoundedRectangle(cornerRadius: 12))

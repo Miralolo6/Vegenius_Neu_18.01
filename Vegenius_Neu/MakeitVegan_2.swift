@@ -148,9 +148,7 @@ struct MakeItVeganView2: View {
                                 
                                 
                                 Button {
-                                    vm.veganize()
-                                    // sobald Ergebnis da → navigieren
-                                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                                    vm.veganize {
                                         showResult = true
                                     }
                                 } label: {
@@ -190,9 +188,7 @@ struct MakeItVeganView2: View {
                         
                         Spacer(minLength: 500)
                         
-                            .sheet(isPresented: $showCamera) {
-                                CameraPicker2(image: $selectedImage)
-                            }
+                            
                         
                     }
                     .padding(.top)
@@ -204,7 +200,9 @@ struct MakeItVeganView2: View {
             .navigationDestination(isPresented: $showResult) {
                 VeganResultView2(text: vm.resultText)
             }
-            
+            .sheet(isPresented: $showCamera) {
+                CameraPicker2(image: $selectedImage)
+            }
         }
         
     }
