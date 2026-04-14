@@ -74,7 +74,13 @@ struct VeganResultView2: View {
     // MARK: - STEPS
     
     var steps: [String] {
-        extractSection(title: "zubereitung")
+        extractSection(title: "zubereitung").map { step in
+            step.replacingOccurrences(
+                of: #"^\d+[\.\)]\s*"#, //keine doppelte Nummerierung
+                with: "",
+                options: .regularExpression
+            )
+        }
     }
     
     // MARK: - BODY
@@ -127,6 +133,7 @@ struct VeganResultView2: View {
                 }
                 .padding()
             }
+            .navigationBarBackButtonHidden(true)
         }
     }
     
