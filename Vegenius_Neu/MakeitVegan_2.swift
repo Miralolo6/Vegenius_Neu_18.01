@@ -62,6 +62,9 @@ struct MakeItVeganView2: View {
 
     @StateObject private var vm = VeganViewModel()
     
+    
+    @State private var showResult = false
+    
     var body: some View {
         
         NavigationStack {
@@ -146,6 +149,10 @@ struct MakeItVeganView2: View {
                                 
                                 Button {
                                     vm.veganize()
+                                    // sobald Ergebnis da → navigieren
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                                        showResult = true
+                                    }
                                 } label: {
                                     Image(systemName: "arrow.up")
                                         .foregroundColor(.white)
@@ -166,31 +173,38 @@ struct MakeItVeganView2: View {
                                 .stroke(Color.gray.opacity(1))
                         )
                         .padding(.horizontal)
-
+                        
                         // MARK: - Ergebnis
-                        ScrollView {
-                            if vm.resultText.isEmpty {
-                                Text("Das vegane Rezept erscheint hier.")
-                                    .foregroundColor(.secondary)
-                                    .frame(maxWidth: .infinity, alignment: .leading)
-                                    .padding()
-                            } else {
-                                VeganResultView2(text: vm.resultText)
-                            }
-                        }
-                        .frame(maxHeight: 300) // optional: begrenzt Höhe
-                        .padding(.horizontal)
+                        /*ScrollView {
+                         if vm.resultText.isEmpty {
+                         Text("Das vegane Rezept erscheint hier.")
+                         .foregroundColor(.secondary)
+                         .frame(maxWidth: .infinity, alignment: .leading)
+                         .padding()
+                         } else {
+                         VeganResultView2(text: vm.resultText)
+                         }
+                         }
+                         .frame(maxHeight: 300) // optional: begrenzt Höhe
+                         .padding(.horizontal)*/
                         
                         Spacer(minLength: 500)
                         
                             .sheet(isPresented: $showCamera) {
-                                CameraPicker(image: $selectedImage)
+                                CameraPicker2(image: $selectedImage)
                             }
                         
                     }
                     .padding(.top)
+    
                 }
+  
+                
             }
+            .navigationDestination(isPresented: $showResult) {
+                VeganResultView2(text: vm.resultText)
+            }
+            
         }
         
     }

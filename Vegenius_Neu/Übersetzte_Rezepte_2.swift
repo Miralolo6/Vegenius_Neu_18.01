@@ -27,6 +27,8 @@ struct VeganResultView2: View {
     @State private var showIngredients = true
     @State private var showInstructions = true
     
+    @Environment(\.dismiss) var dismiss
+    
     // MARK: - PARSED INGREDIENTS
     
     var parsedIngredients: [Ingredient] {
@@ -82,11 +84,30 @@ struct VeganResultView2: View {
             ScrollView {
                 VStack(spacing: 24) {
                     
-                    Text("Vegan Edition")
-                        .font(.system(size: 30, weight: .bold))
-                        .foregroundColor(
-                            Color(red: 231/255, green: 161/255, blue: 176/255)
-                        )
+                    HStack {
+                        Button {
+                            dismiss()
+                        } label: {
+                            Image(systemName: "arrow.left")
+                                .font(.title3)
+                                .foregroundColor(.black)
+                        }
+                        
+                        Spacer()
+                        
+                        Text("Vegan Edition") 
+                            .font(.system(size: 26, weight: .bold))
+                            .foregroundColor(
+                                Color(red: 231/255, green: 161/255, blue: 176/255)
+                            )
+                        
+                        Spacer()
+                        
+                        // damit Titel mittig bleibt
+                        Color.clear.frame(width: 24)
+                    }
+                    .padding(.horizontal)
+                    
                     
                     // MARK: Zutaten
                     DisclosureGroup(isExpanded: $showIngredients) {
