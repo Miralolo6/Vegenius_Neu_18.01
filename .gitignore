@@ -1,11 +1,7 @@
-<<<<<<< HEAD
 *.xcuserstate
 **/xcuserdata/
-=======
 *.xcuserdatad/
 *.xcuserdata/
 DerivedData
->>>>>>> bookmark_talitha
 Secrets.xcconfig
-.DS_Store
 .DS_Store
