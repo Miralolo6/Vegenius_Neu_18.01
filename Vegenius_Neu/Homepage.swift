@@ -466,7 +466,7 @@ struct HomeView: View {
                 ZStack(alignment: .bottom) {
                     BottomBarView()
                     NavigationLink {
-                        MakeItVeganView()
+                        MakeItVeganView2()
                             .navigationBarBackButtonHidden(true)
                             .toolbar(.hidden, for: .navigationBar)
                     } label: {

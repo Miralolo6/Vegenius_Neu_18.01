@@ -9,7 +9,13 @@ import Foundation
 
 class OpenAIService {
     
-    private let apiKey = "" // ohne Zeilenumbrüche!
+    private let apiKey: String = {
+        guard let key = Bundle.main.object(forInfoDictionaryKey: "API_KEY") as? String else {
+            fatalError("API_KEY fehlt")
+        }
+        print("🔑 API_KEY geladen: \(key.prefix(10))...")  // ← Diese Zeile hinzufügen
+        return key
+    }()
     
     func veganize(recipe: String) async throws -> String {
         let url = URL(string: "https://api.openai.com/v1/chat/completions")!
