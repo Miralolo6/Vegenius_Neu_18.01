@@ -1,19 +1,7 @@
-<<<<<<< HEAD
 *.xcuserstate
 **/xcuserdata/
-<<<<<<< HEAD
 *.xcuserdatad/
 *.xcuserdata/
 DerivedData
 Secrets.xcconfig
 .DS_Store
-=======
-=======
-*.xcuserdatad/
-*.xcuserdata/
-DerivedData
->>>>>>> bookmark_talitha
-Secrets.xcconfig
-.DS_Store
-.DS_Store
->>>>>>> KI-Veganisierer
