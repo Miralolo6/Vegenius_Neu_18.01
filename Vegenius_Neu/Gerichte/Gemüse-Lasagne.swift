@@ -47,7 +47,7 @@ Gemüse-Lasagne
 
 9.  Kurz abkühlen lassen, servieren.
 
-Rezept aus meiner App 🙂
+Rezept aus meiner App Vegenius 🙂
 """
 
     var body: some View {
@@ -149,39 +149,28 @@ Rezept aus meiner App 🙂
                         .padding(.bottom, 20)
                         
                         // MARK: - Zubereitung
-                        VStack(alignment: .leading, spacing: 8) {
-                            Text("📝 Zubereitung")
-                                .font(.headline)
-                                .padding(.top)
-                            
-                            Text("""
+                        VStack(alignment: .leading, spacing: 12) {
+                                                    Text("📝 Zubereitung")
+                                                        .font(.headline)
+                                                        .padding(.top)
+                                                    
+                                                    ZubereitungRow(nummer: "1.", text: "Zucchini, Karotte, Paprika, Zwiebel und Knoblauch klein schneiden.")
+                                                    ZubereitungRow(nummer: "2.", text: "Öl in Pfanne erhitzen, Zwiebel und Knoblauch 2–3 Min anbraten.")
+                                                    ZubereitungRow(nummer: "3.", text: "Restliches Gemüse zugeben, 4–5 Min braten.")
+                                                    ZubereitungRow(nummer: "4.", text: "Gehackte Tomaten und Gewürze einrühren, 5 Min köcheln lassen.")
+                                                    ZubereitungRow(nummer: "5.", text: "Pflanzenmilch mit Maisstärke verrühren, in kleinem Topf 2–3 Min erhitzen bis dicklich.")
+                                                    ZubereitungRow(nummer: "6.", text: "In Auflaufform schichten: Gemüsesauce → Lasagneplatten → Sauce → wiederholen.")
+                                                    ZubereitungRow(nummer: "7.", text: "Weiße Sauce darüber verteilen.")
+                                                    ZubereitungRow(nummer: "8.", text: " Backofen 180 °C, 30–35 Min backen.")
+                                                    ZubereitungRow(nummer: "9.", text: "Kurz abkühlen lassen, servieren. ")
+                                                 
+                                                }
+                                                .padding(.horizontal)
+                                            }
+                                            .padding(.bottom, 120)
+                                        }
         
-    1.  Zucchini, Karotte, Paprika, Zwiebel und Knoblauch klein schneiden.
-    
-    2.  Öl in Pfanne erhitzen, Zwiebel und Knoblauch 2–3 Min anbraten.
-    
-    3.  Restliches Gemüse zugeben, 4–5 Min braten.
-    
-    4.  Gehackte Tomaten und Gewürze einrühren, 5 Min köcheln lassen.
-    
-    5.  Pflanzenmilch mit Maisstärke verrühren, in kleinem Topf 2–3 Min erhitzen bis dicklich.
-    
-    6.  In Auflaufform schichten: Gemüsesauce → Lasagneplatten → Sauce → wiederholen.
-    
-    7.  Weiße Sauce darüber verteilen.
-    
-    8.  Backofen 180 °C, 30–35 Min backen.
-    
-    9.  Kurz abkühlen lassen, servieren.
-    
-    """)
-                            .font(.body)
-                            .padding(.bottom, 20)
-                        }//Ende VStackZubereitung
-                        .padding(.horizontal)
-                    }
-                    .padding(.bottom, 120)
-                }
+   
                 
                 ZStack(alignment: .bottom) {
                     BottomBarView()

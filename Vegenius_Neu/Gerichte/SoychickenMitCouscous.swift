@@ -42,7 +42,7 @@ Soychicken mit Couscous
 
 7.  Couscous mit Soychicken servieren.
 
-Rezept aus meiner App 🙂
+Rezept aus meiner App Vegenius 🙂
 """
 
     var body: some View {
@@ -142,35 +142,27 @@ Rezept aus meiner App 🙂
                         .padding(.bottom, 20)
                         
                         // MARK: - Zubereitung
-                        VStack(alignment: .leading, spacing: 8) {
-                            Text("📝 Zubereitung")
-                                .font(.headline)
-                                .padding(.top)
-                            
-                            Text("""
-        
-    1.⁠ ⁠Sojachunks mit heißer Brühe übergießen, 5–10 Min ziehen lassen, ausdrücken.
-    
-    2.⁠ ⁠Zwiebel, Knoblauch (optional Paprika) klein schneiden.
-    
-    3.⁠ ⁠Öl erhitzen, Gemüse 2–3 Min anbraten. 
-    
-    4.⁠ ⁠Sojachunks zugeben, knusprig braten.
-    
-    5.⁠ ⁠Tomatenmark oder Sojasauce + Gewürze einrühren.
-    
-    6.⁠ ⁠Couscous mit heißer Brühe übergießen, 5 Min quellen lassen, mit Gabel auflockern.
-    
-    7.⁠ ⁠Couscous mit Soychicken servieren.
-    
-    """)
-                            .font(.body)
-                            .padding(.bottom, 20)
-                        }//Ende VStackZubereitung
-                        .padding(.horizontal)
-                    }
-                    .padding(.bottom, 120)
-                }
+                        VStack(alignment: .leading, spacing: 12) {
+                                                    Text("📝 Zubereitung")
+                                                        .font(.headline)
+                                                        .padding(.top)
+                                                    
+                                                    ZubereitungRow(nummer: "1.", text: "Sojachunks mit heißer Brühe übergießen, 5–10 Min ziehen lassen, ausdrücken.")
+                                                    ZubereitungRow(nummer: "2.", text: " ⁠Zwiebel, Knoblauch (optional Paprika) klein schneiden.")
+                                                    ZubereitungRow(nummer: "3.", text: "Öl erhitzen, Gemüse 2–3 Min anbraten. ")
+                                                    ZubereitungRow(nummer: "4.", text: "Sojachunks zugeben, knusprig braten.")
+                                                    ZubereitungRow(nummer: "5.", text: " ⁠Tomatenmark oder Sojasauce + Gewürze einrühren.")
+                                                    ZubereitungRow(nummer: "6.", text: "Couscous mit heißer Brühe übergießen, 5 Min quellen lassen, mit Gabel auflockern.")
+                                                    ZubereitungRow(nummer: "7.", text: "Couscous mit Soychicken servieren.")
+                                                   
+                                                    
+                                                   
+                                                }
+                                                .padding(.horizontal)
+                                            }
+                                            .padding(.bottom, 120)
+                                        }
+                           
                 
                 ZStack(alignment: .bottom) {
                     BottomBarView()

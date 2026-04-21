@@ -41,7 +41,7 @@ import SwiftUI
     7.  Backofen: 200 °C, 30–40 Min backen
         oder 🌪️ Airfryer: 180 °C, 20–25 Min.
 
-    Rezept aus meiner App 🙂
+    Rezept aus meiner App Vegenius 🙂
     """
 
         var body: some View {

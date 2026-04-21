@@ -44,7 +44,7 @@ Bananenbrot
 💡 Tipp: Für extra Saftigkeit Bananen leicht überreif verwenden und den Teig nicht zu lange rühren.
 
 
-Rezept aus meiner App 🙂
+Rezept aus meiner App Vegenius 🙂
 """
     
     var body: some View {
@@ -127,6 +127,7 @@ Rezept aus meiner App 🙂
                         .padding(.top)
                         
                         // MARK: - Zutaten Liste
+                
                         VStack(alignment: .leading, spacing: 8) {
                             Zutaten(text: "🍌 3 reife Bananen")
                             Zutaten(text: "🌾 200 g glutenfreies Mehl")
@@ -143,38 +144,34 @@ Rezept aus meiner App 🙂
                         .padding(.top, 5)
                         .padding(.bottom, 20)
                         
+                       
                         // MARK: - Zubereitung
-                        VStack(alignment: .leading, spacing: 8) {
+                        
+                        // MARK: - Zubereitung
+                        VStack(alignment: .leading, spacing: 12) {
                             Text("📝 Zubereitung")
                                 .font(.headline)
                                 .padding(.top)
                             
-                            Text("""
-        
-    1.  Bananen mit Gabel zerdrücken.
-    
-    2.  Leinsamen mit Wasser mischen, 5 Min quellen lassen.
-    
-    3.  Öl, Pflanzenmilch und Ahornsirup zu den Bananen geben, gut verrühren.
-    
-    4.  Mehl, Backpulver, Salz und Zimt dazugeben, kurz zu einem Teig verrühren.
-    
-    5.  Teig in eine gefettete oder mit Backpapier ausgelegte Kastenform füllen.
-    
-    6.  Backofen 180 °C, 40–45 Min backen, Stäbchenprobe machen.
-    
-    7.  Abkühlen lassen, in Scheiben schneiden.
-    
-    💡 Tipp: Für extra Saftigkeit Bananen leicht überreif verwenden und den Teig nicht zu lange rühren.
-    
-    """)
-                            .font(.body)
-                            .padding(.bottom, 20)
-                        }//Ende VStackZubereitung
+                            ZubereitungRow(nummer: "1.", text: "Bananen mit Gabel zerdrücken.")
+                            ZubereitungRow(nummer: "2.", text: "Leinsamen mit Wasser mischen, 5 Min quellen lassen..")
+                            ZubereitungRow(nummer: "3.", text: "Öl, Pflanzenmilch und Ahornsirup zu den Bananen geben, gut verrühren.")
+                            ZubereitungRow(nummer: "4.", text: "Mehl, Backpulver, Salz und Zimt dazugeben, kurz zu einem Teig verrühren.")
+                            ZubereitungRow(nummer: "5.", text: " Teig in eine gefettete oder mit Backpapier ausgelegte Kastenform füllen.")
+                            ZubereitungRow(nummer: "6.", text: "Backofen 180 °C, 40–45 Min backen, Stäbchenprobe machen.")
+                            ZubereitungRow(nummer: "7.", text: "Abkühlen lassen, in Scheiben schneiden.")
+                          
+                            
+                            Text("💡 Tipp: Für extra Saftigkeit Bananen leicht überreif verwenden und den Teig nicht zu lange rühren.")
+                                .padding(.top, 5)
+                        }
                         .padding(.horizontal)
                     }
                     .padding(.bottom, 120)
                 }
+                
+                
+        
                 
                 ZStack(alignment: .bottom) {
                     BottomBarView()

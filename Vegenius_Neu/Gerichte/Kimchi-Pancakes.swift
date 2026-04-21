@@ -44,7 +44,7 @@ Kimchi-Pancakes mit Gochujang-Dip
 
 💡 Tipp: Der Teig sollte relativ dick sein – sonst werden die Pancakes eher wie dünne Pfannkuchen statt knusprig.
 
-Rezept aus meiner App 🙂
+Rezept aus meiner App Vegenius 🙂
 """
 
     var body: some View {
@@ -144,38 +144,30 @@ Rezept aus meiner App 🙂
                     .padding(.bottom, 20)
 
                     // MARK: - Zubereitung
-                    VStack(alignment: .leading, spacing: 8) {
-                        Text("📝 Zubereitung")
-                            .font(.headline)
-                            .padding(.top)
+                    VStack(alignment: .leading, spacing: 12) {
+                                                Text("📝 Zubereitung")
+                                                    .font(.headline)
+                                                    .padding(.top)
+                                                
+                                                ZubereitungRow(nummer: "1.", text: " Mehl, Wasser und Salz zu glattem Teig verrühren.")
+                                                ZubereitungRow(nummer: "2.", text: "Kimchi und Frühlingszwiebeln klein schneiden.")
+                                                ZubereitungRow(nummer: "3.", text: "Beides in den Teig rühren.")
+                                                ZubereitungRow(nummer: "4.", text: "Öl in Pfanne erhitzen.")
+                                                ZubereitungRow(nummer: "5.", text: "Teig portionsweise in Pfanne geben, flach drücken und 3–4 Min pro Seite braten.")
+                                                ZubereitungRow(nummer: "6.", text: "Gochujang, Sojasauce, Ahornsirup und Wasser zu Dip verrühren.")
+                                                ZubereitungRow(nummer: "7.", text: "Pancakes mit Dip servieren.")
+                                                
+                                                
+                                                Text("💡 Tipp: Der Teig sollte relativ dick sein – sonst werden die Pancakes eher wie dünne Pfannkuchen statt knusprig. ")
+                                                    .padding(.top, 5)
+                                            }
+                                            .padding(.horizontal)
+                                        }
+                                        .padding(.bottom, 120)
+                                    }
+                  
 
-                        Text("""
-    
-1.  Mehl, Wasser und Salz zu glattem Teig verrühren.
-
-2.  Kimchi und Frühlingszwiebeln klein schneiden.
-
-3.  Beides in den Teig rühren.
-
-4.  Öl in Pfanne erhitzen.
-
-5.  Teig portionsweise in Pfanne geben, flach drücken und 3–4 Min pro Seite braten.
-
-6.  Gochujang, Sojasauce, Ahornsirup und Wasser zu Dip verrühren.
-
-7.  Pancakes mit Dip servieren.
-
-💡 Tipp: Der Teig sollte relativ dick sein – sonst werden die Pancakes eher wie dünne Pfannkuchen statt knusprig.
-
-""")
-                        .font(.body)
-                        .padding(.bottom, 20)
-                    }//Ende VStackZubereitung
-                    .padding(.horizontal)
-                }
-                .padding(.bottom, 120)
-            }
-
+                        
             ZStack(alignment: .bottom) {
                 BottomBarView()
                 TranslationCenterButton()

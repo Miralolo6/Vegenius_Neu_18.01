@@ -48,7 +48,7 @@ Zimtschnecken
 💡 Tipp: Noch warm mit etwas Puderzucker oder einfachem Zuckerguss servieren.
 
 
-Rezept aus meiner App 🙂
+Rezept aus meiner App Vegenius🙂
 """
 
     var body: some View {
@@ -147,42 +147,29 @@ Rezept aus meiner App 🙂
                         .padding(.bottom, 20)
                         
                         // MARK: - Zubereitung
-                        VStack(alignment: .leading, spacing: 8) {
-                            Text("📝 Zubereitung")
-                                .font(.headline)
-                                .padding(.top)
-                            
-                            Text("""
-        
-    1.  Pflanzenmilch leicht erwärmen.
-    
-    2.  Mehl, Zucker, Salz und Hefe in Schüssel mischen.
-    
-    3.  Pflanzenmilch und 40 ml Öl zugeben, 5–8 Min zu Teig kneten.
-    
-    4.  Teig abdecken, 30–45 Min gehen lassen.
-    
-    5.  Teig rechteckig ausrollen.
-    
-    6.  Mit restlichem Öl bestreichen, braunen Zucker und Zimt darauf streuen.
-    
-    7.  Teig aufrollen und in Stücke schneiden.
-    
-    8.  In Auflaufform legen, 10–15 Min ruhen lassen.
-    
-    9.  Backofen 180 °C, 20–25 Min backen.
-    
-    💡 Tipp: Noch warm mit etwas Puderzucker oder einfachem Zuckerguss servieren.
-    
-    """)
-                            .font(.body)
-                            .padding(.bottom, 20)
-                        }//Ende VStackZubereitung
-                        .padding(.horizontal)
-                    }
-                    .padding(.bottom, 120)
-                }
-                
+                        VStack(alignment: .leading, spacing: 12) {
+                                                    Text("📝 Zubereitung")
+                                                        .font(.headline)
+                                                        .padding(.top)
+                                                    
+                                                    ZubereitungRow(nummer: "1.", text: "Pflanzenmilch leicht erwärmen.")
+                                                    ZubereitungRow(nummer: "2.", text: "Mehl, Zucker, Salz und Hefe in Schüssel mischen.")
+                                                    ZubereitungRow(nummer: "3.", text: "Pflanzenmilch und 40 ml Öl zugeben, 5–8 Min zu Teig kneten.")
+                                                    ZubereitungRow(nummer: "4.", text: "Teig abdecken, 30–45 Min gehen lassen.")
+                                                    ZubereitungRow(nummer: "5.", text: "Teig rechteckig ausrollen.")
+                                                    ZubereitungRow(nummer: "6.", text: "Mit restlichem Öl bestreichen, braunen Zucker und Zimt darauf streuen.")
+                                                    ZubereitungRow(nummer: "7.", text: "Teig aufrollen und in Stücke schneiden.")
+                                                    ZubereitungRow(nummer: "8.", text: "In Auflaufform legen, 10–15 Min ruhen lassen.")
+                                                    ZubereitungRow(nummer: "9.", text: "Backofen 180 °C, 20–25 Min backen.")
+                                                    Text("💡 Tipp: Noch warm mit etwas Puderzucker oder einfachem Zuckerguss servieren.")
+                                                        .padding(.top, 5)
+                                                }
+                                                .padding(.horizontal)
+                                            }
+                                            .padding(.bottom, 120)
+                                        }
+                           
+                           
                 ZStack(alignment: .bottom) {
                     BottomBarView()
                     NavigationLink {

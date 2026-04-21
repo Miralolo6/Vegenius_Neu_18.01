@@ -43,7 +43,7 @@ Zitronen-Blaubeer-Torte
 
 8.  In Stücke schneiden und servieren.  
 
-Rezept aus meiner App 🙂
+Rezept aus meiner App Vegenius🙂
 """
 
     var body: some View {
@@ -143,38 +143,28 @@ Rezept aus meiner App 🙂
                         .padding(.bottom, 20)
                         
                         // MARK: - Zubereitung
-                        VStack(alignment: .leading, spacing: 8) {
-                            Text("📝 Zubereitung")
-                                .font(.headline)
-                                .padding(.top)
-                            
-                            Text("""
-        
-    1.  Backofen auf 180 °C vorheizen.
-    
-    2.  Mehl, Zucker, Salz und Backpulver in Schüssel mischen.
-    
-    3.  Pflanzenmilch, Öl, Zitronensaft und Zitronenabrieb zugeben, kurz verrühren.
-    
-    4.  Blaubeeren vorsichtig unterheben.
-    
-    5.  Teig in gefettete oder mit Backpapier ausgelegte Form füllen.
-    
-    6.  Backofen 180 °C, 35–40 Min backen.
-    
-    7.  Abkühlen lassen, optional mit Puderzucker bestäuben.
-    
-    8.  In Stücke schneiden und servieren.  
-    
-    """)
-                            .font(.body)
-                            .padding(.bottom, 20)
-                        }//Ende VStackZubereitung
-                        .padding(.horizontal)
-                    }
-                    .padding(.bottom, 120)
-                }
-                
+                        VStack(alignment: .leading, spacing: 12) {
+                                                    Text("📝 Zubereitung")
+                                                        .font(.headline)
+                                                        .padding(.top)
+                                                    
+                                                    ZubereitungRow(nummer: "1.", text: "Backofen auf 180 °C vorheizen.")
+                                                    ZubereitungRow(nummer: "2.", text: "Mehl, Zucker, Salz und Backpulver in Schüssel mischen.")
+                                                    ZubereitungRow(nummer: "3.", text: "Pflanzenmilch, Öl, Zitronensaft und Zitronenabrieb zugeben, kurz verrühren.")
+                                                    ZubereitungRow(nummer: "4.", text: "Blaubeeren vorsichtig unterheben.")
+                                                    ZubereitungRow(nummer: "5.", text: "Teig in gefettete oder mit Backpapier ausgelegte Form füllen.")
+                                                    ZubereitungRow(nummer: "6.", text: "Backofen 180 °C, 35–40 Min backen.")
+                                                    ZubereitungRow(nummer: "7.", text: "Abkühlen lassen, optional mit Puderzucker bestäuben.")
+                                                    ZubereitungRow(nummer: "8.", text: "In Stücke schneiden und servieren.")
+                                                    
+                                                   
+                                                }
+                                                .padding(.horizontal)
+                                            }
+                                            .padding(.bottom, 120)
+                                        }
+                          
+                           
                 ZStack(alignment: .bottom) {
                     BottomBarView()
                     NavigationLink {

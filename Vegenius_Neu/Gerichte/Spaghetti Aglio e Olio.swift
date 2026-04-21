@@ -43,7 +43,7 @@ Spaghetti Aglio e Olio
 
 💡 Tipp: Knoblauch nur leicht goldbraun braten – wird er zu dunkel, schmeckt das Öl bitter.
 
-Rezept aus meiner App 🙂
+Rezept aus meiner App Vegenius 🙂
 """
 
     var body: some View {
@@ -141,40 +141,29 @@ Rezept aus meiner App 🙂
                         .padding(.bottom, 20)
                         
                         // MARK: - Zubereitung
-                        VStack(alignment: .leading, spacing: 8) {
-                            Text("📝 Zubereitung")
-                                .font(.headline)
-                                .padding(.top)
-                            
-                            Text("""
-        
-    1.  Spaghetti in Salzwasser 8–10 Min kochen.
-    
-    2.  Knoblauch in dünne Scheiben schneiden.
-    
-    3.  Olivenöl in Pfanne erhitzen, Knoblauch 1–2 Min sanft anbraten.
-    
-    4.  Chiliflocken zugeben.
-    
-    5.  Gekochte Spaghetti und etwas Nudelwasser in Pfanne geben .
-    
-    6.  Alles gut vermengen und 1–2 Min schwenken.
-    
-    7.  Mit Salz, Pfeffer und Petersilie abschmecken.
-    
-    8.  Servieren.
-    
-    💡 Tipp: Knoblauch nur leicht goldbraun braten – wird er zu dunkel, schmeckt das Öl bitter.
-    
-    """)
-                            .font(.body)
-                            .padding(.bottom, 20)
-                        }//Ende VStackZubereitung
-                        .padding(.horizontal)
-                    }
-                    .padding(.bottom, 120)
-                }
-                
+                        VStack(alignment: .leading, spacing: 12) {
+                                                    Text("📝 Zubereitung")
+                                                        .font(.headline)
+                                                        .padding(.top)
+                                                    
+                                                    ZubereitungRow(nummer: "1.", text: "Spaghetti in Salzwasser 8–10 Min kochen.")
+                                                    ZubereitungRow(nummer: "2.", text: "Knoblauch in dünne Scheiben schneiden.")
+                                                    ZubereitungRow(nummer: "3.", text: "Olivenöl in Pfanne erhitzen, Knoblauch 1–2 Min sanft anbraten.")
+                                                    ZubereitungRow(nummer: "4.", text: "Chiliflocken zugeben.")
+                                                    ZubereitungRow(nummer: "5.", text: " Gekochte Spaghetti und etwas Nudelwasser in Pfanne geben .")
+                                                    ZubereitungRow(nummer: "6.", text: "Alles gut vermengen und 1–2 Min schwenken.")
+                                                    ZubereitungRow(nummer: "7.", text: "Mit Salz, Pfeffer und Petersilie abschmecken.")
+                                                    ZubereitungRow(nummer: "8.", text: "Servieren.")
+                                                    
+                                                    Text("💡 Tipp: Knoblauch nur leicht goldbraun braten – wird er zu dunkel, schmeckt das Öl bitter.")
+                                                        .padding(.top, 5)
+                                                }
+                                                .padding(.horizontal)
+                                            }
+                                            .padding(.bottom, 120)
+                                        }
+                           
+                           
                 ZStack(alignment: .bottom) {
                     BottomBarView()
                     NavigationLink {
