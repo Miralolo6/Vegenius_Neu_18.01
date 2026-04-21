@@ -384,7 +384,13 @@ struct IngredientRow: View {
             } label: {
                 HStack {
                     
-                    Text("\(scaledAmount) \(ingredient.activeName)")
+                    let nameStartsWithNumber = ingredient.activeName.trimmingCharacters(in: .whitespaces).first?.isNumber ?? false
+
+                    Text(
+                        nameStartsWithNumber
+                        ? ingredient.activeName
+                        : "\(scaledAmount) \(ingredient.activeName)"
+                    )
                         .foregroundColor(.black)
                     
                     Spacer()
