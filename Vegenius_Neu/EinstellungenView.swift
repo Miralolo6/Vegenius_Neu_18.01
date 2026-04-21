@@ -32,59 +32,64 @@ struct PasswortAendernView: View {
     @State private var neuesAnzeigen = false
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 15) {
+            VStack(alignment: .leading, spacing: 15) {
 
-            Text("Altes Passwort")
-                .fontWeight(.medium)
-            if altesAnzeigen {
-                TextField("", text: $altesPasswort)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-            } else {
-                SecureField("", text: $altesPasswort)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-            }
-            Button("Passwort anzeigen") {
-                altesAnzeigen.toggle()
-            }
-            .foregroundColor(.secondary)
-            .font(.footnote)
+                Text("Altes Passwort")
+                    .fontWeight(.medium)
 
-            Text("Neues Passwort")
-                .fontWeight(.medium)
-            if neuesAnzeigen {
-                TextField("", text: $neuesPasswort)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-            } else {
-                SecureField("", text: $neuesPasswort)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-            }
-            Button("Passwort anzeigen") {
-                neuesAnzeigen.toggle()
-            }
-            .foregroundColor(.secondary)
-            .font(.footnote)
+                if altesAnzeigen {
+                    TextField("", text: $altesPasswort)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                } else {
+                    SecureField("", text: $altesPasswort)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                }
 
-            Button {
-                print("Passwort geändert")
-            } label: {
-                Text("Passwort ändern")
-                    .foregroundColor(.white)
-                    .frame(maxWidth: .infinity)
-                    .padding()
-                    .background(Color(red: 126/255, green: 222/255, blue: 211/255))
-                    .cornerRadius(12)
-            }
-            .padding(.top, 10)
+                Button("Passwort anzeigen") {
+                               altesAnzeigen.toggle()
+                           }
+                           .foregroundColor(.secondary)
+                           .font(.footnote)
 
-            Spacer()
-        }
-        .padding(.horizontal, 25)
-        .padding(.top, 30)
-        .navigationTitle("Passwort ändern")
-        .background(Color("BackgroundMint").ignoresSafeArea())
-        .onAppear { setTitelFarbe() }
-    }
-}
+                           Text("Neues Passwort")
+                               .fontWeight(.medium)
+
+                           if neuesAnzeigen {
+                               TextField("", text: $neuesPasswort)
+                                   .textFieldStyle(RoundedBorderTextFieldStyle())
+                           } else {
+                               SecureField("", text: $neuesPasswort)
+                                   .textFieldStyle(RoundedBorderTextFieldStyle())
+                           }
+
+                Button("Passwort anzeigen") {
+                                neuesAnzeigen.toggle()
+                            }
+                            .foregroundColor(.secondary)
+                            .font(.footnote)
+
+                            Button {
+                                print("Passwort geändert")
+                            } label: {
+                                Text("Passwort ändern")
+                                    .foregroundColor(.white)
+                                    .frame(maxWidth: .infinity)
+                                    .padding()
+                                    .background(Color(red: 126/255, green: 222/255, blue: 211/255))
+                                    .cornerRadius(12)
+                            }
+                            .padding(.top, 10)
+
+                            Spacer()
+                        }
+                        .padding(.horizontal, 25)
+                        .padding(.top, 30)
+                        .navigationTitle("Passwort ändern")
+                        .navigationBarTitleDisplayMode(.large)
+                        .background(Color("BackgroundMint").ignoresSafeArea())
+                        .onAppear { setTitelFarbe() }
+                    }
+                }
 
 // MARK: - Anmeldung
 struct AnmeldungView: View {
@@ -143,13 +148,6 @@ struct AnmeldungView: View {
                     .background(Color("BackgroundMint").ignoresSafeArea())
                     .onAppear { setTitelFarbe() }
                 }
-            } label: {
-                Text("Anmelden")
-                    .foregroundColor(.white)
-                    .frame(maxWidth: .infinity)
-                    .padding()
-                    .background(Color(red: 126/255, green: 222/255, blue: 211/255))
-                    .cornerRadius(12)
             }
 
 // MARK: - Registrieren
@@ -165,56 +163,72 @@ struct RegistrierenView: View {
     }
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 15) {
+          VStack(alignment: .leading, spacing: 15) {
 
-            Text("E-Mail")
-                .fontWeight(.medium)
-            TextField("", text: $email)
-                .textFieldStyle(RoundedBorderTextFieldStyle())
-                .keyboardType(.emailAddress)
+              Text("E-Mail")
+                  .fontWeight(.medium)
 
-            Text("Passwort")
-                .fontWeight(.medium)
-            SecureField("", text: $passwort)
-                .textFieldStyle(RoundedBorderTextFieldStyle())
+              TextField("", text: $email)
+                  .textFieldStyle(RoundedBorderTextFieldStyle())
+                  .keyboardType(.emailAddress)
 
-            Text("Passwort wiederholen")
-                .fontWeight(.medium)
-            SecureField("", text: $passwortWiederholen)
-                .textFieldStyle(RoundedBorderTextFieldStyle())
+              Text("Passwort")
+                  .fontWeight(.medium)
 
-            if !fehler.isEmpty {
-                Text(fehler)
-                    .foregroundColor(.red)
-                    .font(.footnote)
-            }
+              SecureField("", text: $passwort)
+                  .textFieldStyle(RoundedBorderTextFieldStyle())
 
-            Button {
-                if !emailGueltig() {
-                    fehler = "Bitte eine gültige E-Mail eingeben."
-                } else {
-                    fehler = ""
-                    print("Registrieren tapped")
-                }
-            } label: {
-                Text("Registrieren")
-                    .foregroundColor(.white)
-                    .frame(maxWidth: .infinity)
-                    .padding()
-                    .background(Color(red: 126/255, green: 222/255, blue: 211/255))
-                    .cornerRadius(12)
-            }
-            .padding(.top, 10)
+              Text("Passwort wiederholen")
+                  .fontWeight(.medium)
 
-            Spacer()
-        }
-        .padding(.horizontal, 25)
-        .padding(.top, 30)
-        .navigationTitle("Registrieren")
-        .background(Color("BackgroundMint").ignoresSafeArea())
-        .onAppear { setTitelFarbe() }
-    }
-}
+              SecureField("", text: $passwortWiederholen)
+                  .textFieldStyle(RoundedBorderTextFieldStyle())
+
+              if !fehler.isEmpty {
+                  Text(fehler)
+                      .foregroundColor(.red)
+                      .font(.footnote)
+              }
+
+              Button {
+                             if !emailGueltig() {
+                                 fehler = "Bitte eine gültige E-Mail eingeben."
+                             } else if passwort != passwortWiederholen {
+                                 fehler = "Passwörter stimmen nicht überein."
+                             } else {
+                                 fehler = ""
+                                 zeigeAlert = true
+                             }
+                         } label: {
+                             Text("Registrieren")
+                                 .foregroundColor(.white)
+                                 .frame(maxWidth: .infinity)
+                                 .padding()
+                                 .background(Color(red: 126/255, green: 222/255, blue: 211/255))
+                                 .cornerRadius(12)
+                         }
+
+
+              Spacer()
+                      }
+                      .padding(.horizontal, 25)
+                      .padding(.top, 30)
+                      .navigationTitle("Registrieren")
+                      .navigationBarTitleDisplayMode(.large)
+                      .background(Color("BackgroundMint").ignoresSafeArea())
+                      .onAppear { setTitelFarbe() }
+
+                      .alert("Erfolgreich!", isPresented: $zeigeAlert) {
+                          Button("OK") {
+                              email = ""
+                              passwort = ""
+                              passwortWiederholen = ""
+                          }
+                      } message: {
+                          Text("Du hast Dich registriert.")
+                      }
+                  }
+              }
 
 // MARK: - Account
 struct AccountView: View {
@@ -315,16 +329,43 @@ struct SicherheitView: View {
 // MARK: - Support
 struct SupportView: View {
     var body: some View {
-        ZStack(alignment: .bottom) {
-            
-            Color("BackgroundMint")
-                .ignoresSafeArea()
-            VStack(alignment: .leading, spacing: 35) {
-                Text("Hilfe/FAQ")
-                Text("Kontakt/Support")
-                NavigationLink(destination: ProblemMeldenView()) {
+        VStack(spacing: 25) {
+
+            NavigationLink(destination: Text("Hilfe/FAQ Seite")) {
+                HStack {
+                    Text("Hilfe/FAQ")
+                        .foregroundColor(.black)
+
+                    Spacer()
+
+                    Image(systemName: "chevron.right")
+                        .foregroundColor(.black)
+                }
+            }
+            .buttonStyle(PlainButtonStyle())
+
+            NavigationLink(destination: Text("Kontakt Seite")) {
+                HStack {
+                    Text("Kontakt/Support")
+                        .foregroundColor(.black)
+
+                    Spacer()
+
+                    Image(systemName: "chevron.right")
+                        .foregroundColor(.black)
+                }
+            }
+            .buttonStyle(PlainButtonStyle())
+
+            NavigationLink(destination: ProblemMeldenView()) {
+                HStack {
                     Text("Problem melden")
-                        .foregroundColor(.primary)
+                        .foregroundColor(.black)
+
+                    Spacer()
+
+                    Image(systemName: "chevron.right")
+                        .foregroundColor(.black)
                 }
             }
             .buttonStyle(PlainButtonStyle())
@@ -368,11 +409,6 @@ struct ProblemMeldenView: View {
                 print(nachricht)
             } label: {
                 Text("Absenden")
-                    .foregroundColor(.white)
-                    .frame(maxWidth: .infinity)
-                    .padding()
-                    .background(Color(red: 126/255, green: 222/255, blue: 211/255))
-                    .cornerRadius(12)
             }
 
             Spacer()
@@ -389,35 +425,11 @@ struct ProblemMeldenView: View {
 // MARK: - Tutorial
 struct TutorialView: View {
     var body: some View {
-        ZStack(alignment: .bottom) {
-            
-            Color("BackgroundMint")
-                .ignoresSafeArea()
-            Text("Tutorial Video")
-                .navigationTitle("Tutorial")
-                .background(Color("BackgroundMint").ignoresSafeArea())
-                .onAppear { setTitelFarbe() }
-        }
-        .padding(.horizontal, 25)
-        .padding(.top, 30)
-        .navigationTitle("Support")
-        .background(Color("BackgroundMint").ignoresSafeArea())
-        .onAppear { setTitelFarbe() }
-        ZStack(alignment: .bottom) {
-            
-            Color("BackgroundMint")
-                .ignoresSafeArea()
-            VStack(alignment: .leading, spacing: 35) {
-                Text("Hilfe/FAQ")
-                Text("Kontakt/Support")
-                NavigationLink(destination: ProblemMeldenView()) {
-                    Text("Problem melden")
-                        .foregroundColor(.primary)
-                }
-                Text("App Version")
-                Spacer()
-            }
-        }
+        Text("Tutorial Video")
+            .navigationTitle("Tutorial")
+            .navigationBarTitleDisplayMode(.large)
+            .background(Color("BackgroundMint").ignoresSafeArea())
+            .onAppear { setTitelFarbe() }
     }
 }
 
@@ -435,27 +447,6 @@ struct EinstellungenView: View {
 
                 VStack(spacing: 30) {
 
-                    HStack {
-                        /*Button("x") {
-                            print("Close tapped")
-                        }
-                        .font(.title)
-                        .foregroundColor(.black)*/
-                        
-                        Button {
-                            print("Close tapped")
-                        } label: {
-                            VStack {
-                                Image(systemName: "xmark")
-                                    .foregroundColor(.black)
-                                    .font(.title)
-                                    .scaledToFit()
-                                    .frame(width: 50, height: 50)
-                            }
-                        }
-
-                        Spacer()
-
                     // Titel
                     ZStack {
                         Text("Einstellungen")
@@ -466,22 +457,10 @@ struct EinstellungenView: View {
                         HStack {
                             Spacer()
 
-                        /*Button("⚙︎") {
-                            print("Settings tapped")
-                        }
-                        .font(.title)
-                        .foregroundColor(.black)*/
-                        
-                        Button {
-                            print("Settings tapped")
-                        } label: {
-                            VStack {
-                                Image(systemName: "gearshape")
-                                    .foregroundColor(.black)
-                                    .font(.title)
-                                    .scaledToFit()
-                                    .frame(width: 55, height: 55)
-                            }
+                            Image(systemName: "gearshape")
+                                .foregroundColor(.black)
+                                .font(.title)
+                                .frame(width: 55, height: 55)
                         }
                     }
                     .padding(.horizontal)
