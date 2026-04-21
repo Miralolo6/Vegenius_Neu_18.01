@@ -167,20 +167,32 @@ struct VeganResultView2: View {
             .onAppear {
                 ingredients = extractSection(title: "zutaten").map { line in
                     
-                    let cleaned = line.replacingOccurrences(of: "- ", with: "")
+                    let cleaned = line
+                        .replacingOccurrences(of: "- ", with: "")
+                        .replacingOccurrences(of: "|", with: "")
                     
                     let lower = cleaned.lowercased()
                     var mainPart = cleaned
                     var alternatives: [String] = []
 
-                    if lower.contains("alternative") {
-                        let split = cleaned.components(separatedBy: "Alternative:")
-                        mainPart = split[0]
 
-                        if split.count > 1 {
-                            alternatives = split[1]
-                                .components(separatedBy: ",")
-                                .map { $0.trimmingCharacters(in: .whitespaces) }
+                    if lower.contains("alternative") {
+                        
+                        let separators = ["Alternative:", "Alternativen:", "alternative:", "alternativen:"]
+                        
+                        for sep in separators {
+                            if cleaned.contains(sep) {
+                                let split = cleaned.components(separatedBy: sep)
+                                mainPart = split[0]
+                                
+                                if split.count > 1 {
+                                    alternatives = split[1]
+                                        .components(separatedBy: ",")
+                                        .map { $0.trimmingCharacters(in: .whitespaces) }
+                                        .filter { !$0.isEmpty }
+                                }
+                                break
+                            }
                         }
                     }
 
