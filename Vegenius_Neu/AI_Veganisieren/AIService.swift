@@ -31,7 +31,13 @@ class OpenAIService {
         Zutaten
         Zubereitung
         
-        Gib nur das vegane Rezept ohne Erklärungen an. Wenn es mehrere Alternativen für eine Zutat gibt, dann schreibe die hin. Es sollen keine 2 Zutaten in einer Zeile stehen
+        Gib nur das vegane Rezept ohne Erklärungen an. Wenn es mehrere Alternativen für eine Zutat gibt, dann schreibe die hin. Es sollen keine 2 Zutaten in einer Zeile stehen.
+        WICHTIG:
+        - Schreibe jede Zutat IMMER im Format:
+          [Menge] [Einheit] [Zutat]
+        - Keine doppelten Angaben
+        - Keine vollständigen Sätze in Zutaten
+        - Alternative nur nach " | Alternative:"
 
         
         \(recipe)
