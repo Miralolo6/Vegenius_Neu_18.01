@@ -63,6 +63,7 @@ struct MakeItVeganView2: View {
     @StateObject private var vm = VeganViewModel()
     
     
+    
     @State private var showResult = false
     
     var body: some View {
@@ -194,12 +195,13 @@ struct MakeItVeganView2: View {
                     .padding(.top)
     
                 }
+                .navigationDestination(isPresented: $showResult) {
+                    VeganResultView2(text: vm.resultText)
+                }
   
                 
             }
-            .navigationDestination(isPresented: $showResult) {
-                VeganResultView2(text: vm.resultText)
-            }
+            
             .sheet(isPresented: $showCamera) {
                 CameraPicker2(image: $selectedImage)
             }
