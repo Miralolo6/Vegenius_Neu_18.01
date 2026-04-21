@@ -36,6 +36,8 @@ struct VeganResultView2: View {
     
     @State private var ingredients: [Ingredient] = []
     
+    @State private var showAltImage = false
+    
     
     @StateObject private var vm = VeganViewModel()
     
@@ -120,6 +122,8 @@ struct VeganResultView2: View {
             ScrollView {
                 VStack(spacing: 24) {
                     
+                    
+                    
                     HStack {
                         Button {
                             dismiss()
@@ -131,7 +135,8 @@ struct VeganResultView2: View {
                         
                         Spacer()
                         
-                        Text("Vegan Edition") 
+                        // CENTER: Titel
+                        Text("Vegan Edition")
                             .font(.system(size: 26, weight: .bold))
                             .foregroundColor(
                                 Color(red: 231/255, green: 161/255, blue: 176/255)
@@ -139,10 +144,18 @@ struct VeganResultView2: View {
                         
                         Spacer()
                         
-                        // damit Titel mittig bleibt
-                        Color.clear.frame(width: 24)
+                        // RIGHT: Toggle Button
+                        Button {
+                            showAltImage.toggle()
+                        } label: {
+                            Image(showAltImage ? "gH" : "sH")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 30, height: 30)
+                        }
                     }
                     .padding(.horizontal)
+                    .frame(height: 44) //sorgt für gleiche Höhe!
                     
                     
                     // MARK: Zutaten
@@ -219,6 +232,18 @@ struct VeganResultView2: View {
                 }
             }
         }
+        /*.toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button {
+                    showAltImage.toggle()
+                } label: {
+                    Image(showAltImage ? "gH" : "sH")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 22, height: 22)
+                }
+            }
+        }*/
     }
     
     // MARK: - HEADER
@@ -367,6 +392,7 @@ struct IngredientRow: View {
                     if !ingredient.alternatives.isEmpty {
                         Image(systemName: "chevron.down")
                             .rotationEffect(.degrees(expanded ? 180 : 0))
+                            .foregroundColor(.primary)
                     }
                 }
                 .padding()
