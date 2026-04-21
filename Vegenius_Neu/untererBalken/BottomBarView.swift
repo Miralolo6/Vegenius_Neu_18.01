@@ -39,7 +39,7 @@ struct BottomBarView: View {
                 Spacer()
                 Spacer()
 
-                NavigationLink(destination: MyRecipesView()) {
+                NavigationLink(destination: MyRecipesView2()) {
                     VStack {
                         Image("Meine_Rezepte")
                             .resizable()
