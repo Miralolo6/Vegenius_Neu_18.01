@@ -45,7 +45,7 @@ Pasta mit Pistazienpesto & Pilzen
 
 💡 Tipp: Etwas Zitronenabrieb im Pesto macht das Gericht frischer.
 
-Rezept aus meiner App 🙂
+Rezept aus meiner App Vegenius 🙂
 """
 
     var body: some View {

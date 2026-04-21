@@ -46,9 +46,9 @@ Tex-Mex-Salat
 
 💡 Tipp: Für noch mehr Protein kannst du gewürfelten Tofu oder gekochte Quinoa hinzufügen.
 
-Rezept aus meiner App 🙂
+Rezept aus meiner App Vegenius 🙂
 """
-
+    
     var body: some View {
         NavigationStack {
             ZStack(alignment: .bottom) { //Bottom Bar bleibt unten
@@ -150,74 +150,62 @@ Rezept aus meiner App 🙂
                         .padding(.bottom, 20)
                         
                         // MARK: - Zubereitung
-                        VStack(alignment: .leading, spacing: 8) {
+                        VStack(alignment: .leading, spacing: 12) {
                             Text("📝 Zubereitung")
                                 .font(.headline)
                                 .padding(.top)
                             
-                            Text("""
-        
-    1.  Salat, Paprika, Zwiebel und Tomaten klein schneiden.
-    
-    2.  Bohnen und Mais abspülen.
-    
-    3.  Alles in große Schüssel geben.
-    
-    4.  Avocado würfeln und zugeben.
-    
-    5.  Olivenöl, Limettensaft, Ahornsirup und Gewürze zugeben.
-    
-    6.  Alles gut vermengen.
-    
-    7.  Abschmecken und servieren.
-    
-    💡 Tipp: Für noch mehr Protein kannst du gewürfelten Tofu oder gekochte Quinoa hinzufügen.
-    
-    """)
-                            .font(.body)
-                            .padding(.bottom, 20)
-                        }//Ende VStackZubereitung
+                            ZubereitungRow(nummer: "1.", text: "Salat, Paprika, Zwiebel und Tomaten klein schneiden.")
+                            ZubereitungRow(nummer: "2.", text: "Bohnen und Mais abspülen.")
+                            ZubereitungRow(nummer: "3.", text: "Alles in große Schüssel geben.")
+                            ZubereitungRow(nummer: "4.", text: "Avocado würfeln und zugeben.")
+                            ZubereitungRow(nummer: "5.", text: "Olivenöl, Limettensaft, Ahornsirup und Gewürze zugeben.")
+                            ZubereitungRow(nummer: "6.", text: "Alles gut vermengen.")
+                            ZubereitungRow(nummer: "7.", text: "Abschmecken und servieren.")
+                            
+                            
+                            
+                            Text("💡 Tipp: Für noch mehr Protein kannst du gewürfelten Tofu oder gekochte Quinoa hinzufügen. ")
+                                .padding(.top, 5)
+                        }
                         .padding(.horizontal)
                     }
                     .padding(.bottom, 120)
                 }
-                
-                ZStack(alignment: .bottom) {
-                    BottomBarView()
-                    NavigationLink {
-                        MakeItVeganView()
-                            .navigationBarBackButtonHidden(true)
-                            .toolbar(.hidden, for: .navigationBar)
-                    } label: {
-                        TranslationCenterButton()
+                    
+                    ZStack(alignment: .bottom) {
+                        BottomBarView()
+                        NavigationLink {
+                            MakeItVeganView()
+                                .navigationBarBackButtonHidden(true)
+                                .toolbar(.hidden, for: .navigationBar)
+                        } label: {
+                            TranslationCenterButton()
+                        }
+                        .buttonStyle(.plain)
+                        
                     }
-                    .buttonStyle(.plain)
                     
                 }
-
-            }
-            .navigationBarBackButtonHidden(true)
-            .sheet(isPresented: $showShareSheet) {
-                RecipeShareSheet(activityItems: [shareText])
+                .navigationBarBackButtonHidden(true)
+                .sheet(isPresented: $showShareSheet) {
+                    RecipeShareSheet(activityItems: [shareText])
+                }
             }
         }
     }
-}
-
-
-
-
-
-#Preview {
-    TexMexSalatView(
-        recipe: .constant(
-            Recipe(
-                title: "Tex-Mex-Salat",
-                imageName: "Tex-Mex-Salat",
-                category: .unter_zwanzig,
-                filters: [.nutFree, .highProtein, .glutenFree],
-                isFavorite: false
+        
+    #Preview {
+            TexMexSalatView(
+                recipe: .constant(
+                    Recipe(
+                        title: "Tex-Mex-Salat",
+                        imageName: "Tex-Mex-Salat",
+                        category: .unter_zwanzig,
+                        filters: [.nutFree, .highProtein, .glutenFree],
+                        isFavorite: false
+                    )
+                )
             )
-        )
-    )
-}
+        }
+    

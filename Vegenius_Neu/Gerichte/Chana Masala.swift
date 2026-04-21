@@ -44,7 +44,7 @@ Chana Masala
 
 8.  Servieren.
 
-Rezept aus meiner App 🙂
+Rezept aus meiner App Vegenius 🙂
 """
 
     var body: some View {
@@ -145,37 +145,36 @@ Rezept aus meiner App 🙂
                         .padding(.bottom, 20)
                         
                         // MARK: - Zubereitung
-                        VStack(alignment: .leading, spacing: 8) {
+                        VStack(alignment: .leading, spacing: 12) {
                             Text("📝 Zubereitung")
                                 .font(.headline)
                                 .padding(.top)
                             
-                            Text("""
-        
-    1.  Zwiebel, Knoblauch und Ingwer klein schneiden.
-    
-    2.  Öl in Topf erhitzen, Zwiebel 2–3 Min anbraten.
-    
-    3.  Knoblauch, Ingwer und Gewürze zugeben, 1 Min rösten.
-    
-    4.  Tomaten, Linsen und Wasser einrühren.
-    
-    5.  10–12 Min köcheln lassen, bis Linsen weich sind.
-    
-    6.  Kichererbsen zugeben, 5–8 Min weiter köcheln.
-    
-    7.  Abschmecken und optional Kräuter zugeben.
-    
-    8.  Servieren.
-    
-    """)
-                            .font(.body)
-                            .padding(.bottom, 20)
-                        }//Ende VStackZubereitung
+                            ZubereitungRow(nummer: "1.", text: "Zwiebel, Knoblauch und Ingwer klein schneiden.")
+                            ZubereitungRow(nummer: "2.", text: "Öl in Topf erhitzen, Zwiebel 2–3 Min anbraten.")
+                            ZubereitungRow(nummer: "3.", text: "Knoblauch, Ingwer und Gewürze zugeben, 1 Min rösten.")
+                            ZubereitungRow(nummer: "4.", text: "Tomaten, Linsen und Wasser einrühren.")
+                            ZubereitungRow(nummer: "5.", text: "10–12 Min köcheln lassen, bis Linsen weich sind.")
+                            ZubereitungRow(nummer: "6.", text: "Kichererbsen zugeben, 5–8 Min weiter köcheln.")
+                            ZubereitungRow(nummer: "7.", text: "Abschmecken und optional Kräuter zugeben.")
+                            ZubereitungRow(nummer: "8.", text: " Servieren.")
+                            
+                           
+                        }
                         .padding(.horizontal)
                     }
                     .padding(.bottom, 120)
                 }
+                
+                      
+                           
+                             //.font(.body)
+                            //.padding(.bottom, 20)
+                       // }//Ende VStackZubereitung
+                      //  .padding(.horizontal)
+                   // }
+                   // .padding(.bottom, 120)
+               // }
                 
                 ZStack(alignment: .bottom) {
                     BottomBarView()

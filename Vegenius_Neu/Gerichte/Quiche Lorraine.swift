@@ -48,7 +48,7 @@ Quiche Lorraine
 
 9.  Kurz abkühlen lassen, anschneiden und servieren.
 
-Rezept aus meiner App 🙂
+Rezept aus meiner App Vegenius 🙂
 """
 
     var body: some View {
@@ -151,40 +151,30 @@ Rezept aus meiner App 🙂
                         .padding(.bottom, 20)
                         
                         // MARK: - Zubereitung
-                        VStack(alignment: .leading, spacing: 8) {
-                            Text("📝 Zubereitung")
-                                .font(.headline)
-                                .padding(.top)
-                            
-                            Text("""
+                        VStack(alignment: .leading, spacing: 12) {
+                                                    Text("📝 Zubereitung")
+                                                        .font(.headline)
+                                                        .padding(.top)
+                                                    
+                                                    ZubereitungRow(nummer: "1.", text: " Mehl, Salz, Öl und Wasser zu einem Teig kneten.")
+                                                    ZubereitungRow(nummer: "2.", text: "Teig in Quiche- oder Springform drücken.")
+                                                    ZubereitungRow(nummer: "3.", text: "Zwiebel, Knoblauch und Räuchertofu klein schneiden.")
+                                                    ZubereitungRow(nummer: "4.", text: "In Pfanne 3–4 Min anbraten.")
+                                                    ZubereitungRow(nummer: "5.", text: "Seidentofu, Kichererbsenmehl, Pflanzenmilch und Gewürze glatt mixen.")
+                                                    ZubereitungRow(nummer: "6.", text: "Tofu-Zwiebel-Mischung auf dem Teig verteilen.")
+                                                    ZubereitungRow(nummer: "7.", text: "Tofu-Creme darüber gießen.")
+                                                    ZubereitungRow(nummer: "8.", text: "Backofen 180 °C, 35–40 Min backen.")
+                                                    ZubereitungRow(nummer: "9.", text: "Kurz abkühlen lassen, anschneiden und servieren.")
+                                                    
+                                                }
+                                                .padding(.horizontal)
+                                            }
+                                            .padding(.bottom, 120)
+                                        }
+                           
         
-    1.  Mehl, Salz, Öl und Wasser zu einem Teig kneten.
     
-    2.  Teig in Quiche- oder Springform drücken.
-    
-    3.  Zwiebel, Knoblauch und Räuchertofu klein schneiden.
-    
-    4.  In Pfanne 3–4 Min anbraten.
-    
-    5.  Seidentofu, Kichererbsenmehl, Pflanzenmilch und Gewürze glatt mixen.
-    
-    6.  Tofu-Zwiebel-Mischung auf dem Teig verteilen.
-    
-    7.  Tofu-Creme darüber gießen.
-    
-    8.  Backofen 180 °C, 35–40 Min backen.
-    
-    9.  Kurz abkühlen lassen, anschneiden und servieren.
-    
-    """)
-                            .font(.body)
-                            .padding(.bottom, 20)
-                        }//Ende VStackZubereitung
-                        .padding(.horizontal)
-                    }
-                    .padding(.bottom, 120)
-                }
-                
+                           
                 ZStack(alignment: .bottom) {
                     BottomBarView()
                     NavigationLink {

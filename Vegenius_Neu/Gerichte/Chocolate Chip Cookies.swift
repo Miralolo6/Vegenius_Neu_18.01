@@ -41,7 +41,7 @@ Chocolate Chip Cookies
 
 💡 Tipp: Nicht zu lange backen – außen knusprig, innen weich.
 
-Rezept aus meiner App 🙂
+Rezept aus meiner App Vegenius 🙂
 """
 
     var body: some View {
@@ -141,36 +141,28 @@ Rezept aus meiner App 🙂
                         .padding(.bottom, 20)
                         
                         // MARK: - Zubereitung
-                        VStack(alignment: .leading, spacing: 8) {
-                            Text("📝 Zubereitung")
-                                .font(.headline)
-                                .padding(.top)
-                            
-                            Text("""
-        
-        1.  Zucker, Öl, Pflanzenmilch und Vanilleextrakt verrühren.
-        
-        2.  Mehl, Backpulver und Salz mischen, dann kurz unter die feuchten Zutaten rühren.
-        
-        3.  Schokotropfen unterheben.
-        
-        4.  Teig in Portionen auf Backblech setzen, leicht flachdrücken.
-        
-        5.  Backofen 180 °C, 10–12 Min backen.
-        
-        6.  Kurz abkühlen lassen, servieren.
-        
-        💡 Tipp: Nicht zu lange backen – außen knusprig, innen weich.
-        
-        
-        """)
-                            .font(.body)
-                            .padding(.bottom, 20)
-                        }//Ende VStackZubereitung
-                        .padding(.horizontal)
-                    }
-                    .padding(.bottom, 120)
-                }
+                        
+                        VStack(alignment: .leading, spacing: 12) {
+                                                    Text("📝 Zubereitung")
+                                                        .font(.headline)
+                                                        .padding(.top)
+                                                    
+                                                    ZubereitungRow(nummer: "1.", text: "Zucker, Öl, Pflanzenmilch und Vanilleextrakt verrühren.")
+                                                    ZubereitungRow(nummer: "2.", text: "Mehl, Backpulver und Salz mischen, dann kurz unter die feuchten Zutaten rühren.")
+                                                    
+                                                    ZubereitungRow(nummer: "3.", text: "Schokotropfen unterheben.")
+                                                    ZubereitungRow(nummer: "4.", text: "Teig in Portionen auf Backblech setzen, leicht flachdrücken")
+                                                    ZubereitungRow(nummer: "5.", text: "Backofen 180 °C, 10–12 Min backen.")
+                                                    ZubereitungRow(nummer: "6.", text: " Kurz abkühlen lassen, servieren.")
+                                                  
+                                                    Text("💡 Tipp: Nicht zu lange backen – außen knusprig, innen weich. ")
+                                                        .padding(.top, 5)
+                                                }
+                                                .padding(.horizontal)
+                                            }
+                                            .padding(.bottom, 120)
+                                        }
+                          
                 
                 ZStack(alignment: .bottom) {
                     BottomBarView()

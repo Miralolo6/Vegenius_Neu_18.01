@@ -43,7 +43,7 @@ Süßkartoffel-Brownies
 
 💡 Tipp: Für extra saftige Brownies nicht zu lange backen – Kern darf noch leicht feucht sein.
 
-Rezept aus meiner App 🙂
+Rezept aus meiner App Vegenius 🙂
 """
 
     var body: some View {
@@ -144,38 +144,28 @@ Rezept aus meiner App 🙂
                         .padding(.bottom, 20)
                         
                         // MARK: - Zubereitung
-                        VStack(alignment: .leading, spacing: 8) {
-                            Text("📝 Zubereitung")
-                                .font(.headline)
-                                .padding(.top)
-                            
-                            Text("""
-        
-    1.  Süßkartoffeln weich kochen und pürieren.
-    
-    2.  Öl, Pflanzenmilch, Ahornsirup und Vanilleextrakt verrühren, zu Süßkartoffelpüree geben.
-    
-    3.  Mehl, Kakaopulver, Backpulver und Salz mischen, unter die feuchten Zutaten rühren.
-    
-    4.  Schokotropfen unterheben.
-    
-    5.  Teig in gefettete oder mit Backpapier ausgelegte Form füllen.
-    
-    6.  Backofen 180 °C, 20–25 Min backen.
-    
-    7.  Abkühlen lassen, in Stücke schneiden und servieren.
-    
-    💡 Tipp: Für extra saftige Brownies nicht zu lange backen – Kern darf noch leicht feucht sein.
-    
-    """)
-                            .font(.body)
-                            .padding(.bottom, 20)
-                        }//Ende VStackZubereitung
-                        .padding(.horizontal)
-                    }
-                    .padding(.bottom, 120)
-                }
-                
+                        VStack(alignment: .leading, spacing: 12) {
+                                                    Text("📝 Zubereitung")
+                                                        .font(.headline)
+                                                        .padding(.top)
+                                                    
+                                                    ZubereitungRow(nummer: "1.", text: "Süßkartoffeln weich kochen und pürieren.")
+                                                    ZubereitungRow(nummer: "2.", text: "Öl, Pflanzenmilch, Ahornsirup und Vanilleextrakt verrühren, zu Süßkartoffelpüree geben.")
+                                                    ZubereitungRow(nummer: "3.", text: "Mehl, Kakaopulver, Backpulver und Salz mischen, unter die feuchten Zutaten rühren.")
+                                                    ZubereitungRow(nummer: "4.", text: "Schokotropfen unterheben.")
+                                                    ZubereitungRow(nummer: "5.", text: "Teig in gefettete oder mit Backpapier ausgelegte Form füllen.")
+                                                    ZubereitungRow(nummer: "6.", text: " Backofen 180 °C, 20–25 Min backen.")
+                                                    ZubereitungRow(nummer: "7.", text: "Abkühlen lassen, in Stücke schneiden und servieren.")
+                                                 
+                                                    
+                                                    Text("💡 Tipp: Für extra saftige Brownies nicht zu lange backen – Kern darf noch leicht feucht sein. ")
+                                                        .padding(.top, 5)
+                                                }
+                                                .padding(.horizontal)
+                                            }
+                                            .padding(.bottom, 120)
+                                        }
+                         
                 ZStack(alignment: .bottom) {
                     BottomBarView()
                     NavigationLink {

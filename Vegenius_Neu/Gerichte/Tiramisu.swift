@@ -44,7 +44,7 @@ Tiramisu
 
 💡 Tipp: Für intensiveren Geschmack etwas Kaffeepulver in die Creme rühren.
 
-Rezept aus meiner App 🙂
+Rezept aus meiner App Vegenius🙂
 """
 
     var body: some View {
@@ -141,42 +141,28 @@ Rezept aus meiner App 🙂
                         .padding(.bottom, 20)
                         
                         // MARK: - Zubereitung
-                        VStack(alignment: .leading, spacing: 8) {
-                            Text("📝 Zubereitung")
-                                .font(.headline)
-                                .padding(.top)
-                            
-                            Text("""
-        
-    1.  Kaffee zubereiten und abkühlen lassen.
-    
-    2.  Skyr oder Sojajoghurt mit Zucker und Vanilleextrakt glatt rühren.
-    
-    3.  Löffelbiskuits kurz in Kaffee tauchen.
-    
-    4.  Biskuits in Auflaufform legen.
-    
-    5.  Creme darüber verteilen.
-    
-    6.  Weitere Schicht getränkter Biskuits darauf legen.
-    
-    7.  Restliche Creme darauf streichen.
-    
-    8.  Mit Kakaopulver bestäuben.
-    
-    9.  Mindestens 2 Stunden kalt stellen, dann servieren.
-    
-    💡 Tipp: Für intensiveren Geschmack etwas Kaffeepulver in die Creme rühren.
-    
-    """)
-                            .font(.body)
-                            .padding(.bottom, 20)
-                        }//Ende VStackZubereitung
-                        .padding(.horizontal)
-                    }
-                    .padding(.bottom, 120)
-                }
-                
+                        VStack(alignment: .leading, spacing: 12) {
+                                                    Text("📝 Zubereitung")
+                                                        .font(.headline)
+                                                        .padding(.top)
+                                                    
+                                                    ZubereitungRow(nummer: "1.", text: "Kaffee zubereiten und abkühlen lassen.")
+                                                    ZubereitungRow(nummer: "2.", text: " Skyr oder Sojajoghurt mit Zucker und Vanilleextrakt glatt rühren.")
+                                                    ZubereitungRow(nummer: "3.", text: "Löffelbiskuits kurz in Kaffee tauchen.")
+                                                    ZubereitungRow(nummer: "4.", text: "Biskuits in Auflaufform legen.")
+                                                    ZubereitungRow(nummer: "5.", text: "Creme darüber verteilen.")
+                                                    ZubereitungRow(nummer: "6.", text: "Weitere Schicht getränkter Biskuits darauf legen.")
+                                                    ZubereitungRow(nummer: "7.", text: "Restliche Creme darauf streichen.")
+                                                    ZubereitungRow(nummer: "8.", text: "Mit Kakaopulver bestäuben.")
+                                                    ZubereitungRow(nummer: "9.", text: "Mindestens 2 Stunden kalt stellen, dann servieren.")
+                                                    Text(" 💡 Tipp: Für intensiveren Geschmack etwas Kaffeepulver in die Creme rühren.")
+                                                        .padding(.top, 5)
+                                                }
+                                                .padding(.horizontal)
+                                            }
+                                            .padding(.bottom, 120)
+                                        }
+                           
                 ZStack(alignment: .bottom) {
                     BottomBarView()
                     NavigationLink {

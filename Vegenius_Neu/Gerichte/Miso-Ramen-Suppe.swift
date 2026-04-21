@@ -46,7 +46,7 @@ Miso-Ramen-Suppe
 
 9.  In Schüsseln füllen und servieren.
 
-Rezept aus meiner App 🙂
+Rezept aus meiner App Vegenius 🙂
 """
 
     var body: some View {
@@ -147,39 +147,29 @@ Rezept aus meiner App 🙂
                         .padding(.bottom, 20)
                         
                         // MARK: - Zubereitung
-                        VStack(alignment: .leading, spacing: 8) {
-                            Text("📝 Zubereitung")
-                                .font(.headline)
-                                .padding(.top)
+                        VStack(alignment: .leading, spacing: 12) {
+                                                    Text("📝 Zubereitung")
+                                                        .font(.headline)
+                                                        .padding(.top)
+                                                    
+                                                    ZubereitungRow(nummer: "1.", text: "Knoblauch, Ingwer und Frühlingszwiebeln klein schneiden.")
+                                                    ZubereitungRow(nummer: "2.", text: "Öl im Topf erhitzen, Knoblauch und Ingwer 1–2 Min anbraten.")
+                                                    ZubereitungRow(nummer: "3.", text: "Gemüsebrühe zugeben und aufkochen lassen.")
+                                                    ZubereitungRow(nummer: "4.", text: "Nudeln hinzufügen und 4–5 Min kochen.")
+                                                    ZubereitungRow(nummer: "5.", text: "Räuchertofu würfeln und in die Suppe geben.")
+                                                    ZubereitungRow(nummer: "6.", text: "Pak Choi oder Spinat zugeben, 2–3 Min mitköcheln.")
+                                                    ZubereitungRow(nummer: "7.", text: "Miso-Paste mit etwas Brühe verrühren und einrühren.")
+                                                    ZubereitungRow(nummer: "8.", text: "Mit Sojasauce abschmecken.")
+                                                    ZubereitungRow(nummer: "9.", text: "In Schüsseln füllen und servieren.")
+                                                    Text(" ")
+                                                        .padding(.top, 5)
+                                                }
+                                                .padding(.horizontal)
+                                            }
+                                            .padding(.bottom, 120)
+                                        }
                             
-                            Text("""
-        
-    1.  Knoblauch, Ingwer und Frühlingszwiebeln klein schneiden.
-    
-    2.  Öl im Topf erhitzen, Knoblauch und Ingwer 1–2 Min anbraten.
-    
-    3.  Gemüsebrühe zugeben und aufkochen lassen.
-    
-    4.  Nudeln hinzufügen und 4–5 Min kochen.
-    
-    5.  Räuchertofu würfeln und in die Suppe geben.
-    
-    6.  Pak Choi oder Spinat zugeben, 2–3 Min mitköcheln.
-    
-    7.  Miso-Paste mit etwas Brühe verrühren und einrühren.
-    
-    8.  Mit Sojasauce abschmecken.
-    
-    9.  In Schüsseln füllen und servieren.
-    
-    """)
-                            .font(.body)
-                            .padding(.bottom, 20)
-                        }//Ende VStackZubereitung
-                        .padding(.horizontal)
-                    }
-                    .padding(.bottom, 120)
-                }
+                           
                 
                 ZStack(alignment: .bottom) {
                     BottomBarView()
