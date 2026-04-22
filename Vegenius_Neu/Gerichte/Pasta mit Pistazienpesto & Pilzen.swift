@@ -145,40 +145,27 @@ Rezept aus meiner App Vegenius 🙂
                         .padding(.top, 5)
                         .padding(.bottom, 20)
                         
+                        
+                
                         // MARK: - Zubereitung
-                        VStack(alignment: .leading, spacing: 8) {
-                            Text("📝 Zubereitung")
-                                .font(.headline)
-                                .padding(.top)
-                            
-                            Text("""
-        
-    1.  Pasta in Salzwasser 8–10 Min kochen.
-    
-    2.  Pistazien, Basilikum, Knoblauch, Olivenöl und Zitronensaft zu Pesto mixen.
-    
-    3.  Champignons in Scheiben schneiden.
-    
-    4.  Pilze in Pfanne 4–5 Min anbraten.
-    
-    5.  Gekochte Pasta und etwas Nudelwasser zu den Pilzen geben.
-    
-    6.  Pesto unterrühren und alles gut vermengen.
-    
-    7.  Mit Salz und Pfeffer abschmecken.
-    
-    8.  Servieren.
-    
-    💡 Tipp: Etwas Zitronenabrieb im Pesto macht das Gericht frischer.
-    
-    """)
-                            .font(.body)
-                            .padding(.bottom, 20)
-                        }//Ende VStackZubereitung
-                        .padding(.horizontal)
-                    }
-                    .padding(.bottom, 120)
-                }
+                        VStack(alignment: .leading, spacing: 12) {
+                                            Text("📝 Zubereitung")
+                                                .font(.headline)
+                                                .padding(.top)
+                                            
+                                            ZubereitungRow(nummer: "1.", text: "Pasta in Salzwasser 8–10 Min kochen.")
+                                            ZubereitungRow(nummer: "2.", text: "Pistazien, Basilikum, Knoblauch, Olivenöl und Zitronensaft zu Pesto mixen.")
+                                            ZubereitungRow(nummer: "3.", text: "Champignons in Scheiben schneiden.")
+                                            ZubereitungRow(nummer: "4.", text: "Pilze in Pfanne 4–5 Min anbraten.")
+                                            ZubereitungRow(nummer: "5.", text: "Gekochte Pasta und etwas Nudelwasser zu den Pilzen geben.")
+                                            ZubereitungRow(nummer: "6.", text: "Pesto unterrühren und alles gut vermengen.")
+                                            ZubereitungRow(nummer: "7.", text: "Mit Salz und Pfeffer abschmecken.")
+                                                .padding(.top, 5)
+                                        }
+                                        .padding(.horizontal)
+                                    }
+                                    .padding(.bottom, 120)
+                                }
                 
                 ZStack(alignment: .bottom) {
                     BottomBarView()
