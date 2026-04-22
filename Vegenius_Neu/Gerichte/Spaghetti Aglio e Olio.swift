@@ -126,14 +126,16 @@ Rezept aus meiner App Vegenius 🙂
                         .padding(.top)
                         
                         // MARK: - Zutaten Liste
-                        VStack(alignment: .leading, spacing: 8) {
-                            Zutaten(text: "🍝 200 g Spaghetti")
-                            Zutaten(text: "🧄 3 Knoblauchzehen")
-                            Zutaten(text: "🫒 3 EL Olivenöl")
-                            Zutaten(text: "🌶️ ½ TL Chiliflocken (optional)")
-                            Zutaten(text: "🧂 Salz, Pfeffer")
-                            Zutaten(text: "🌿 1 EL Petersilie (optional)")
-                            Zutaten(text: "💧 2–3 EL Nudelwasser")
+                        VStack(alignment: .leading, spacing: 10) {
+                                                    ZutatenRow(emoji: "🍝", text: "200 g Spaghetti")
+                                                    ZutatenRow(emoji: "🧄", text: "3 Knoblauchzehen")
+                                                    ZutatenRow(emoji: "🫒", text: "3 EL Olivenöl")
+                                                    ZutatenRow(emoji: "🌶️", text: "½ TL Chiliflocken (optional)")
+                                                    ZutatenRow(emoji: "🧂", text: "Salz, Pfeffer")
+                                                    ZutatenRow(emoji: "🌿", text: "1 EL Petersilie (optional)")
+                                                    ZutatenRow(emoji: "💧", text: "2–3 EL Nudelwasser")
+                                                    
+
                             
                         }//Ende Zutatenliste
                         .padding(.horizontal)
@@ -150,12 +152,12 @@ Rezept aus meiner App Vegenius 🙂
                                                     ZubereitungRow(nummer: "2.", text: "Knoblauch in dünne Scheiben schneiden.")
                                                     ZubereitungRow(nummer: "3.", text: "Olivenöl in Pfanne erhitzen, Knoblauch 1–2 Min sanft anbraten.")
                                                     ZubereitungRow(nummer: "4.", text: "Chiliflocken zugeben.")
-                                                    ZubereitungRow(nummer: "5.", text: " Gekochte Spaghetti und etwas Nudelwasser in Pfanne geben .")
+                                                    ZubereitungRow(nummer: "5.", text: "Gekochte Spaghetti und etwas Nudelwasser in Pfanne geben .")
                                                     ZubereitungRow(nummer: "6.", text: "Alles gut vermengen und 1–2 Min schwenken.")
                                                     ZubereitungRow(nummer: "7.", text: "Mit Salz, Pfeffer und Petersilie abschmecken.")
                                                     ZubereitungRow(nummer: "8.", text: "Servieren.")
                                                     
-                                                    Text("💡 Tipp: Knoblauch nur leicht goldbraun braten – wird er zu dunkel, schmeckt das Öl bitter.")
+                                                    Text("💡 Tipp: Knoblauch nur leicht goldbraun braten     – wird er zu dunkel, schmeckt das Öl bitter.")
                                                         .padding(.top, 5)
                                                 }
                                                 .padding(.horizontal)

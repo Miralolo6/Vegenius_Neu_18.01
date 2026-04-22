@@ -25,7 +25,7 @@ Miso-Ramen-Suppe
     🧄 1 Knoblauchzehe
     🫚 1 TL geriebener Ingwer
     🫒 1 TL Sesam- oder Pflanzenöl
-    🧂 1 EL Sojasauce
+    🥄 1 EL Sojasauce
 
 
 1.  Knoblauch, Ingwer und Frühlingszwiebeln klein schneiden.
@@ -129,17 +129,18 @@ Rezept aus meiner App Vegenius 🙂
                         .padding(.top)
                         
                         // MARK: - Zutaten Liste
-                        VStack(alignment: .leading, spacing: 8) {
-                            Zutaten(text: "🍜 200 g Ramen- oder Weizennudeln")
-                            Zutaten(text: "🥣 800 ml Gemüsebrühe")
-                            Zutaten(text: "🥄 2 EL Miso-Paste")
-                            Zutaten(text: "🥓 150 g Räuchertofu")
-                            Zutaten(text: "🥬 100 g Pak Choi oder Spinat")
-                            Zutaten(text: "🧅 2 Frühlingszwiebeln")
-                            Zutaten(text: "🧄 1 Knoblauchzehe")
-                            Zutaten(text: "🫚 1 TL geriebener Ingwer")
-                            Zutaten(text: "🫒 1 TL Sesam- oder Pflanzenöl")
-                            Zutaten(text: "🧂 1 EL Sojasauce")
+                        VStack(alignment: .leading, spacing: 10) {
+                                                    ZutatenRow(emoji: "🍜", text: "200 g Ramen- oder Weizennudeln")
+                                                    ZutatenRow(emoji: "🥣", text: "800 ml Gemüsebrühe")
+                                                    ZutatenRow(emoji: "🥄", text: "2 EL Miso-Paste")
+                                                    ZutatenRow(emoji: "🥓", text: "150 g Räuchertofu")
+                                                    ZutatenRow(emoji: "🥬", text: "100 g Pak Choi oder Spinat")
+                                                    ZutatenRow(emoji: "🧅", text: "2 Frühlingszwiebeln")
+                                                    ZutatenRow(emoji: "🧄", text: " 1 Knoblauchzehe")
+                                                    ZutatenRow(emoji: "🫚", text: "1 TL geriebener Ingwer")
+                                                    ZutatenRow(emoji: "🫒", text: "1 TL Sesam- oder Pflanzenöl")
+                                                   ZutatenRow(emoji: "🥄", text: "1 EL Sojasauce")
+                    
                             
                         }//Ende Zutatenliste
                         .padding(.horizontal)

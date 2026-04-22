@@ -127,18 +127,19 @@ Rezept aus meiner App Vegenius 🙂
                         .padding(.top)
                         
                         // MARK: - Zutaten Liste
-                        VStack(alignment: .leading, spacing: 8) {
-                            Zutaten(text: "🧆 400 g Kichererbsen (Dose, abgespült)")
-                            Zutaten(text: "🍅 400 g gehackte Tomaten (Dose)")
-                            Zutaten(text: "🧅 1 Zwiebel")
-                            Zutaten(text: "🧄 2 Knoblauchzehen")
-                            Zutaten(text: "🫚 1 TL geriebener Ingwer")
-                            Zutaten(text: "🫒 1 EL Olivenöl")
-                            Zutaten(text: "🌾 100 g rote Linsen (für extra Protein)")
-                            Zutaten(text: "💧 200 ml Wasser oder Gemüsebrühe")
-                            Zutaten(text: "🧂 Gewürze: 1 TL Garam Masala, 1 TL Kreuzkümmel, 1 TL Paprikapulver, Salz, Pfeffer")
-                            Zutaten(text: "🌿 Frischer Koriander oder Petersilie (optional)")
-                            
+                        VStack(alignment: .leading, spacing: 10) {
+                            ZutatenRow(emoji: "🧆", text: "400 g Kichererbsen (Dose, abgespült)")
+                            ZutatenRow(emoji: "🍅", text: "400 g gehackte Tomaten (Dose)")
+                            ZutatenRow(emoji: "🧅", text: "1 Zwiebel")
+                            ZutatenRow(emoji: "🧄", text: "2 Knoblauchzehen")
+                            ZutatenRow(emoji: "🫚", text: "1 TL geriebener Ingwer")
+                            ZutatenRow(emoji: "🫒", text: "1 EL Olivenöl")
+                            ZutatenRow(emoji: "🌾", text: "100 g rote Linsen (für extra Protein)")
+                            ZutatenRow(emoji: "💧", text: "200 ml Wasser oder Gemüsebrühe")
+                            ZutatenRow(emoji: "🧂", text: "Gewürze: 1 TL Garam Masala, 1 TL Kreuzkümmel, 1 TL Paprikapulver, Salz, Pfeffer")
+                            ZutatenRow(emoji: "🌿", text: "Frischer Koriander oder Petersilie (optional)")
+                        
+                      
                         }//Ende Zutatenliste
                         .padding(.horizontal)
                         .padding(.top, 5)

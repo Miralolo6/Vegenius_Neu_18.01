@@ -39,7 +39,7 @@ Mediterrane Reispfanne
 
 8. 5 Min. ziehen lassen, servieren.
 
-Tipp: Optional Chili für Schärfe.
+💡Tipp: Optional Chili für Schärfe.
 
 Rezept aus meiner App Vegenius 🙂
 """
@@ -123,20 +123,22 @@ Rezept aus meiner App Vegenius 🙂
                         .padding(.top)
                         
                         // MARK: - Zutaten Liste
-                        VStack(alignment: .leading, spacing: 8) {
-                            Zutaten(text: "🧅 1 große rote Zwiebel")
-                            Zutaten(text: "🧄 2 Knoblauchzehen")
-                            Zutaten(text: "🫑 1 gelbe Paprika")
-                            Zutaten(text: "🥒 1 kleine Zucchini")
-                            Zutaten(text: "🍅 3 mittelgroße Tomaten")
-                            Zutaten(text: "🍚 150 g Langkornreis")
-                            Zutaten(text: "🛢️ 2 EL Rapsöl")
-                            Zutaten(text: "🥫 2 EL Tomatenmark")
-                            Zutaten(text: "🌿 1 Zweig Rosmarin")
-                            Zutaten(text: "🌿 2 Stiele Thymian")
-                            Zutaten(text: "🌿 einige Blätter frisches Basilikum")
-                            Zutaten(text: "🧂 Salz & Pfeffer nach Geschmack")
-                            Zutaten(text: "🍋 optional: etwas Zitronensaft")
+                        VStack(alignment: .leading, spacing: 10) {
+                                                    ZutatenRow(emoji: "🧅", text: "1 große rote Zwiebel")
+                                                    ZutatenRow(emoji: "🧄", text: "2 Knoblauchzehen")
+                                                    ZutatenRow(emoji: "🫑", text: "1 gelbe Paprika")
+                                                    ZutatenRow(emoji: "🥒", text: "1 kleine Zucchini")
+                                                    ZutatenRow(emoji: "🍅", text: "3 mittelgroße Tomaten")
+                                                    ZutatenRow(emoji: "🍚", text: "150 g Langkornreis")
+                                                    ZutatenRow(emoji: "🛢️", text: "2 EL Rapsöl")
+                                                    ZutatenRow(emoji: "🥫", text: "2 EL Tomatenmark")
+                                    ZutatenRow(emoji: "🌿 ", text: "1 Zweig Rosmarin")
+                                    ZutatenRow(emoji: "🌿", text: "2 Stiele Thymian")
+                                    ZutatenRow(emoji: "🌿", text: "einige Blätter frisches Basilikum")
+                                    ZutatenRow(emoji: "🧂", text: "Salz & Pfeffer nach Geschmack")
+                                    ZutatenRow(emoji: "🍋", text: "optional: etwas Zitronensaft")
+                            
+                            
                         }
                         .padding(.horizontal)
                         .padding(.top, 5)
@@ -157,7 +159,7 @@ Rezept aus meiner App Vegenius 🙂
                             ZubereitungRow(nummer: "7.", text: "Tomaten & Basilikum unterrühren, würzen.")
                             ZubereitungRow(nummer: "8.", text: "5 Min. ziehen lassen, servieren.")
                             
-                            Text("Tipp: Optional Chili für Schärfe.")
+                            Text("💡Tipp: Optional Chili für Schärfe.")
                                 .padding(.top, 5)
                         }
                         .padding(.horizontal)

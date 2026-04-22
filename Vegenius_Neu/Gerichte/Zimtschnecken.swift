@@ -131,16 +131,15 @@ Rezept aus meiner App Vegenius🙂
                         .padding(.top)
                         
                         // MARK: - Zutaten Liste
-                        VStack(alignment: .leading, spacing: 8) {
-                            Zutaten(text: "🌾 250 g Mehl")
-                            Zutaten(text: "🥄 40 g weißer Zucker")
-                            Zutaten(text: "🥄 40 g brauner Zucker")
-                            Zutaten(text: "🧂 1 Prise Salz")
-                            Zutaten(text: "🧂 1 Päckchen Trockenhefe (7 g)")
-                            Zutaten(text: "💧 150 ml Pflanzenmilch")
-                            Zutaten(text: "🫒 60 ml Pflanzenöl")
-                            
-                            
+                        VStack(alignment: .leading, spacing: 10) {
+                                                    ZutatenRow(emoji: "🌾", text: "250 g Mehl")
+                                                    ZutatenRow(emoji: "🥄", text: "40 g weißer Zucker")
+                                                    ZutatenRow(emoji: "🥄", text: "40 g brauner Zucker")
+                                                    ZutatenRow(emoji: "🧂", text: "1 Prise Salz")
+                                                    ZutatenRow(emoji: "🧂", text: "1 Päckchen Trockenhefe (7 g)")
+                                                    ZutatenRow(emoji: "💧", text: "150 ml Pflanzenmilch")
+                                                    ZutatenRow(emoji: "🫒", text: "60 ml Pflanzenöl")
+                          
                         }//Ende Zutatenliste
                         .padding(.horizontal)
                         .padding(.top, 5)

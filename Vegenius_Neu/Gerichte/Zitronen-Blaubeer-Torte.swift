@@ -126,16 +126,17 @@ Rezept aus meiner App Vegenius🙂
                         .padding(.top)
                         
                         // MARK: - Zutaten Liste
-                        VStack(alignment: .leading, spacing: 8) {
-                            Zutaten(text: "🌾 250 g Mehl")
-                            Zutaten(text: "🥄 120 g Zucker")
-                            Zutaten(text: "🧂 1 Prise Salz")
-                            Zutaten(text: "🧂 1 Päckchen Backpulver (15 g)")
-                            Zutaten(text: "🍋 1 Zitrone (Saft + Abrieb)")
-                            Zutaten(text: "💧 200 ml Pflanzenmilch")
-                            Zutaten(text: "🫒 80 ml Pflanzenöl")
-                            Zutaten(text: "🫐 150 g Blaubeeren")
-                            Zutaten(text: "🧂 1 EL Puderzucker (optional zum Bestäuben)")
+                        VStack(alignment: .leading, spacing: 10) {
+                                                    ZutatenRow(emoji: "🌾", text: "250 g Mehl")
+                                                    ZutatenRow(emoji: "🥄", text: "120 g Zucker")
+                                                    ZutatenRow(emoji: "🧂", text: "1 Prise Salz")
+                                                    ZutatenRow(emoji: "🧂", text: "1 Päckchen Backpulver (15 g)")
+                                                    ZutatenRow(emoji: "🍋", text: "1 Zitrone (Saft + Abrieb)")
+                                                    ZutatenRow(emoji: "💧", text: "200 ml Pflanzenmilch")
+                                                    ZutatenRow(emoji: "🫒", text: "80 ml Pflanzenöl")
+                                                    ZutatenRow(emoji: "🫐", text: "150 g Blaubeeren")
+                                                    ZutatenRow(emoji: "🧂", text: "1 EL Puderzucker (optional zum Bestäuben)")
+
                             
                         }//Ende Zutatenliste
                         .padding(.horizontal)
