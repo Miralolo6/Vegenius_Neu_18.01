@@ -131,19 +131,19 @@ Rezept aus meiner App Vegenius 🙂
                         .padding(.top)
                         
                         // MARK: - Zutaten Liste
-                        VStack(alignment: .leading, spacing: 8) {
-                            Zutaten(text: "🌾 200 g Mehl")
-                            Zutaten(text: "🫒 60 ml Olivenöl")
-                            Zutaten(text: "💧 80 ml Wasser")
-                            Zutaten(text: "🧂 1 Prise Salz")
-                            Zutaten(text: "🧅 1 Zwiebel")
-                            Zutaten(text: "🧄 1 Knoblauchzehe")
-                            Zutaten(text: "🥓 120 g Räuchertofu")
-                            Zutaten(text: "🥣 200 g Seidentofu")
-                            Zutaten(text: "🌾 40 g Kichererbsenmehl")
-                            Zutaten(text: "💧 80 ml Pflanzenmilch")
-                            Zutaten(text: "🧂 Gewürze: Salz, Pfeffer, Muskat")
-                            Zutaten(text: "🌿 Schnittlauch oder Petersilie (optional)")
+                        VStack(alignment: .leading, spacing: 10) {
+                                                    ZutatenRow(emoji: "🌾", text: "200 g Mehl")
+                                                    ZutatenRow(emoji: "🫒", text: "60 ml Olivenöl")
+                                                    ZutatenRow(emoji: "💧", text: "80 ml Wasser")
+                                                    ZutatenRow(emoji: "🧂", text: "1 Prise Salz")
+                                                    ZutatenRow(emoji: "🧅", text: "1 Zwiebel")
+                                                    ZutatenRow(emoji: "🧄", text: "1 Knoblauchzehe")
+                                                    ZutatenRow(emoji: "🥓", text: "120 g Räuchertofu")
+                                                    ZutatenRow(emoji: "🥣", text: " 200 g Seidentofu")
+                                                    ZutatenRow(emoji: "🌾", text: "40 g Kichererbsenmehl")
+                                                    ZutatenRow(emoji: "💧", text: "80 ml Pflanzenmilch")
+                                                  ZutatenRow(emoji: "🧂 ", text: "Gewürze: Salz, Pfeffer, Muskat")
+                                                  ZutatenRow(emoji: "🌿", text: "Schnittlauch oder Petersilie (optional)")
                             
                         }//Ende Zutatenliste
                         .padding(.horizontal)

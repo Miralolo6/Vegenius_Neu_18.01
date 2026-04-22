@@ -125,17 +125,17 @@ Rezept aus meiner App Vegenius 🙂
                         .padding(.top)
                         
                         // MARK: - Zutaten Liste
-                        VStack(alignment: .leading, spacing: 8) {
-                            Zutaten(text: "🌱 100 g Sojachunks (trocken)")
-                            Zutaten(text: "🌾 160–200 g Couscous")
-                            Zutaten(text: "🧅 1 Zwiebel")
-                            Zutaten(text: "🧄 1–2 Knoblauchzehen")
-                            Zutaten(text: "🫑 1 Paprika (optional)")
-                            Zutaten(text: "🫒 1 EL Olivenöl")
-                            Zutaten(text: "🥫 1 EL Tomatenmark oder 2 EL Sojasauce")
-                            Zutaten(text: "🧂 Gewürze: Salz, Pfeffer, Paprikapulver, optional Chili")
-                            Zutaten(text: "💧 ca. 300 ml Gemüsebrühe (für Sojachunks + Couscous)")
-                            
+                        VStack(alignment: .leading, spacing: 10) {
+                                                    ZutatenRow(emoji: "🌱 ", text:"100 g Sojachunks (trocken)")
+                                                    ZutatenRow(emoji: "🌾", text: "160–200 g Couscous")
+                                                    ZutatenRow(emoji: "🧅", text: "1 Zwiebel")
+                                                    ZutatenRow(emoji: "🧄", text: "1–2 Knoblauchzehen")
+                                                    ZutatenRow(emoji: "🫑", text: "1 Paprika (optional)")
+                                                    ZutatenRow(emoji: "🫒", text: "1 EL Olivenöl")
+                                                    ZutatenRow(emoji: "🥫", text: "1 EL Tomatenmark oder 2 EL Sojasauce")
+                                                    ZutatenRow(emoji: "🧂", text: "Gewürze: Salz, Pfeffer, Paprikapulver, optional Chili")
+                                                    ZutatenRow(emoji: "💧", text: "ca. 300 ml Gemüsebrühe (für Sojachunks + Couscous)")
+
                         }//Ende Zutatenliste
                         .padding(.horizontal)
                         .padding(.top, 5)
@@ -151,7 +151,7 @@ Rezept aus meiner App Vegenius 🙂
                                                     ZubereitungRow(nummer: "2.", text: " ⁠Zwiebel, Knoblauch (optional Paprika) klein schneiden.")
                                                     ZubereitungRow(nummer: "3.", text: "Öl erhitzen, Gemüse 2–3 Min anbraten. ")
                                                     ZubereitungRow(nummer: "4.", text: "Sojachunks zugeben, knusprig braten.")
-                                                    ZubereitungRow(nummer: "5.", text: " ⁠Tomatenmark oder Sojasauce + Gewürze einrühren.")
+                                                    ZubereitungRow(nummer: "5.", text: "Tomatenmark oder Sojasauce + Gewürze einrühren.")
                                                     ZubereitungRow(nummer: "6.", text: "Couscous mit heißer Brühe übergießen, 5 Min quellen lassen, mit Gabel auflockern.")
                                                     ZubereitungRow(nummer: "7.", text: "Couscous mit Soychicken servieren.")
                                                    

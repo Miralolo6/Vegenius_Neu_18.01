@@ -126,17 +126,18 @@ Rezept aus meiner App Vegenius 🙂
                         .padding(.top)
                         
                         // MARK: - Zutaten Liste
-                        VStack(alignment: .leading, spacing: 8) {
-                            Zutaten(text: "🍠 250 g Süßkartoffeln (gekocht oder gedämpft)")
-                            Zutaten(text: "🌾 50 g Lupinenmehl")
-                            Zutaten(text: "🥄 50 g Ahornsirup oder Agavendicksaft")
-                            Zutaten(text: "🫒 30 ml Pflanzenöl")
-                            Zutaten(text: "💧 30 ml Pflanzenmilch")
-                            Zutaten(text: "🍫 50 g vegane, nussfreie Schokotropfen")
-                            Zutaten(text: "🧂 1 Prise Salz")
-                            Zutaten(text: "🥄 1 TL Vanilleextrakt")
-                            Zutaten(text: "🥄 1 TL Backpulver (optional)")
-                            Zutaten(text: "🥄 2 EL Kakaopulver")
+                        VStack(alignment: .leading, spacing: 10) {
+                                                    ZutatenRow(emoji: "🍠", text: "250 g Süßkartoffeln (gekocht oder gedämpft)")
+                                                    ZutatenRow(emoji: "🌾", text: "50 g Lupinenmehl")
+                                                    ZutatenRow(emoji: "🥄", text: "50 g Ahornsirup oder Agavendicksaft")
+                                                    ZutatenRow(emoji: "🫒", text: "30 ml Pflanzenöl")
+                                                    ZutatenRow(emoji: "💧", text: "30 ml Pflanzenmilch")
+                                                    ZutatenRow(emoji: "🍫", text: "50 g vegane, nussfreie Schokotropfen")
+                                                    ZutatenRow(emoji: "🧂", text: "1 Prise Salz")
+                                                    ZutatenRow(emoji: "🥄", text: "1 TL Vanilleextrakt")
+                                                    ZutatenRow(emoji: "🥄", text: "1 TL Backpulver (optional)")
+                                                    ZutatenRow(emoji: "🥄", text: "2 EL Kakaopulver")
+                            
                             
                         }//Ende Zutatenliste
                         .padding(.horizontal)

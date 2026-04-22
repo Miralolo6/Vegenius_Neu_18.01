@@ -126,17 +126,19 @@ Rezept aus meiner App Vegenius 🙂
                     .padding(.top)
 
                     // MARK: - Zutaten Liste
-                    VStack(alignment: .leading, spacing: 8) {
-                        Zutaten(text: "🌾 150 g Mehl")
-                        Zutaten(text: "💧 200 ml Wasser")
-                        Zutaten(text: "🧂 1 Prise Salz")
-                        Zutaten(text: "🥬 120 g veganes Kimchi")
-                        Zutaten(text: "🧅 2 Frühlingszwiebeln")
-                        Zutaten(text: "🫒 1 EL Pflanzenöl (zum Braten)")
-                        Zutaten(text: "🌶️ 1 EL Gochujang")
-                        Zutaten(text: "🥄 1 TL Ahornsirup oder Zucker")
-                        Zutaten(text: "💧 1–2 TL Wasser")
-                        Zutaten(text: "🧂 1 TL Sojasauce")
+                    VStack(alignment: .leading, spacing: 10) {
+                                                ZutatenRow(emoji: "🌾", text: "150 g Mehl")
+                                                ZutatenRow(emoji: "💧", text: "200 ml Wasser")
+                                                ZutatenRow(emoji: "🧂", text: "1 Prise Salz")
+                                                ZutatenRow(emoji: "🥬", text: "120 g veganes Kimchi")
+                                                ZutatenRow(emoji: "🧅", text: "2 Frühlingszwiebeln")
+                                                ZutatenRow(emoji: "🫒", text: "1 EL Pflanzenöl (zum Braten)")
+                                                ZutatenRow(emoji: "🌶️", text: "1 EL Gochujang")
+                                                ZutatenRow(emoji: "🥄", text: "1 TL Ahornsirup oder Zucker")
+                                                ZutatenRow(emoji: "💧", text: "1–2 TL Wasser")
+                                                ZutatenRow(emoji: "🧂", text: "1 TL Sojasauce")
+                                            
+                      
                     
                     }//Ende Zutatenliste
                     .padding(.horizontal)

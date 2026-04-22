@@ -124,15 +124,17 @@ import SwiftUI
                             .padding(.top)
                             
                             // MARK: - Zutaten Liste
-                            VStack(alignment: .leading, spacing: 8) {
-                                Zutaten(text: "🥔 4 große Kartoffeln (festkochend)")
-                                Zutaten(text: "🫒 2–3 EL Olivenöl")
-                                Zutaten(text: "🧂 1 TL Salz")
-                                Zutaten(text: "🌶️ 1 TL Paprikapulver (edelsüß oder geräuchert)")
-                                Zutaten(text: "🧄 ½ TL Knoblauchpulver")
-                                Zutaten(text: "🧅 ½ TL Zwiebelpulver")
-                                Zutaten(text: "🌿 ½ TL getrocknete Kräuter (z. B. Oregano oder Thymian)")
-                                Zutaten(text: "🌶️ Optional: etwas Chili oder Cayennepfeffer für Schärfe")
+                            VStack(alignment: .leading, spacing: 10) {
+                                                        ZutatenRow(emoji: "🥔", text: "4 große Kartoffeln (festkochend)")
+                                                        ZutatenRow(emoji: "🫒", text: "2–3 EL Olivenöl")
+                                                        ZutatenRow(emoji: "🧂", text: "1 TL Salz")
+                                                        ZutatenRow(emoji: "🌶️", text: "1 TL Paprikapulver (edelsüß oder geräuchert)")
+                                                        ZutatenRow(emoji: "🧄", text: "½ TL Knoblauchpulver")
+                                                        ZutatenRow(emoji: "🧅", text: "½ TL Zwiebelpulver")
+                                                        ZutatenRow(emoji: "🌿", text: "½ TL getrocknete Kräuter (z.B. Oregano oder Thymian)")
+                                                        ZutatenRow(emoji: "🌶️", text: "Optional: etwas Chili oder Cayennepfeffer für Schärfe")
+                                                    
+                              
                             }
                             .padding(.horizontal)
                             .padding(.top, 5)
