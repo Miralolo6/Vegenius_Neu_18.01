@@ -1,4 +1,3 @@
-//
 //  EinstellungenView.swift
 //  Vegenius_Neu
 //
@@ -8,6 +7,8 @@
 import SwiftUI
 
 // MARK: - Hilfsfunktion für Titel Farbe
+import UserNotifications
+
 func setTitelFarbe() {
     let appearance = UINavigationBarAppearance()
     appearance.largeTitleTextAttributes = [.foregroundColor: UIColor(Color("TitelRosa"))]
@@ -15,6 +16,12 @@ func setTitelFarbe() {
     appearance.backgroundColor = UIColor(Color("BackgroundMint"))
     UINavigationBar.appearance().standardAppearance = appearance
     UINavigationBar.appearance().scrollEdgeAppearance = appearance
+}
+
+func askNotificationPermission() {
+    UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { granted, error in
+        print("Notifications erlaubt: \(granted)")
+    }
 }
 
 // MARK: - Passwort Ändern
@@ -25,59 +32,64 @@ struct PasswortAendernView: View {
     @State private var neuesAnzeigen = false
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 15) {
+            VStack(alignment: .leading, spacing: 15) {
 
-            Text("Altes Passwort")
-                .fontWeight(.medium)
-            if altesAnzeigen {
-                TextField("", text: $altesPasswort)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-            } else {
-                SecureField("", text: $altesPasswort)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-            }
-            Button("Passwort anzeigen") {
-                altesAnzeigen.toggle()
-            }
-            .foregroundColor(.secondary)
-            .font(.footnote)
+                Text("Altes Passwort")
+                    .fontWeight(.medium)
 
-            Text("Neues Passwort")
-                .fontWeight(.medium)
-            if neuesAnzeigen {
-                TextField("", text: $neuesPasswort)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-            } else {
-                SecureField("", text: $neuesPasswort)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-            }
-            Button("Passwort anzeigen") {
-                neuesAnzeigen.toggle()
-            }
-            .foregroundColor(.secondary)
-            .font(.footnote)
+                if altesAnzeigen {
+                    TextField("", text: $altesPasswort)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                } else {
+                    SecureField("", text: $altesPasswort)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                }
 
-            Button {
-                print("Passwort geändert")
-            } label: {
-                Text("Passwort ändern")
-                    .foregroundColor(.white)
-                    .frame(maxWidth: .infinity)
-                    .padding()
-                    .background(Color(red: 126/255, green: 222/255, blue: 211/255))
-                    .cornerRadius(12)
-            }
-            .padding(.top, 10)
+                Button("Passwort anzeigen") {
+                               altesAnzeigen.toggle()
+                           }
+                           .foregroundColor(.secondary)
+                           .font(.footnote)
 
-            Spacer()
-        }
-        .padding(.horizontal, 25)
-        .padding(.top, 30)
-        .navigationTitle("Passwort ändern")
-        .background(Color("BackgroundMint").ignoresSafeArea())
-        .onAppear { setTitelFarbe() }
-    }
-}
+                           Text("Neues Passwort")
+                               .fontWeight(.medium)
+
+                           if neuesAnzeigen {
+                               TextField("", text: $neuesPasswort)
+                                   .textFieldStyle(RoundedBorderTextFieldStyle())
+                           } else {
+                               SecureField("", text: $neuesPasswort)
+                                   .textFieldStyle(RoundedBorderTextFieldStyle())
+                           }
+
+                Button("Passwort anzeigen") {
+                                neuesAnzeigen.toggle()
+                            }
+                            .foregroundColor(.secondary)
+                            .font(.footnote)
+
+                            Button {
+                                print("Passwort geändert")
+                            } label: {
+                                Text("Passwort ändern")
+                                    .foregroundColor(.white)
+                                    .frame(maxWidth: .infinity)
+                                    .padding()
+                                    .background(Color(red: 126/255, green: 222/255, blue: 211/255))
+                                    .cornerRadius(12)
+                            }
+                            .padding(.top, 10)
+
+                            Spacer()
+                        }
+                        .padding(.horizontal, 25)
+                        .padding(.top, 30)
+                        .navigationTitle("Passwort ändern")
+                        .navigationBarTitleDisplayMode(.large)
+                        .background(Color("BackgroundMint").ignoresSafeArea())
+                        .onAppear { setTitelFarbe() }
+                    }
+                }
 
 // MARK: - Anmeldung
 struct AnmeldungView: View {
@@ -94,12 +106,14 @@ struct AnmeldungView: View {
 
             Text("E-Mail")
                 .fontWeight(.medium)
+
             TextField("", text: $email)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .keyboardType(.emailAddress)
 
             Text("Passwort")
                 .fontWeight(.medium)
+
             SecureField("", text: $passwort)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
 
@@ -110,31 +124,31 @@ struct AnmeldungView: View {
             }
 
             Button {
-                if !emailGueltig() {
-                    fehler = "Bitte eine gültige E-Mail eingeben."
-                } else {
-                    fehler = ""
-                    print("Anmelden tapped")
-                }
-            } label: {
-                Text("Anmelden")
-                    .foregroundColor(.white)
-                    .frame(maxWidth: .infinity)
-                    .padding()
-                    .background(Color(red: 126/255, green: 222/255, blue: 211/255))
-                    .cornerRadius(12)
-            }
-            .padding(.top, 10)
+                            if !emailGueltig() {
+                                fehler = "Bitte eine gültige E-Mail eingeben."
+                            } else {
+                                fehler = ""
+                                print("Anmelden tapped")
+                            }
+                        } label: {
+                            Text("Anmelden")
+                                .foregroundColor(.white)
+                                .frame(maxWidth: .infinity)
+                                .padding()
+                                .background(Color(red: 126/255, green: 222/255, blue: 211/255))
+                                .cornerRadius(12)
+                        }
 
-            Spacer()
-        }
-        .padding(.horizontal, 25)
-        .padding(.top, 30)
-        .navigationTitle("Anmeldung")
-        .background(Color("BackgroundMint").ignoresSafeArea())
-        .onAppear { setTitelFarbe() }
-    }
-}
+                        Spacer()
+                    }
+                    .padding(.horizontal, 25)
+                    .padding(.top, 30)
+                    .navigationTitle("Anmeldung")
+                    .navigationBarTitleDisplayMode(.large)   //
+                    .background(Color("BackgroundMint").ignoresSafeArea())
+                    .onAppear { setTitelFarbe() }
+                }
+            }
 
 // MARK: - Registrieren
 struct RegistrierenView: View {
@@ -142,62 +156,79 @@ struct RegistrierenView: View {
     @State private var passwort = ""
     @State private var passwortWiederholen = ""
     @State private var fehler = ""
+    @State private var zeigeAlert = false
 
     func emailGueltig() -> Bool {
         return email.contains("@") && email.contains(".")
     }
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 15) {
+          VStack(alignment: .leading, spacing: 15) {
 
-            Text("E-Mail")
-                .fontWeight(.medium)
-            TextField("", text: $email)
-                .textFieldStyle(RoundedBorderTextFieldStyle())
-                .keyboardType(.emailAddress)
+              Text("E-Mail")
+                  .fontWeight(.medium)
 
-            Text("Passwort")
-                .fontWeight(.medium)
-            SecureField("", text: $passwort)
-                .textFieldStyle(RoundedBorderTextFieldStyle())
+              TextField("", text: $email)
+                  .textFieldStyle(RoundedBorderTextFieldStyle())
+                  .keyboardType(.emailAddress)
 
-            Text("Passwort wiederholen")
-                .fontWeight(.medium)
-            SecureField("", text: $passwortWiederholen)
-                .textFieldStyle(RoundedBorderTextFieldStyle())
+              Text("Passwort")
+                  .fontWeight(.medium)
 
-            if !fehler.isEmpty {
-                Text(fehler)
-                    .foregroundColor(.red)
-                    .font(.footnote)
-            }
+              SecureField("", text: $passwort)
+                  .textFieldStyle(RoundedBorderTextFieldStyle())
 
-            Button {
-                if !emailGueltig() {
-                    fehler = "Bitte eine gültige E-Mail eingeben."
-                } else {
-                    fehler = ""
-                    print("Registrieren tapped")
-                }
-            } label: {
-                Text("Registrieren")
-                    .foregroundColor(.white)
-                    .frame(maxWidth: .infinity)
-                    .padding()
-                    .background(Color(red: 126/255, green: 222/255, blue: 211/255))
-                    .cornerRadius(12)
-            }
-            .padding(.top, 10)
+              Text("Passwort wiederholen")
+                  .fontWeight(.medium)
 
-            Spacer()
-        }
-        .padding(.horizontal, 25)
-        .padding(.top, 30)
-        .navigationTitle("Registrieren")
-        .background(Color("BackgroundMint").ignoresSafeArea())
-        .onAppear { setTitelFarbe() }
-    }
-}
+              SecureField("", text: $passwortWiederholen)
+                  .textFieldStyle(RoundedBorderTextFieldStyle())
+
+              if !fehler.isEmpty {
+                  Text(fehler)
+                      .foregroundColor(.red)
+                      .font(.footnote)
+              }
+
+              Button {
+                             if !emailGueltig() {
+                                 fehler = "Bitte eine gültige E-Mail eingeben."
+                             } else if passwort != passwortWiederholen {
+                                 fehler = "Passwörter stimmen nicht überein."
+                             } else {
+                                 fehler = ""
+                                 zeigeAlert = true
+                             }
+                         } label: {
+                             Text("Registrieren")
+                                 .foregroundColor(.white)
+                                 .frame(maxWidth: .infinity)
+                                 .padding()
+                                 .background(Color(red: 126/255, green: 222/255, blue: 211/255))
+                                 .cornerRadius(12)
+                         }
+
+
+              Spacer()
+                      }
+                      .padding(.horizontal, 25)
+                      .padding(.top, 30)
+                      .navigationTitle("Registrieren")
+                      .navigationBarTitleDisplayMode(.large)
+                      .background(Color("BackgroundMint").ignoresSafeArea())
+                      .onAppear { setTitelFarbe() }
+
+                      .alert("Erfolgreich!", isPresented: $zeigeAlert) {
+                          Button("OK") {
+                              email = ""
+                              passwort = ""
+                              passwortWiederholen = ""
+                          }
+                      } message: {
+                          Text("Du hast Dich registriert.")
+                      }
+                  }
+              }
 
 // MARK: - Account
 struct AccountView: View {
@@ -209,10 +240,10 @@ struct AccountView: View {
             NavigationLink(destination: PasswortAendernView()) {
                 HStack {
                     Text("Passwort ändern")
-                        .foregroundColor(.primary)
+                        .foregroundColor(.black)
                     Spacer()
                     Image(systemName: "chevron.right")
-                        .foregroundColor(.secondary)
+                        .foregroundColor(.black)
                 }
                 .padding()
             }
@@ -221,10 +252,10 @@ struct AccountView: View {
                 NavigationLink(destination: AnmeldungView()) {
                     HStack {
                         Text("Anmelden")
-                            .foregroundColor(.primary)
+                            .foregroundColor(.black)
                         Spacer()
                         Image(systemName: "chevron.right")
-                            .foregroundColor(.secondary)
+                            .foregroundColor(.black)
                     }
                     .padding()
                 }
@@ -232,10 +263,10 @@ struct AccountView: View {
                 NavigationLink(destination: RegistrierenView()) {
                     HStack {
                         Text("Registrieren")
-                            .foregroundColor(.primary)
+                            .foregroundColor(.black)
                         Spacer()
                         Image(systemName: "chevron.right")
-                            .foregroundColor(.secondary)
+                            .foregroundColor(.black)
                     }
                     .padding()
                 }
@@ -251,14 +282,12 @@ struct AccountView: View {
                 Button("Account Löschen") {
                     print("Account Löschen tapped")
                 }
-                .font(.title3)
-                .fontWeight(.bold)
                 .foregroundColor(.red)
-                .padding(.top, 10)
             }
         }
         .padding(.bottom, 40)
         .navigationTitle("Account")
+        .navigationBarTitleDisplayMode(.large)
         .background(Color("BackgroundMint").ignoresSafeArea())
         .onAppear { setTitelFarbe() }
         .toolbar {
@@ -272,39 +301,98 @@ struct AccountView: View {
 // MARK: - Sicherheit
 struct SicherheitView: View {
     var body: some View {
-        Text("Datenschutz- und Sicherheitsbestimmungen")
-            .navigationTitle("Sicherheit & Privatsphäre")
-            .background(Color("BackgroundMint").ignoresSafeArea())
-            .onAppear { setTitelFarbe() }
+        ScrollView {
+            VStack(alignment: .leading, spacing: 15) {
+
+                Text("Datenschutz & Sicherheit")
+                    .font(.title2)
+                    .fontWeight(.bold)
+
+                Text("Diese App speichert nur notwendige Daten wie E-Mail und Passwort, um die Nutzung zu ermöglichen.")
+
+                Text("Deine Daten werden vertraulich behandelt und nicht an Dritte weitergegeben.")
+
+                Text("Benachrichtigungen werden nur verwendet, um dich über wichtige Funktionen oder Updates zu informieren.")
+
+
+                Spacer()
+            }
+            .padding()
+        }
+        .navigationTitle("Sicherheit & Privatsphäre")
+        .navigationBarTitleDisplayMode(.large)
+        .background(Color("BackgroundMint").ignoresSafeArea())
+        .onAppear { setTitelFarbe() }
     }
 }
 
 // MARK: - Support
 struct SupportView: View {
     var body: some View {
-        ZStack(alignment: .bottom) {
-            
-            Color("BackgroundMint")
-                .ignoresSafeArea()
-            VStack(alignment: .leading, spacing: 35) {
-                Text("Hilfe/FAQ")
-                Text("Kontakt/Support")
-                NavigationLink(destination: ProblemMeldenView()) {
-                    Text("Problem melden")
-                        .foregroundColor(.primary)
+        VStack(spacing: 25) {
+
+            NavigationLink(destination: Text("Hilfe/FAQ Seite")) {
+                HStack {
+                    Text("Hilfe/FAQ")
+                        .foregroundColor(.black)
+
+                    Spacer()
+
+                    Image(systemName: "chevron.right")
+                        .foregroundColor(.black)
                 }
-                Text("App Version")
-                Spacer()
             }
+            .buttonStyle(PlainButtonStyle())
+
+            NavigationLink(destination: Text("Kontakt Seite")) {
+                HStack {
+                    Text("Kontakt/Support")
+                        .foregroundColor(.black)
+
+                    Spacer()
+
+                    Image(systemName: "chevron.right")
+                        .foregroundColor(.black)
+                }
+            }
+            .buttonStyle(PlainButtonStyle())
+
+            NavigationLink(destination: ProblemMeldenView()) {
+                HStack {
+                    Text("Problem melden")
+                        .foregroundColor(.black)
+
+                    Spacer()
+
+                    Image(systemName: "chevron.right")
+                        .foregroundColor(.black)
+                }
+            }
+            .buttonStyle(PlainButtonStyle())
+
+            HStack {
+                Text("App Version")
+                    .foregroundColor(.black)
+
+                Spacer()
+
+                Text("1.0")
+                    .foregroundColor(.gray)
+            }
+
+            Spacer()
         }
+        .frame(maxWidth: .infinity, alignment: .leading)
         .padding(.horizontal, 25)
         .padding(.top, 30)
+
         .navigationTitle("Support")
+        .navigationBarTitleDisplayMode(.large)
+
         .background(Color("BackgroundMint").ignoresSafeArea())
         .onAppear { setTitelFarbe() }
     }
 }
-
 // MARK: - Problem Melden
 struct ProblemMeldenView: View {
     @State private var nachricht = ""
@@ -312,68 +400,36 @@ struct ProblemMeldenView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 15) {
 
-            Text("Hast Du ein Problem in der App gefunden? Bitte beschreibe das Problem, dass Du siehst.")
-                .foregroundColor(.secondary)
+            Text("Problem beschreiben")
 
             TextEditor(text: $nachricht)
                 .frame(height: 200)
-                .padding(8)
-                .background(Color(.systemGray6))
-                .cornerRadius(12)
 
             Button {
-                print("Nachricht: \\(nachricht)")
+                print(nachricht)
             } label: {
                 Text("Absenden")
-                    .foregroundColor(.white)
-                    .frame(maxWidth: .infinity)
-                    .padding()
-                    .background(Color(red: 126/255, green: 222/255, blue: 211/255))
-                    .cornerRadius(12)
             }
 
             Spacer()
         }
-        .padding(.horizontal, 25)
-        .padding(.top, 30)
+        .padding()
         .navigationTitle("Problem melden")
+        .navigationBarTitleDisplayMode(.large)
         .background(Color("BackgroundMint").ignoresSafeArea())
         .onAppear { setTitelFarbe() }
     }
 }
 
+
 // MARK: - Tutorial
 struct TutorialView: View {
     var body: some View {
-        ZStack(alignment: .bottom) {
-            
-            Color("BackgroundMint")
-                .ignoresSafeArea()
-            Text("Tutorial Video")
-                .navigationTitle("Tutorial")
-                .background(Color("BackgroundMint").ignoresSafeArea())
-                .onAppear { setTitelFarbe() }
-        }
-        .padding(.horizontal, 25)
-        .padding(.top, 30)
-        .navigationTitle("Support")
-        .background(Color("BackgroundMint").ignoresSafeArea())
-        .onAppear { setTitelFarbe() }
-        ZStack(alignment: .bottom) {
-            
-            Color("BackgroundMint")
-                .ignoresSafeArea()
-            VStack(alignment: .leading, spacing: 35) {
-                Text("Hilfe/FAQ")
-                Text("Kontakt/Support")
-                NavigationLink(destination: ProblemMeldenView()) {
-                    Text("Problem melden")
-                        .foregroundColor(.primary)
-                }
-                Text("App Version")
-                Spacer()
-            }
-        }
+        Text("Tutorial Video")
+            .navigationTitle("Tutorial")
+            .navigationBarTitleDisplayMode(.large)
+            .background(Color("BackgroundMint").ignoresSafeArea())
+            .onAppear { setTitelFarbe() }
     }
 }
 
@@ -391,50 +447,20 @@ struct EinstellungenView: View {
 
                 VStack(spacing: 30) {
 
-                    HStack {
-                        /*Button("x") {
-                            print("Close tapped")
-                        }
-                        .font(.title)
-                        .foregroundColor(.black)*/
-                        
-                        Button {
-                            print("Close tapped")
-                        } label: {
-                            VStack {
-                                Image(systemName: "xmark")
-                                    .foregroundColor(.black)
-                                    .font(.title)
-                                    .scaledToFit()
-                                    .frame(width: 50, height: 50)
-                            }
-                        }
-
-                        Spacer()
-
+                    // Titel
+                    ZStack {
                         Text("Einstellungen")
                             .font(.largeTitle)
                             .fontWeight(.semibold)
                             .foregroundColor(Color("TitelRosa"))
 
-                        Spacer()
+                        HStack {
+                            Spacer()
 
-                        /*Button("⚙︎") {
-                            print("Settings tapped")
-                        }
-                        .font(.title)
-                        .foregroundColor(.black)*/
-                        
-                        Button {
-                            print("Settings tapped")
-                        } label: {
-                            VStack {
-                                Image(systemName: "gearshape")
-                                    .foregroundColor(.black)
-                                    .font(.title)
-                                    .scaledToFit()
-                                    .frame(width: 55, height: 55)
-                            }
+                            Image(systemName: "gearshape")
+                                .foregroundColor(.black)
+                                .font(.title)
+                                .frame(width: 55, height: 55)
                         }
                     }
                     .padding(.horizontal)
@@ -444,58 +470,57 @@ struct EinstellungenView: View {
                         NavigationLink(destination: AccountView()) {
                             HStack {
                                 Text("Account")
-                                    .font(.body)
-                                    .fontWeight(.medium)
-                                    .foregroundColor(.primary)
+                                    .foregroundColor(.black)
                                 Spacer()
                                 Image(systemName: "chevron.right")
-                                    .foregroundColor(.secondary)
+                                    .foregroundColor(.black)
                             }
                         }
 
+                        
                         HStack {
                             Text("Benachrichtigungen")
-                                .font(.body)
-                                .fontWeight(.medium)
+                                .foregroundColor(.black)
+
                             Spacer()
+
                             Toggle("", isOn: $notificationsOn)
                                 .labelsHidden()
                                 .tint(.green)
+                                .onChange(of: notificationsOn) {
+                                    if notificationsOn {
+                                        askNotificationPermission()
+                                    }
+                                }
                         }
 
                         NavigationLink(destination: SicherheitView()) {
                             HStack {
                                 Text("Sicherheit & Privatsphäre")
-                                    .font(.body)
-                                    .fontWeight(.medium)
-                                    .foregroundColor(.primary)
+                                    .foregroundColor(.black)
                                 Spacer()
                                 Image(systemName: "chevron.right")
-                                    .foregroundColor(.secondary)
+                                    .foregroundColor(.black)
                             }
                         }
 
                         NavigationLink(destination: SupportView()) {
                             HStack {
                                 Text("Support")
-                                    .font(.body)
-                                    .fontWeight(.medium)
-                                    .foregroundColor(.primary)
+                                    .foregroundColor(.black)
                                 Spacer()
                                 Image(systemName: "chevron.right")
-                                    .foregroundColor(.secondary)
+                                    .foregroundColor(.black)
                             }
                         }
 
                         NavigationLink(destination: TutorialView()) {
                             HStack {
                                 Text("Tutorial")
-                                    .font(.body)
-                                    .fontWeight(.medium)
-                                    .foregroundColor(.primary)
+                                    .foregroundColor(.black)
                                 Spacer()
                                 Image(systemName: "chevron.right")
-                                    .foregroundColor(.secondary)
+                                    .foregroundColor(.black)
                             }
                         }
                     }
@@ -509,7 +534,7 @@ struct EinstellungenView: View {
         .onAppear { setTitelFarbe() }
     }
 }
-
 #Preview {
     EinstellungenView()
 }
+
