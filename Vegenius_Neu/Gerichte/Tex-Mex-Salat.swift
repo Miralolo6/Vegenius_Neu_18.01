@@ -129,20 +129,20 @@ Rezept aus meiner App Vegenius 🙂
                         .padding(.top)
                         
                         // MARK: - Zutaten Liste
-                        VStack(alignment: .leading, spacing: 8) {
-                            Zutaten(text: "🥬 150 g Blattsalat (z. B. Römersalat)")
-                            Zutaten(text: "🧆 200 g schwarze Bohnen (Dose, abgespült)")
-                            Zutaten(text: "🌽 150 g Mais")
-                            Zutaten(text: "🍅 150 g Cherrytomaten")
-                            Zutaten(text: "🫑 1 Paprika")
-                            Zutaten(text: "🧅 1 kleine rote Zwiebel")
-                            Zutaten(text: "🥑 1 Avocado")
-                            Zutaten(text: "🫒 2 EL Olivenöl")
-                            Zutaten(text: "🍋 2 EL Limetten- oder Zitronensaft")
-                            Zutaten(text: "🧂 Gewürze: 1 TL Kreuzkümmel, 1 TL Paprikapulver, Salz, Pfeffer")
-                            Zutaten(text: "🥄 1 TL Ahornsirup")
-                            Zutaten(text: "🌶️ ½ TL Chili (optional)")
-                            
+                        VStack(alignment: .leading, spacing: 10) {
+                                                    ZutatenRow(emoji: "🥬", text: "150 g Blattsalat (z. B. Römersalat)")
+                                                    ZutatenRow(emoji: "🧆", text: "200 g schwarze Bohnen (Dose, abgespült)")
+                                                    ZutatenRow(emoji: "🌽", text: "150 g Mais")
+                                                    ZutatenRow(emoji: "🍅", text: "150 g Cherrytomaten")
+                                                    ZutatenRow(emoji: "🫑", text: "1 Paprika")
+                                                    ZutatenRow(emoji: "🧅", text: "1 kleine rote Zwiebel")
+                                                    ZutatenRow(emoji: "🥑", text: "1 Avocado")
+                                                    ZutatenRow(emoji: "🫒", text: "2 EL Olivenöl")
+                                                    ZutatenRow(emoji: "🍋", text: "2 EL Limetten- oder Zitronensaft")
+                                                    ZutatenRow(emoji: "🧂", text: "Gewürze: 1 TL Kreuzkümmel, 1 TL Paprikapulver, Salz, Pfeffer")
+                                                    ZutatenRow(emoji: "🥄", text: "1 TL Ahornsirup")
+                                                    ZutatenRow(emoji: "🌶️", text: "½ TL Chili (optional)")
+                                                    
                             
                         }//Ende Zutatenliste
                         .padding(.horizontal)

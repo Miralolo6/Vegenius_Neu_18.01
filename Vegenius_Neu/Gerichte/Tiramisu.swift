@@ -127,13 +127,14 @@ Rezept aus meiner App Vegenius🙂
                         .padding(.top)
                         
                         // MARK: - Zutaten Liste
-                        VStack(alignment: .leading, spacing: 8) {
-                            Zutaten(text: "🍪 200 g vegane Löffelbiskuits (nussfrei)")
-                            Zutaten(text: "☕ 200 ml starker Kaffee (abgekühlt)")
-                            Zutaten(text: "🥣 400 g veganer Skyr oder Sojajoghurt")
-                            Zutaten(text: "🥄 40 g Zucker")
-                            Zutaten(text: "🥄 1 TL Vanilleextrakt")
-                            Zutaten(text: "🧂 1–2 EL Kakaopulver")
+                        VStack(alignment: .leading, spacing: 10) {
+                                                    ZutatenRow(emoji: "🍪", text: "200 g vegane Löffelbiskuits (nussfrei)")
+                                                    ZutatenRow(emoji: "☕", text: "200 ml starker Kaffee (abgekühlt)")
+                                                    ZutatenRow(emoji: "🥣", text: "400 g veganer Skyr oder Sojajoghurt")
+                                                    ZutatenRow(emoji: "🥄", text: "40 g Zucker")
+                                                    ZutatenRow(emoji: "🥄", text: "1 TL Vanilleextrakt")
+                                                    ZutatenRow(emoji: "🧂", text: "🧂 1–2 EL Kakaopulver")
+                                    
                             
                         }//Ende Zutatenliste
                         .padding(.horizontal)

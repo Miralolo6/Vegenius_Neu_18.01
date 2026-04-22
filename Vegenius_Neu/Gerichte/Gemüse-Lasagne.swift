@@ -130,20 +130,22 @@ Rezept aus meiner App Vegenius 🙂
                         .padding(.top)
                         
                         // MARK: - Zutaten Liste
-                        VStack(alignment: .leading, spacing: 8) {
-                            Zutaten(text: "🍝 200 g glutenfreie Lasagneplatten")
-                            Zutaten(text: "🥒 1 Zucchini")
-                            Zutaten(text: "🥕 1 Karotte")
-                            Zutaten(text: "🫑 1 Paprika")
-                            Zutaten(text: "🧅 1 Zwiebel")
-                            Zutaten(text: "🧄 1 Knoblauchzehe")
-                            Zutaten(text: "🍅 400 g gehackte Tomaten (Dose)")
-                            Zutaten(text: "🫒 1 EL Olivenöl")
-                            Zutaten(text: "💧 150 ml Pflanzenmilch")
-                            Zutaten(text: "🌾 1 EL Maisstärke")
-                            Zutaten(text: "🧂 Gewürze: Salz, Pfeffer, Oregano oder Basilikum")
+                        VStack(alignment: .leading, spacing: 10) {
+                                                    ZutatenRow(emoji: "🍝", text: "200 g glutenfreie Lasagneplatten")
+                                                    ZutatenRow(emoji: "🥒 ", text: "1 Zucchini")
+                                                    ZutatenRow(emoji: "🥕", text: "1 Karotte")
+                                                    ZutatenRow(emoji: "🫑", text: "1 Paprika")
+                                                    ZutatenRow(emoji: "🧅", text: "1 Zwiebel")
+                                                    ZutatenRow(emoji: "🧄 ", text: "1 Knoblauchzehe")
+                                                    ZutatenRow(emoji: "🍅", text: "400 g gehackte Tomaten (Dose)")
+                                                    ZutatenRow(emoji: "🫒", text: "1 EL Olivenöl")
+                                                    ZutatenRow(emoji: "💧", text: "150 ml Pflanzenmilch")
+                                                     ZutatenRow(emoji: "🌾", text: "1 EL Maisstärke")
+                                                     ZutatenRow(emoji: "🧂", text: "Gewürze: Salz, Pfeffer, Oregano oder Basilikum")
                             
-                        }//Ende Zutatenliste
+                           
+                            
+                        }
                         .padding(.horizontal)
                         .padding(.top, 5)
                         .padding(.bottom, 20)

@@ -20,7 +20,7 @@ Pasta mit Pistazienpesto & Pilzen
     🍄 200 g Champignons
     🧄 1 Knoblauchzehe
     🌿 30 g Basilikum
-    🟢 40 g Pistazien
+    🥜 40 g Pistazien
     🫒 3 EL Olivenöl
     🍋 1 TL Zitronensaft
     🧂 Salz, Pfeffer
@@ -128,16 +128,17 @@ Rezept aus meiner App Vegenius 🙂
                         .padding(.top)
                         
                         // MARK: - Zutaten Liste
-                        VStack(alignment: .leading, spacing: 8) {
-                            Zutaten(text: "🍝 200 g Pasta")
-                            Zutaten(text: "🍄 200 g Champignons")
-                            Zutaten(text: "🧄 1 Knoblauchzehe")
-                            Zutaten(text: "🌿 30 g Basilikum")
-                            Zutaten(text: "🟢 40 g Pistazien")
-                            Zutaten(text: "🫒 3 EL Olivenöl")
-                            Zutaten(text: "🍋 1 TL Zitronensaft")
-                            Zutaten(text: "🧂 Salz, Pfeffer")
-                            Zutaten(text: "💧 2–3 EL Nudelwasser")
+                        VStack(alignment: .leading, spacing: 10) {
+                                                    ZutatenRow(emoji: "🍝", text: "200 g Pasta")
+                                                    ZutatenRow(emoji: "🍄", text: "200 g Champignons")
+                                                    ZutatenRow(emoji: "🧄", text: "1 Knoblauchzehe")
+                                                    ZutatenRow(emoji: "🌿", text: "30 g Basilikum")
+                                                    ZutatenRow(emoji: "🥜", text: "40 g Pistazien")
+                                                    ZutatenRow(emoji: "🫒", text: "3 EL Olivenöl")
+                                                    ZutatenRow(emoji: "🍋", text: "1 TL Zitronensaft")
+                                                    ZutatenRow(emoji: "🧂", text: "Salz, Pfeffer")
+                                                    ZutatenRow(emoji: "💧", text: "2–3 EL Nudelwasser")
+                                                
                             
                         }//Ende Zutatenliste
                         .padding(.horizontal)

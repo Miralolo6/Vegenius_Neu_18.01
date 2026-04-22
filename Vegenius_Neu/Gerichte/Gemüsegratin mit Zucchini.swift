@@ -128,16 +128,19 @@ Rezept aus meiner App Vegenius 🙂
                         .padding(.top)
                         
                         // MARK: - Zutaten Liste
-                        VStack(alignment: .leading, spacing: 8) {
-                            Zutaten(text: "🥒 2 kleine Zucchini")
-                            Zutaten(text: "🥕 1 Karotte")
-                            Zutaten(text: "🧅 1 Zwiebel")
-                            Zutaten(text: "🧄 1 Knoblauchzehe")
-                            Zutaten(text: "🍅 100 g passierte Tomaten")
-                            Zutaten(text: "🫒 1 EL Olivenöl")
-                            Zutaten(text: "🧂 Gewürze: Salz, Pfeffer, Paprikapulver, Kräuter nach Wahl (z. B. Thymian, Oregano)")
-                            Zutaten(text: "🌾 50 g glutenfreie Haferflocken")
-                            Zutaten(text: "💧 50 ml Pflanzenmilch (z. B. Hafer- oder Sojamilch, ungesüßt)")
+                        VStack(alignment: .leading, spacing: 10) {
+                                                    ZutatenRow(emoji: "🥒", text: "2 kleine Zucchini")
+                                                    ZutatenRow(emoji: "🥕", text: "1 Karotte")
+                                                    ZutatenRow(emoji: "🧅", text: "1 Zwiebel")
+                                                    ZutatenRow(emoji: "🧄", text: "1 Knoblauchzehe")
+                                                    ZutatenRow(emoji: "🍅", text: "100 g passierte Tomaten")
+                                                    ZutatenRow(emoji: "🫒", text: "1 EL Olivenöl")
+                                                    ZutatenRow(emoji: "🧂", text: "Gewürze: Salz, Pfeffer, Paprikapulver, Kräuter nach Wahl (z. B. Thymian, Oregano)")
+                                                    ZutatenRow(emoji: "🌾", text: "50 g glutenfreie Haferflocken")
+                                                    ZutatenRow(emoji: "💧", text: "50 ml Pflanzenmilch (z. B. Hafer- oder Sojamilch, ungesüßt)")
+                                                
+                        
+                          
                             
                         }//Ende Zutatenliste
                         .padding(.horizontal)
