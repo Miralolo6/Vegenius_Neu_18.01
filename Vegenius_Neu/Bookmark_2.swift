@@ -40,47 +40,47 @@ struct RezepteView2: View {
     
     var body: some View {
         VStack(spacing: 6) {
-            HStack {
+            ZStack {
                 
-                Button {
-                    dismiss()
-                } label: {
-                    Image(systemName: "arrow.left")
-                        .font(.title3)
-                        .foregroundColor(.black)
-                }
-                
-                Spacer()
-                
+                // Mittig (unabhängig von Buttons)
                 Text("Gespeichert")
                     .font(.largeTitle)
                     .bold()
                     .foregroundColor(Color(red: 231/255, green: 161/255, blue: 176/255))
-                    .frame(maxWidth: .infinity, alignment: .center)
-                    .padding(.top, 12)
                 
-                Spacer()
-                
-                Button {
-                    print("gespeichert_ohne_Bearbeitung")
-                } label: {
-                    VStack {
-                        Image("Gespeichert_Seite")
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 50, height: 50)
-                                .font(.system(size: 48, weight: .semibold))
-                        
+                // Leiste mit Buttons
+                HStack {
+                    Button {
+                        dismiss()
+                    } label: {
+                        Image(systemName: "arrow.left")
+                            .font(.title3)
+                            .foregroundColor(.black)
+                    }
+                    
+                    Spacer()
+                    
+                    Button {
+                        print("gespeichert_ohne_Bearbeitung")
+                    } label: {
+                        Image(systemName: "bookmark.circle.fill")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 50, height: 50)
+                            .foregroundColor(Color(red: 35/255, green: 170/255, blue: 150/255))
                     }
                 }
-                .padding(.top, 8)
             }
+            .padding(.top, 12)
             
             Button("Gelöschte Rezepte wiederherstellen") {
                 recipes = startRecipes
             }
             .font(.caption)
             .foregroundColor(Color(red: 35/255, green: 170/255, blue: 150/255))
+            .frame(maxWidth: .infinity, alignment: .center)
+            
+
             
             ScrollView {
                 LazyVGrid(columns: columns, spacing: 20) {
