@@ -59,8 +59,8 @@ struct PasswortAendernView: View {
                                    .textFieldStyle(RoundedBorderTextFieldStyle())
                            } else {
                                SecureField("", text: $neuesPasswort)
-                                   .textFieldStyle(RoundedBorderTextFieldStyle())
-                           }
+                .textFieldStyle(RoundedBorderTextFieldStyle())
+      }
 
                 Button("Passwort anzeigen") {
                                 neuesAnzeigen.toggle()
@@ -84,8 +84,13 @@ struct PasswortAendernView: View {
                         }
                         .padding(.horizontal, 25)
                         .padding(.top, 30)
-                        .navigationTitle("Passwort ändern")
-                        .navigationBarTitleDisplayMode(.large)
+                        .navigationBarTitleDisplayMode(.inline)
+                        .toolbar {
+                            ToolbarItem(placement: .principal) {
+                                Text("Passwort ändern")
+                                    .foregroundColor(Color("TitelRosa"))
+                            }
+                        }
                         .background(Color("BackgroundMint").ignoresSafeArea())
                         .onAppear { setTitelFarbe() }
                     }
@@ -143,8 +148,13 @@ struct AnmeldungView: View {
                     }
                     .padding(.horizontal, 25)
                     .padding(.top, 30)
-                    .navigationTitle("Anmeldung")
-                    .navigationBarTitleDisplayMode(.large)   //
+                    .navigationBarTitleDisplayMode(.inline)
+                    .toolbar {
+                        ToolbarItem(placement: .principal) {
+                            Text("Anmeldung")
+                                .foregroundColor(Color("TitelRosa"))
+                        }
+                    }
                     .background(Color("BackgroundMint").ignoresSafeArea())
                     .onAppear { setTitelFarbe() }
                 }
@@ -213,8 +223,13 @@ struct RegistrierenView: View {
                       }
                       .padding(.horizontal, 25)
                       .padding(.top, 30)
-                      .navigationTitle("Registrieren")
-                      .navigationBarTitleDisplayMode(.large)
+                      .navigationBarTitleDisplayMode(.inline)
+                      .toolbar {
+                          ToolbarItem(placement: .principal) {
+                              Text("Registrieren")
+                                  .foregroundColor(Color("TitelRosa"))
+                          }
+                      }
                       .background(Color("BackgroundMint").ignoresSafeArea())
                       .onAppear { setTitelFarbe() }
 
@@ -287,14 +302,18 @@ struct AccountView: View {
         }
         .padding(.bottom, 40)
         .navigationTitle("Account")
-        .navigationBarTitleDisplayMode(.large)
-        .background(Color("BackgroundMint").ignoresSafeArea())
-        .onAppear { setTitelFarbe() }
+        .navigationBarTitleDisplayMode(.inline)
         .toolbar {
+            ToolbarItem(placement: .principal) {
+                Text("Account")
+                    .foregroundColor(Color("TitelRosa"))
+            }
             ToolbarItem(placement: .navigationBarTrailing) {
                 Image(systemName: "person.circle")
             }
         }
+        .background(Color("BackgroundMint").ignoresSafeArea())
+        .onAppear { setTitelFarbe() }
     }
 }
 
@@ -319,8 +338,13 @@ struct SicherheitView: View {
             }
             .padding()
         }
-        .navigationTitle("Sicherheit & Privatsphäre")
-        .navigationBarTitleDisplayMode(.large)
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .principal) {
+                Text("Sicherheit & Privatsphäre")
+                    .foregroundColor(Color("TitelRosa"))
+            }
+        }
         .background(Color("BackgroundMint").ignoresSafeArea())
         .onAppear { setTitelFarbe() }
     }
@@ -386,8 +410,13 @@ struct SupportView: View {
         .padding(.horizontal, 25)
         .padding(.top, 30)
 
-        .navigationTitle("Support")
-        .navigationBarTitleDisplayMode(.large)
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .principal) {
+                Text("Support")
+                    .foregroundColor(Color("TitelRosa"))
+            }
+        }
 
         .background(Color("BackgroundMint").ignoresSafeArea())
         .onAppear { setTitelFarbe() }
@@ -414,8 +443,13 @@ struct ProblemMeldenView: View {
             Spacer()
         }
         .padding()
-        .navigationTitle("Problem melden")
-        .navigationBarTitleDisplayMode(.large)
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .principal) {
+                Text("Problem melden")
+                    .foregroundColor(Color("TitelRosa"))
+            }
+        }
         .background(Color("BackgroundMint").ignoresSafeArea())
         .onAppear { setTitelFarbe() }
     }
@@ -426,8 +460,13 @@ struct ProblemMeldenView: View {
 struct TutorialView: View {
     var body: some View {
         Text("Tutorial Video")
-            .navigationTitle("Tutorial")
-            .navigationBarTitleDisplayMode(.large)
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .principal) {
+                    Text("Anmeldung")
+                        .foregroundColor(Color("TitelRosa"))
+                }
+            }
             .background(Color("BackgroundMint").ignoresSafeArea())
             .onAppear { setTitelFarbe() }
     }
@@ -446,8 +485,8 @@ struct EinstellungenView: View {
                     .ignoresSafeArea()
 
                 VStack(spacing: 30) {
+                    Spacer().frame(height: 10)
 
-                    // Titel
                     ZStack {
                         Text("Einstellungen")
                             .font(.largeTitle)
@@ -455,8 +494,18 @@ struct EinstellungenView: View {
                             .foregroundColor(Color("TitelRosa"))
 
                         HStack {
+                            // X links
+                            Button {
+                                print("Close tapped")
+                            } label: {
+                                Image(systemName: "xmark")
+                                    .foregroundColor(.black)
+                                    .font(.title2)
+                            }
+
                             Spacer()
 
+                            
                             Image(systemName: "gearshape")
                                 .foregroundColor(.black)
                                 .font(.title)
@@ -528,7 +577,7 @@ struct EinstellungenView: View {
 
                     Spacer()
                 }
-                .padding(.top, 20)
+                .padding(.top, 10)
             }
         }
         .onAppear { setTitelFarbe() }
@@ -537,4 +586,3 @@ struct EinstellungenView: View {
 #Preview {
     EinstellungenView()
 }
-
