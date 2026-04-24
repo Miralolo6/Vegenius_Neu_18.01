@@ -61,6 +61,8 @@ struct MakeItVeganView2: View {
     @State private var selectedImage: UIImage?
 
     @StateObject private var vm = VeganViewModel()
+    @EnvironmentObject var store: RecipeStore
+    
     
     
     
@@ -197,6 +199,7 @@ struct MakeItVeganView2: View {
                 }
                 .navigationDestination(isPresented: $showResult) {
                     VeganResultView2(text: vm.resultText)
+                        .environmentObject(store)
                 }
   
                 
@@ -214,5 +217,6 @@ struct MakeItVeganView2: View {
     
     #Preview {
         MakeItVeganView2()
+            .environmentObject(RecipeStore())
     }
     

@@ -13,9 +13,41 @@ import Combine
 final class RecipeStore: ObservableObject {
     @Published var recipes: [Recipe]
 
-    init(recipes: [Recipe] = []) {
-        self.recipes = recipes
-    }
+    
+        init() {
+            self.recipes = [
+                Recipe(title: "Twisted Potatoes", imageName: "Twisted Potatoe", category: .herzhaft,filters: [.glutenFree, .nutFree], isFavorite: false),
+                Recipe(title: "Mediterrane Reispfanne", imageName: "Mediterrane Reispfanne", category: .unter_zwanzig, filters: [.glutenFree, .nutFree], isFavorite: false),
+                Recipe(title: "Soychicken mit Couscous", imageName: "Soychicken Couscous", category: .herzhaft,  filters: [.highProtein], isFavorite: false),
+                Recipe(title: "Gemüsegratin mit Zucchini", imageName: "Gemüsegratin mit Zucchini", category: .herzhaft, filters: [.glutenFree, .nutFree], isFavorite: false),
+                Recipe(title: "Bananenbrot", imageName: "Bananenbrot", category: .suess, filters: [.nutFree, .glutenFree], isFavorite: false),
+                Recipe(title: "Chocolate Chip Cookies", imageName: "Chocolate Chip Cookies", category: .suess, filters: [.nutFree], isFavorite: false),
+                Recipe(title: "Süßkartoffel-Brownies", imageName: "Süßkartoffel Brownies", category: .suess, filters: [.glutenFree, .lowCarb], isFavorite: false),
+                Recipe(title: "Zimtschnecken", imageName: "Zimtschnecken", category: .suess, filters: [.nutFree], isFavorite: false),
+                Recipe(title: "Gemüse-Lasagne", imageName: "Gemüse-Lasagne", category: .herzhaft, filters: [.glutenFree, .nutFree], isFavorite: false),
+                Recipe(title: "Quiche Lorraine", imageName: "Quiche_Lorraine", category: .herzhaft, filters: [.highProtein], isFavorite: false),
+                Recipe(title: "Chana Masala", imageName: "Chana_Masala", category: .herzhaft, filters: [.glutenFree, .nutFree, .highProtein], isFavorite: false),
+                Recipe(title: "Tiramisu", imageName: "Tiramisu", category: .suess, filters: [.nutFree], isFavorite: false),
+                Recipe(title: "Zitronen-Blaubeer-Torte", imageName: "Zitronen-Blaubeer-Torte", category: .suess, filters: [.nutFree], isFavorite: false),
+                Recipe(title: "Kimchi-Pancakes mit Gochujang-Dip", imageName: "Kimchi-Pancakes", category: .unter_zwanzig, filters: [.nutFree], isFavorite: false),
+                Recipe(title: "Spaghetti Aglio e Olio", imageName: "Spaghetti", category: .unter_zwanzig, filters: [.nutFree], isFavorite: false),
+                Recipe(title: "Miso-Ramen-Suppe", imageName: "Miso-Ramen-Suppe", category: .unter_zwanzig, filters: [.nutFree, .highProtein], isFavorite: false),
+                Recipe(title: "Tex-Mex-Salat", imageName: "Tex-Mex-Salat", category: .unter_zwanzig, filters: [.nutFree, .highProtein, .glutenFree], isFavorite: false),
+                Recipe(title: "Pasta mit Pistazienpesto & Pilzen", imageName: "Pistazienpesto", category: .unter_zwanzig, filters: [], isFavorite: false)
+            ]
+        }
+    
+    func addGeneratedRecipe(title: String) {
+            let newRecipe = Recipe(
+                title: title,
+                imageName: "",
+                category: .alle,
+                filters: [],
+                isFavorite: false,
+                isGenerated: true
+            )
+            recipes.append(newRecipe)
+        }
 
     func binding(for recipeID: UUID) -> Binding<Recipe>? {
         guard let index = recipes.firstIndex(where: { $0.id == recipeID }) else { return nil }
@@ -33,6 +65,9 @@ struct Recipe: Identifiable { //definiert wie Rezept aufgebaut
     let category: Category
     let filters: Set<FilterType> //für Hashtags nur mit Werten von FilterType (von Hashtag)
     var isFavorite: Bool //gespeichert oder nicht
+    
+    var isGenerated: Bool = false
+
 }
 
 enum Category: String, CaseIterable { //Variable kann nur ein Element aus dieser Aufzählung haben; CaseIterable --> Programm alle Werte eines Enums durchgehen
@@ -56,6 +91,7 @@ enum FilterType: String, CaseIterable, Identifiable { //enum = Liste mit vorgege
 
 
 struct HomeView: View {
+    @EnvironmentObject var store: RecipeStore
     
     @State private var searchText = "" //Speichert den Text aus der Suchleiste., Oberfläche aktualisiert sich automatisch, wenn sich ein State ändert
     @State private var selectedCategory: Category = .alle//beim Start alle Rezepte angezeigt, Speichert, welche Kategorie ausgewählt ist.
@@ -63,26 +99,9 @@ struct HomeView: View {
     @FocusState private var searchFieldIsFocused: Bool//Variable zum öffnen der Tastatur
     
     
-    @StateObject private var store = RecipeStore(recipes: [
-        Recipe(title: "Twisted Potatoes", imageName: "Twisted Potatoe", category: .herzhaft,filters: [.glutenFree, .nutFree], isFavorite: false),
-        Recipe(title: "Mediterrane Reispfanne", imageName: "Mediterrane Reispfanne", category: .unter_zwanzig, filters: [.glutenFree, .nutFree], isFavorite: false),
-        Recipe(title: "Soychicken mit Couscous", imageName: "Soychicken Couscous", category: .herzhaft,  filters: [.highProtein], isFavorite: false),
-        Recipe(title: "Gemüsegratin mit Zucchini", imageName: "Gemüsegratin mit Zucchini", category: .herzhaft, filters: [.glutenFree, .nutFree], isFavorite: false),
-        Recipe(title: "Bananenbrot", imageName: "Bananenbrot", category: .suess, filters: [.nutFree, .glutenFree], isFavorite: false),
-        Recipe(title: "Chocolate Chip Cookies", imageName: "Chocolate Chip Cookies", category: .suess, filters: [.nutFree], isFavorite: false),
-        Recipe(title: "Süßkartoffel-Brownies", imageName: "Süßkartoffel Brownies", category: .suess, filters: [.glutenFree, .lowCarb], isFavorite: false),
-        Recipe(title: "Zimtschnecken", imageName: "Zimtschnecken", category: .suess, filters: [.nutFree], isFavorite: false),
-        Recipe(title: "Gemüse-Lasagne", imageName: "Gemüse-Lasagne", category: .herzhaft, filters: [.glutenFree, .nutFree], isFavorite: false),
-        Recipe(title: "Quiche Lorraine", imageName: "Quiche_Lorraine", category: .herzhaft, filters: [.highProtein], isFavorite: false),
-        Recipe(title: "Chana Masala", imageName: "Chana_Masala", category: .herzhaft, filters: [.glutenFree, .nutFree, .highProtein], isFavorite: false),
-        Recipe(title: "Tiramisu", imageName: "Tiramisu", category: .suess, filters: [.nutFree], isFavorite: false),
-        Recipe(title: "Zitronen-Blaubeer-Torte", imageName: "Zitronen-Blaubeer-Torte", category: .suess, filters: [.nutFree], isFavorite: false),
-        Recipe(title: "Kimchi-Pancakes mit Gochujang-Dip", imageName: "Kimchi-Pancakes", category: .unter_zwanzig, filters: [.nutFree], isFavorite: false),
-        Recipe(title: "Spaghetti Aglio e Olio", imageName: "Spaghetti", category: .unter_zwanzig, filters: [.nutFree], isFavorite: false),
-        Recipe(title: "Miso-Ramen-Suppe", imageName: "Miso-Ramen-Suppe", category: .unter_zwanzig, filters: [.nutFree, .highProtein], isFavorite: false),
-        Recipe(title: "Tex-Mex-Salat", imageName: "Tex-Mex-Salat", category: .unter_zwanzig, filters: [.nutFree, .highProtein, .glutenFree], isFavorite: false),
-        Recipe(title: "Pasta mit Pistazienpesto & Pilzen", imageName: "Pistazienpesto", category: .unter_zwanzig, filters: [], isFavorite: false)
-    ])
+        
+    
+
     
     
     
@@ -574,6 +593,7 @@ struct HomeView: View {
     
 #Preview {
     HomeView()
+        .environmentObject(RecipeStore())
 }
     
 

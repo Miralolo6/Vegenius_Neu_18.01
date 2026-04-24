@@ -20,6 +20,8 @@ struct Ingredient: Identifiable {
     var activeName: String {
             selectedAlternative ?? name
     }
+    var isGenerated: Bool = false
+
 }
 
 // MARK: - VIEW
@@ -43,65 +45,9 @@ struct VeganResultView2: View {
     
     @Environment(\.dismiss) var dismiss
     
-    // MARK: - PARSED INGREDIENTS
+    @EnvironmentObject var store: RecipeStore
+    @State private var isSaved = false
     
-    /*var parsedIngredients: [Ingredient] {
-        extractSection(title: "zutaten").map { line in
-            
-            let cleaned = line
-                .replacingOccurrences(of: "- ", with: "")
-                .replacingOccurrences(of: "|", with: "")
-            
-            let lower = cleaned.lowercased()
-
-            var mainPart = cleaned
-            var alternatives: [String] = []
-
-            if lower.contains("alternative") {
-                let split = cleaned.components(separatedBy: "Alternative:")
-                
-                if split.count < 2 {
-                    // fallback für "Alternativen:"
-                    let splitAlt = cleaned.components(separatedBy: "Alternativen:")
-                    if splitAlt.count >= 2 {
-                        mainPart = splitAlt[0]
-                        alternatives = splitAlt[1]
-                            .components(separatedBy: ",")
-                            .map { $0.trimmingCharacters(in: .whitespaces) }
-                    }
-                } else {
-                    mainPart = split[0]
-                    alternatives = split[1]
-                        .components(separatedBy: ",")
-                        .map { $0.trimmingCharacters(in: .whitespaces) }
-                }
-            }
-
-            alternatives = alternatives.filter { !$0.isEmpty }
-            
-            // Extract amount
-            let components = mainPart.components(separatedBy: " ")
-            
-            if let amount = Double(components.first?.replacingOccurrences(of: ",", with: ".") ?? "") {
-                let unit = components.count > 1 ? components[1] : ""
-                let name = components.dropFirst(2).joined(separator: " ")
-                
-                return Ingredient(
-                    baseAmount: amount,
-                    unit: unit,
-                    name: name,
-                    alternatives: alternatives
-                )
-            } else {
-                return Ingredient(
-                    baseAmount: nil,
-                    unit: "",
-                    name: mainPart,
-                    alternatives: alternatives
-                )
-            }
-        }
-    }*/
     
     // MARK: - STEPS
     
@@ -146,9 +92,10 @@ struct VeganResultView2: View {
                         
                         // RIGHT: Toggle Button
                         Button {
-                            showAltImage.toggle()
+                            store.addGeneratedRecipe(title: text)
+                            isSaved = true
                         } label: {
-                            Image(showAltImage ? "gH" : "sH")
+                            Image(isSaved ? "gH" : "sH")
                                 .resizable()
                                 .scaledToFit()
                                 .frame(width: 30, height: 30)
