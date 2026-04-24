@@ -9,7 +9,7 @@ import SwiftUI
 
 @main
 struct Vegenius_NeuApp: App {
-    @StateObject var store = RecipeStore()
+    @StateObject private var store = RecipeStore()
     var body: some Scene {
         WindowGroup {
             ContentView()
