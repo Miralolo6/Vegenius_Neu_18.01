@@ -241,6 +241,7 @@ struct RezepteView2: View {
 
                                 Text(recipe.title)
                                     .font(.headline)
+                                    .foregroundColor(.primary)
                                     .lineLimit(2)
 
                                 Text(recipe.description)
