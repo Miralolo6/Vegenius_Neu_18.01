@@ -50,7 +50,7 @@ struct RezepteView2: View { //Bildschirm (View)
                         imageName: "Süßkartoffel Brownies",
                         category: .suess,
                         filters: [.glutenFree, .lowCarb],
-                        isFavorite: false
+                        isFavorite: true
                     )
                 )
             )
@@ -63,7 +63,7 @@ struct RezepteView2: View { //Bildschirm (View)
                         imageName: "Mediterrane Reispfanne",
                         category: .unter_zwanzig,
                         filters: [.glutenFree, .nutFree],
-                        isFavorite: false
+                        isFavorite: true
                     )
                 )
             )
