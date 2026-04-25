@@ -148,7 +148,7 @@ Rezept aus meiner App Vegenius 🙂
                     BottomBarView()
                     
                     NavigationLink {
-                        MakeItVeganView()
+                        MakeItVeganView2()
                             .navigationBarBackButtonHidden(true)
                             .toolbar(.hidden, for: .navigationBar)
                     } label: {

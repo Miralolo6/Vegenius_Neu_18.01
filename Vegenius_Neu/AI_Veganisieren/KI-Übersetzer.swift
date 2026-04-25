@@ -2,7 +2,7 @@ import Foundation //Foundation→ Grundfunktionen
 
 import Combine //für Daten, die sich ändern (z. B. UI)
 
-class VeganViewModel: ObservableObject { //ObservableObject = UI merkt, wenn sich etwas ändert
+class VeganViewModel: ObservableObject { //ObservableObject = UI (Benutzeroberfläche – alles, was Nutzer sehen und womit sie interagieren (App)) merkt, wenn sich etwas ändert
     
     @Published var inputText = "" //Text vom Nutzer (Rezept), wenn sich das ändert → UI wird aktualisiert
     @Published var resultText = "" //Ergebnis von der KI (veganes Rezept)

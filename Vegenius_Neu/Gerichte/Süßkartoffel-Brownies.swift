@@ -170,7 +170,7 @@ Rezept aus meiner App Vegenius 🙂
                 ZStack(alignment: .bottom) {
                     BottomBarView()
                     NavigationLink {
-                        MakeItVeganView()
+                        MakeItVeganView2()
                             .navigationBarBackButtonHidden(true)
                             .toolbar(.hidden, for: .navigationBar)
                     } label: {
