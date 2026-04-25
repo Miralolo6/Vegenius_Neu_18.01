@@ -246,8 +246,6 @@ struct HomeView: View {
     var body: some View {
         NavigationStack {
             ZStack(alignment: .bottom) { //fixiert BottomBar am unteren Rand
-                //Color(hex: "#F7FDFC")
-                //Color.init(red: 247, green: 253, blue: 252)
                 Color(red: 247/255, green: 253/255, blue: 252/255)
                     .ignoresSafeArea()
                 

@@ -5,20 +5,25 @@
 //  Created by TA620 on 25.03.26.
 //
 
-import Foundation
+import Foundation //Importiert das Foundation-Framework, das grundlegende Funktionen für Networking, Datenverarbeitung, URLs usw. bereitstellt.
 
-class OpenAIService {
+
+
+
+class OpenAIService { //OpenAIService, die für die Kommunikation mit der OpenAI-API zuständig
     
-    private let apiKey: String = {
+    private let apiKey: String = { //Deklariert eine private Konstante (apiKey)
         guard let key = Bundle.main.object(forInfoDictionaryKey: "API_KEY") as? String else {
             fatalError("API_KEY fehlt")
-        }
-        print("🔑 API_KEY geladen: \(key.prefix(10))...")  // ← Diese Zeile hinzufügen
-        return key
+        }//guard let prüft:
+        //Existiert der Wert?
+        //Ist er ein String?
+        print("🔑 API_KEY geladen: \(key.prefix(10))...")  //Debug-Ausgabe: Zeigt die ersten 10 Zeichen des API-Keys in der Konsole, Hilfreich zum Prüfen, ob der Key geladen
+        return key //Gibt den geladenen API-Key zurück
     }()
     
-    func veganize(recipe: String) async throws -> String {
-        let url = URL(string: "https://api.openai.com/v1/chat/completions")!
+    func veganize(recipe: String) async throws -> String {//Definiert eine Funktion: `recipe`: Eingabe (Text eines Rezepts), async: läuft nebenläufig (für Netzwerkanfragen), throws: kann Fehler werfen, Rückgabe: `String` (das vegane Rezept)
+        let url = URL(string: "https://api.openai.com/v1/chat/completions")! //Wohin die Anfrage geschickt
         
         // Prompt für die AI
         let prompt = """
@@ -41,41 +46,42 @@ class OpenAIService {
 
         
         \(recipe)
-        """
+        """ //genaue Anweisungen für die KI, Formatvorgaben für Zutaten & Ausgabe, das originale Rezept (\(recipe) wird eingesetzt)
         
         // Request-Body
         let body: [String: Any] = [
-            "model": "gpt-4o-mini", // Modell aus deiner Key-Ausgabe
+            "model": "gpt-4o-mini", // Welches KI-Modell soll antworten
             "messages": [
-                ["role": "user", "content": prompt]
+                ["role": "user", "content": prompt] //Nutzer schickt diesen Text an die KI
             ],
-            "temperature": 0.5
+            "temperature": 0.5 //normal kreativ antworten, 0 → sehr genau, langweilig, 1 → kreativ, manchmal verrückt
         ]
         
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        request.addValue("Bearer \(apiKey)", forHTTPHeaderField: "Authorization")
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.httpBody = try JSONSerialization.data(withJSONObject: body)
+        var request = URLRequest(url: url) //Anfrage, um etwas an diese Internet-Adresse schicken
+        request.httpMethod = "POST" //Daten hingeschickt
+        request.addValue("Bearer \(apiKey)", forHTTPHeaderField: "Authorization") //API-Key wird mitgeschickt --> bin berechtigt
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type") //Daten sind im JSON-Format --> strukturierte Art, Daten aufzuschreiben
+        request.httpBody = try JSONSerialization.data(withJSONObject: body) //Wandelt deine Daten in **JSON** um → So kann der Server sie verstehen
+
         
-        let (data, response) = try await URLSession.shared.data(for: request)
+        let (data, response) = try await URLSession.shared.data(for: request) //Anfrage wird abgeschickt --> Antwort kommt zurück
         
         // Statuscode prüfen
-        if let httpResponse = response as? HTTPURLResponse, !(200...299).contains(httpResponse.statusCode) {
+        if let httpResponse = response as? HTTPURLResponse, !(200...299).contains(httpResponse.statusCode) { //Prüft: → Hat alles funktioniert?
             let message = String(data: data, encoding: .utf8) ?? "Unknown error"
             throw NSError(domain: "", code: httpResponse.statusCode, userInfo: [NSLocalizedDescriptionKey: message])
         }
         
         // Antwort parsen
         guard
-            let json = try JSONSerialization.jsonObject(with: data) as? [String: Any],
-            let choices = json["choices"] as? [[String: Any]],
-            let message = choices.first?["message"] as? [String: Any],
-            let content = message["content"] as? String
+            let json = try JSONSerialization.jsonObject(with: data) as? [String: Any], //Antwort wird gelesen (JSON → verständlich machen)
+            let choices = json["choices"] as? [[String: Any]], //Antwort-Liste von der KI
+            let message = choices.first?["message"] as? [String: Any], //Text der KI
+            let content = message["content"] as? String //Holt den Text der KI
         else {
-            throw NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "Ungültige API-Antwort"])
+            throw NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "Ungültige API-Antwort"]) //Das passiert, wenn etwas schiefgeht, Die Antwort von der API passt nicht, Daten fehlen oder sind falsch --> Dann: → wird ein Fehler ausgelöst
         }
         
-        return content
+        return content //Gibt das Ergebnis zurück → dein veganes Rezept
     }
 }

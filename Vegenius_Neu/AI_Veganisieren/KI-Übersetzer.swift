@@ -1,5 +1,6 @@
-import Foundation
-import Combine
+import Foundation //Foundation→ Grundfunktionen
+
+import Combine //für Daten, die sich ändern (z. B. UI)
 
 class VeganViewModel: ObservableObject {
     
