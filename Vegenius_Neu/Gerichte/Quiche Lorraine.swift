@@ -208,7 +208,8 @@ Rezept aus meiner App Vegenius 🙂
                 imageName: "Quiche_Lorraine",
                 category: .unter_zwanzig,
                 filters: [],
-                isFavorite: false
+                isFavorite: false,
+               // route: .defaultRecipe
             )
         )
     )

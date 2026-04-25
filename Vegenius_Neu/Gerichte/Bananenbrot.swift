@@ -173,7 +173,8 @@ Rezept aus meiner App Vegenius 🙂
                 imageName: "Bananenbrot",
                 category: .suess,
                 filters: [.nutFree, .glutenFree],
-                isFavorite: false
+                isFavorite: false,
+                //route: .defaultRecipe
             )
         )
     )

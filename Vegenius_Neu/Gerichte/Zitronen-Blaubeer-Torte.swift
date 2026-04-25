@@ -200,7 +200,8 @@ Rezept aus meiner App Vegenius🙂
                 imageName: "Zitronen-Blaubeer-Torte",
                 category: .suess,
                 filters: [.nutFree],
-                isFavorite: false
+                isFavorite: false,
+               // route: .defaultRecipe
             )
         )
     )

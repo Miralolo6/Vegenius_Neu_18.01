@@ -210,7 +210,8 @@ Rezept aus meiner App Vegenius 🙂
                 imageName: "Chana_Masala",
                 category: .herzhaft,
                 filters: [.glutenFree, .nutFree, .highProtein],
-                isFavorite: false
+                isFavorite: false,
+                //route: .defaultRecipe
             )
         )
     )

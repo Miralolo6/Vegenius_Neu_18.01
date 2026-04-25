@@ -214,7 +214,8 @@ struct RecipeShareSheet: UIViewControllerRepresentable {
                 imageName: "Twisted Potatoe",
                 category: .herzhaft,
                 filters: [.glutenFree, .nutFree],
-                isFavorite: false
+                isFavorite: false,
+              //  route: .defaultRecipe
             )
         )
     )

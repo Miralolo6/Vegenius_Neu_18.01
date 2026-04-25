@@ -248,7 +248,8 @@ extension Color {
                 imageName: "Mediterrane Reispfanne",
                 category: .unter_zwanzig,
                 filters: [.glutenFree, .nutFree],
-                isFavorite: false
+                isFavorite: false,
+               // route: .defaultRecipe
             )
         )
     )

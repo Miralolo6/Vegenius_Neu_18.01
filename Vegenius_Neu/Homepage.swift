@@ -33,6 +33,7 @@ struct Recipe: Identifiable { //definiert wie Rezept aufgebaut
     let category: Category
     let filters: Set<FilterType> //für Hashtags nur mit Werten von FilterType (von Hashtag)
     var isFavorite: Bool //gespeichert oder nicht
+    //let route: RecipeRoute
 }
 
 enum Category: String, CaseIterable { //Variable kann nur ein Element aus dieser Aufzählung haben; CaseIterable --> Programm alle Werte eines Enums durchgehen
@@ -51,9 +52,23 @@ enum FilterType: String, CaseIterable, Identifiable { //enum = Liste mit vorgege
     case lowCarb = "# lowcarb"
 }
 
+enum RecipeRoute {
+    case brownies
+    case tiramisu
+    case chanaMasala
+    case defaultRecipe
+    case bananenbrot
+    case RecipeDetailHost
+    case mediterraneReispfanne
+}
 
+struct RecipeDetailHost: View {
+    @Binding var recipe: Recipe
 
-
+    var body: some View {
+        Text(recipe.title)
+    }
+}
 
 struct HomeView: View {
     
@@ -64,25 +79,134 @@ struct HomeView: View {
     
     
     @StateObject private var store = RecipeStore(recipes: [
-        Recipe(title: "Twisted Potatoes", imageName: "Twisted Potatoe", category: .herzhaft,filters: [.glutenFree, .nutFree], isFavorite: false),
-        Recipe(title: "Mediterrane Reispfanne", imageName: "Mediterrane Reispfanne", category: .unter_zwanzig, filters: [.glutenFree, .nutFree], isFavorite: false),
-        Recipe(title: "Soychicken mit Couscous", imageName: "Soychicken Couscous", category: .herzhaft,  filters: [.highProtein], isFavorite: false),
-        Recipe(title: "Gemüsegratin mit Zucchini", imageName: "Gemüsegratin mit Zucchini", category: .herzhaft, filters: [.glutenFree, .nutFree], isFavorite: false),
-        Recipe(title: "Bananenbrot", imageName: "Bananenbrot", category: .suess, filters: [.nutFree, .glutenFree], isFavorite: false),
-        Recipe(title: "Chocolate Chip Cookies", imageName: "Chocolate Chip Cookies", category: .suess, filters: [.nutFree], isFavorite: false),
-        Recipe(title: "Süßkartoffel-Brownies", imageName: "Süßkartoffel Brownies", category: .suess, filters: [.glutenFree, .lowCarb], isFavorite: false),
-        Recipe(title: "Zimtschnecken", imageName: "Zimtschnecken", category: .suess, filters: [.nutFree], isFavorite: false),
-        Recipe(title: "Gemüse-Lasagne", imageName: "Gemüse-Lasagne", category: .herzhaft, filters: [.glutenFree, .nutFree], isFavorite: false),
-        Recipe(title: "Quiche Lorraine", imageName: "Quiche_Lorraine", category: .herzhaft, filters: [.highProtein], isFavorite: false),
-        Recipe(title: "Chana Masala", imageName: "Chana_Masala", category: .herzhaft, filters: [.glutenFree, .nutFree, .highProtein], isFavorite: false),
-        Recipe(title: "Tiramisu", imageName: "Tiramisu", category: .suess, filters: [.nutFree], isFavorite: false),
-        Recipe(title: "Zitronen-Blaubeer-Torte", imageName: "Zitronen-Blaubeer-Torte", category: .suess, filters: [.nutFree], isFavorite: false),
-        Recipe(title: "Kimchi-Pancakes mit Gochujang-Dip", imageName: "Kimchi-Pancakes", category: .unter_zwanzig, filters: [.nutFree], isFavorite: false),
-        Recipe(title: "Spaghetti Aglio e Olio", imageName: "Spaghetti", category: .unter_zwanzig, filters: [.nutFree], isFavorite: false),
-        Recipe(title: "Miso-Ramen-Suppe", imageName: "Miso-Ramen-Suppe", category: .unter_zwanzig, filters: [.nutFree, .highProtein], isFavorite: false),
-        Recipe(title: "Tex-Mex-Salat", imageName: "Tex-Mex-Salat", category: .unter_zwanzig, filters: [.nutFree, .highProtein, .glutenFree], isFavorite: false),
-        Recipe(title: "Pasta mit Pistazienpesto & Pilzen", imageName: "Pistazienpesto", category: .unter_zwanzig, filters: [], isFavorite: false)
-    ])
+        Recipe(
+            title: "Twisted Potatoes",
+            imageName: "Twisted Potatoe",
+            category: .herzhaft,
+            filters: [.glutenFree, .nutFree],
+            isFavorite: false,
+            //route: .defaultRecipe
+        ),
+        Recipe(
+            title: "Mediterrane Reispfanne",
+            imageName: "Mediterrane Reispfanne",
+            category: .unter_zwanzig, filters: [.glutenFree, .nutFree],
+            isFavorite: false,
+            //route: .mediterraneReispfanne
+        ),
+        Recipe(title: "Soychicken mit Couscous",
+               imageName: "Soychicken Couscous",
+               category: .herzhaft,
+               filters: [.highProtein],
+               isFavorite: false,
+               //route: .defaultRecipe
+              ),
+        Recipe(title: "Gemüsegratin mit Zucchini",
+               imageName: "Gemüsegratin mit Zucchini",
+               category: .herzhaft,
+               filters: [.glutenFree, .nutFree],
+               isFavorite: false,
+               //route: .defaultRecipe
+              ),
+        Recipe(title: "Bananenbrot",
+               imageName: "Bananenbrot",
+               category: .suess,
+               filters: [.nutFree, .glutenFree],
+               isFavorite: false,
+               //route: .defaultRecipe
+              ),
+        Recipe(title: "Chocolate Chip Cookies",
+               imageName: "Chocolate Chip Cookies",
+               category: .suess,
+               filters: [.nutFree],
+               isFavorite: false,
+               //route: .defaultRecipe
+              ),
+        Recipe(title: "Süßkartoffel-Brownies",
+               imageName: "Süßkartoffel Brownies",
+               category: .suess,
+               filters: [.glutenFree, .lowCarb],
+               isFavorite: false,
+               //route: .defaultRecipe
+              ),
+        Recipe(title: "Zimtschnecken",
+               imageName: "Zimtschnecken",
+               category: .suess,
+               filters: [.nutFree],
+               isFavorite: false,
+               // route: .defaultRecipe
+              ),
+        Recipe(title: "Gemüse-Lasagne",
+               imageName: "Gemüse-Lasagne",
+               category: .herzhaft,
+               filters: [.glutenFree, .nutFree],
+               isFavorite: false,
+               //route: .defaultRecipe
+              ),
+        Recipe(title: "Quiche Lorraine",
+               imageName: "Quiche_Lorraine",
+               category: .herzhaft,
+               filters: [.highProtein],
+               isFavorite: false,
+               // route: .defaultRecipe
+              ),
+        Recipe(title: "Chana Masala",
+               imageName: "Chana_Masala",
+               category: .herzhaft,
+               filters: [.glutenFree, .nutFree, .highProtein],
+               isFavorite: false,
+               //route: .defaultRecipe
+              ),
+        Recipe(title: "Tiramisu",
+               imageName: "Tiramisu",
+               category: .suess,
+               filters: [.nutFree],
+               isFavorite: false,
+               //  route: .defaultRecipe
+              ),
+        Recipe(title: "Zitronen-Blaubeer-Torte",
+               imageName: "Zitronen-Blaubeer-Torte",
+               category: .suess,
+               filters: [.nutFree],
+               isFavorite: false,
+               // route: .defaultRecipe
+              ),
+        Recipe(title: "Kimchi-Pancakes mit Gochujang-Dip",
+               imageName: "Kimchi-Pancakes",
+               category: .unter_zwanzig,
+               filters: [.nutFree],
+               isFavorite: false,
+               // route: .defaultRecipe
+              ),
+        Recipe(title: "Spaghetti Aglio e Olio",
+               imageName: "Spaghetti",
+               category: .unter_zwanzig,
+               filters: [.nutFree],
+               isFavorite: false,
+               // route: .defaultRecipe
+              ),
+        Recipe(title: "Miso-Ramen-Suppe",
+               imageName: "Miso-Ramen-Suppe",
+               category: .unter_zwanzig,
+               filters: [.nutFree, .highProtein],
+               isFavorite: false,
+               // route: .defaultRecipe
+              ),
+        Recipe(title: "Tex-Mex-Salat",
+               imageName: "Tex-Mex-Salat",
+               category: .unter_zwanzig,
+               filters: [.nutFree, .highProtein, .glutenFree],
+               isFavorite: false,
+               // route: .defaultRecipe
+              ),
+        Recipe(title: "Pasta mit Pistazienpesto & Pilzen", imageName: "Pistazienpesto",
+               category: .unter_zwanzig,
+               filters: [],
+               isFavorite: false,
+               // route: .defaultRecipe
+        )
+        ])
+    
     
     
     
@@ -279,182 +403,17 @@ struct HomeView: View {
                                                    
                                                    ForEach(filteredRecipes) { recipe in
                                                        if let recipeBinding = store.binding(for: recipe.id) {
-                                                           if recipe.title == "Bananenbrot" {
-                                                               NavigationLink {
-                                                                   RecipeDetailWrapper(recipe: recipeBinding) {
-                                                                       BananenbrotView(recipe: recipeBinding)
-                                                                   }
-                                                               } label: {
-                                                                   RecipeCard(recipe: recipeBinding)
+
+                                                           NavigationLink {
+                                                               RecipeDetailWrapper(recipe: recipeBinding) {
+                                                                   RecipeDestination(recipe: recipeBinding)
                                                                }
-                                                               .buttonStyle(.plain)
-                                                           } else if recipe.title == "Chana Masala" {
-                                                               NavigationLink {
-                                                                   RecipeDetailWrapper(recipe: recipeBinding) {
-                                                                       ChanaMasalaView(recipe: recipeBinding)
-                                                                   }
-                                                               } label: {
-                                                                   RecipeCard(recipe: recipeBinding)
-                                                               }
-                                                               .buttonStyle(.plain)
-                                                           } else if recipe.title == "Chocolate Chip Cookies" {
-                                                               NavigationLink {
-                                                                   RecipeDetailWrapper(recipe: recipeBinding) {
-                                                                       ChocolateChipCookiesView(recipe: recipeBinding)
-                                                                   }
-                                                               } label: {
-                                                                   RecipeCard(recipe: recipeBinding)
-                                                               }
-                                                               .buttonStyle(.plain)
-                                                           } else if recipe.title == "Gemüse-Lasagne" {
-                                                               NavigationLink {
-                                                                   RecipeDetailWrapper(recipe: recipeBinding) {
-                                                                       GemueseLasagneView(recipe: recipeBinding)
-                                                                   }
-                                                               } label: {
-                                                                   RecipeCard(recipe: recipeBinding)
-                                                               }
-                                                               .buttonStyle(.plain)
-                                                           } else if recipe.title == "Gemüsegratin mit Zucchini" {
-                                                               NavigationLink {
-                                                                   RecipeDetailWrapper(recipe: recipeBinding) {
-                                                                       GemüsegratinMitZucchiniView(recipe: recipeBinding)
-                                                                   }
-                                                               } label: {
-                                                                   RecipeCard(recipe: recipeBinding)
-                                                               }
-                                                               .buttonStyle(.plain)
-                                                           } else if recipe.title == "Kimchi-Pancakes mit Gochujang-Dip" {
-                                                               NavigationLink {
-                                                                   RecipeDetailWrapper(recipe: recipeBinding) {
-                                                                       KimchiPancakesView(recipe: recipeBinding)
-                                                                   }
-                                                               } label: {
-                                                                   RecipeCard(recipe: recipeBinding)
-                                                               }
-                                                               .buttonStyle(.plain)
-                                                           } else if recipe.title == "Miso-Ramen-Suppe" {
-                                                               NavigationLink {
-                                                                   RecipeDetailWrapper(recipe: recipeBinding) {
-                                                                       MisoRamenSuppeView(recipe: recipeBinding)
-                                                                   }
-                                                               } label: {
-                                                                   RecipeCard(recipe: recipeBinding)
-                                                               }
-                                                               .buttonStyle(.plain)
-                                                           } else if recipe.title == "Pasta mit Pistazienpesto & Pilzen" {
-                                                               NavigationLink {
-                                                                   RecipeDetailWrapper(recipe: recipeBinding) {
-                                                                       PistazienPestoView(recipe: recipeBinding)
-                                                                   }
-                                                               } label: {
-                                                                   RecipeCard(recipe: recipeBinding)
-                                                               }
-                                                               .buttonStyle(.plain)
-                                                           } else if recipe.title == "Quiche Lorraine" {
-                                                               NavigationLink {
-                                                                   RecipeDetailWrapper(recipe: recipeBinding) {
-                                                                       QuicheLorraineView(recipe: recipeBinding)
-                                                                   }
-                                                               } label: {
-                                                                   RecipeCard(recipe: recipeBinding)
-                                                               }
-                                                               .buttonStyle(.plain)
-                                                           } else if recipe.title == "Mediterrane Reispfanne" {
-                                                               NavigationLink {
-                                                                   RecipeDetailWrapper(recipe: recipeBinding) {
-                                                                       RezeptDetailView(recipe: recipeBinding)
-                                                                   }
-                                                               } label: {
-                                                                   RecipeCard(recipe: recipeBinding)
-                                                               }
-                                                               .buttonStyle(.plain)
-                                                           } else if recipe.title == "Soychicken mit Couscous" {
-                                                               NavigationLink {
-                                                                   RecipeDetailWrapper(recipe: recipeBinding) {
-                                                                       SoychickenMitCouscousView(recipe: recipeBinding)
-                                                                   }
-                                                               } label: {
-                                                                   RecipeCard(recipe: recipeBinding)
-                                                               }
-                                                               .buttonStyle(.plain)
-                                                           } else if recipe.title == "Spaghetti Aglio e Olio" {
-                                                               NavigationLink {
-                                                                   RecipeDetailWrapper(recipe: recipeBinding) {
-                                                                       SpaghettiView(recipe: recipeBinding)
-                                                                   }
-                                                               } label: {
-                                                                   RecipeCard(recipe: recipeBinding)
-                                                               }
-                                                               .buttonStyle(.plain)
-                                                           } else if recipe.title == "Süßkartoffel-Brownies" {
-                                                               NavigationLink {
-                                                                   RecipeDetailWrapper(recipe: recipeBinding) {
-                                                                       SuesskartorffelBrowniesView(recipe: recipeBinding)
-                                                                   }
-                                                               } label: {
-                                                                   RecipeCard(recipe: recipeBinding)
-                                                               }
-                                                               .buttonStyle(.plain)
-                                                           } else if recipe.title == "Tex-Mex-Salat" {
-                                                               NavigationLink {
-                                                                   RecipeDetailWrapper(recipe: recipeBinding) {
-                                                                       TexMexSalatView(recipe: recipeBinding)
-                                                                   }
-                                                               } label: {
-                                                                   RecipeCard(recipe: recipeBinding)
-                                                               }
-                                                               .buttonStyle(.plain)
-                                                           } else if recipe.title == "Tiramisu" {
-                                                               NavigationLink {
-                                                                   RecipeDetailWrapper(recipe: recipeBinding) {
-                                                                       TiramisuView(recipe: recipeBinding)
-                                                                   }
-                                                               } label: {
-                                                                   RecipeCard(recipe: recipeBinding)
-                                                               }
-                                                               .buttonStyle(.plain)
-                                                           } else if recipe.title == "Twisted Potatoes" {
-                                                               NavigationLink {
-                                                                   RecipeDetailWrapper(recipe: recipeBinding) {
-                                                                       TwistedPotatoesView(recipe: recipeBinding)
-                                                                   }
-                                                               } label: {
-                                                                   RecipeCard(recipe: recipeBinding)
-                                                               }
-                                                               .buttonStyle(.plain)
-                                                           } else if recipe.title == "Zimtschnecken" {
-                                                               NavigationLink {
-                                                                   RecipeDetailWrapper(recipe: recipeBinding) {
-                                                                       ZimtschneckenView(recipe: recipeBinding)
-                                                                   }
-                                                               } label: {
-                                                                   RecipeCard(recipe: recipeBinding)
-                                                               }
-                                                               .buttonStyle(.plain)
-                                                           } else if recipe.title == "Zitronen-Blaubeer-Torte" {
-                                                               NavigationLink {
-                                                                   RecipeDetailWrapper(recipe: recipeBinding) {
-                                                                       ZitronenBlaubeerTorteView(recipe: recipeBinding)
-                                                                   }
-                                                               } label: {
-                                                                   RecipeCard(recipe: recipeBinding)
-                                                               }
-                                                               .buttonStyle(.plain)
-                                                           } else {
-                                                               NavigationLink {
-                                                                   RecipeDetailWrapper(recipe: recipeBinding) {
-                                                                       RecipeDetailHost(recipe: recipeBinding)
-                                                                   }
-                                                               } label: {
-                                                                   RecipeCard(recipe: recipeBinding)
-                                                               }
-                                                               .buttonStyle(.plain)
+                                                           } label: {
+                                                               RecipeCard(recipe: recipeBinding)
                                                            }
+                                                           .buttonStyle(.plain)
                                                        }
-                                                       
-                                                   }
-                                               }
+                                                   }                                               }
                         }
                     }
                     .padding(.horizontal)

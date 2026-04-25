@@ -194,7 +194,8 @@ Rezept aus meiner App Vegenius 🙂
                 imageName: "Kimchi-Pancakes",
                 category: .unter_zwanzig,
                 filters: [.nutFree, .highProtein],
-                isFavorite: false
+                isFavorite: false,
+              //  route: .defaultRecipe
             )
         )
     )

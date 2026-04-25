@@ -201,7 +201,8 @@ Rezept aus meiner App Vegenius 🙂
                 imageName: "Chocolate Chip Cookies",
                 category: .suess,
                 filters: [.nutFree],
-                isFavorite: false
+                isFavorite: false,
+                //route: .defaultRecipe
             )
         )
     )

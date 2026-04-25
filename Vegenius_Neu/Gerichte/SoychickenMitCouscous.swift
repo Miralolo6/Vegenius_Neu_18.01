@@ -198,7 +198,8 @@ Rezept aus meiner App Vegenius 🙂
                 imageName: "Soychicken Couscous",
                 category: .herzhaft,
                 filters: [.highProtein],
-                isFavorite: false
+                isFavorite: false,
+               // route: .defaultRecipe
             )
         )
     )

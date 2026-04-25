@@ -197,7 +197,8 @@ Rezept aus meiner App Vegenius🙂
                 imageName: "Tiramisu",
                 category: .suess,
                 filters: [.nutFree],
-                isFavorite: false
+                isFavorite: false,
+            //    route: .defaultRecipe
             )
         )
     )

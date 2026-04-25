@@ -203,7 +203,8 @@ Rezept aus meiner App Vegenius 🙂
                         imageName: "Tex-Mex-Salat",
                         category: .unter_zwanzig,
                         filters: [.nutFree, .highProtein, .glutenFree],
-                        isFavorite: false
+                        isFavorite: false,
+                       // route: .defaultRecipe
                     )
                 )
             )

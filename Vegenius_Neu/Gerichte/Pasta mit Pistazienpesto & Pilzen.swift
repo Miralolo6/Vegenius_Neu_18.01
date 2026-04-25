@@ -200,7 +200,8 @@ Rezept aus meiner App Vegenius 🙂
                 imageName: "Pistazienpesto",
                 category: .unter_zwanzig,
                 filters: [],
-                isFavorite: false
+                isFavorite: false,
+               // route: .defaultRecipe
             )
         )
     )

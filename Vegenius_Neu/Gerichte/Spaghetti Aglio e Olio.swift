@@ -199,7 +199,8 @@ Rezept aus meiner App Vegenius 🙂
                 imageName: "Spaghetti",
                 category: .unter_zwanzig,
                 filters: [.nutFree],
-                isFavorite: false
+                isFavorite: false,
+              //  route: .defaultRecipe
             )
         )
     )

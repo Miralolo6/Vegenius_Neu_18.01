@@ -38,6 +38,42 @@ struct RezepteView2: View {
         GridItem(.flexible(), spacing: 16)
     ]
     
+    @ViewBuilder
+    private func destination(for recipe: Recipe5) -> some View {
+
+        if recipe.title == "Brownies" {
+            SuesskartorffelBrowniesView(
+                recipe: .constant(
+                    Recipe(
+                        title: "Süßkartoffel-Brownies",
+                        imageName: "Süßkartoffel Brownies",
+                        category: .suess,
+                        filters: [.glutenFree, .lowCarb],
+                        isFavorite: false
+                    )
+                )
+            )
+
+        } else if recipe.title == "Mediterrane Reispfanne" {
+            RezeptDetailView(
+                recipe: .constant(
+                    Recipe(
+                        title: "Mediterrane Reispfanne",
+                        imageName: "Mediterrane Reispfanne",
+                        category: .unter_zwanzig,
+                        filters: [.glutenFree, .nutFree],
+                        isFavorite: false
+                    )
+                )
+            )
+
+        } else {
+            Text("Keine Detailseite vorhanden")
+        }
+    }
+    
+    
+    
     var body: some View {
         VStack(spacing: 6) {
             ZStack {
@@ -84,7 +120,7 @@ struct RezepteView2: View {
             
             ScrollView {
                 LazyVGrid(columns: columns, spacing: 20) {
-                    ForEach(recipes) { recipe in
+                    /*ForEach(recipes) { recipe in
                         
                         VStack(alignment: .leading, spacing: 6) {
                             
@@ -125,6 +161,98 @@ struct RezepteView2: View {
                         .background(Color.white)
                         .cornerRadius(14)
                         .shadow(radius: 2)
+                    }*/
+                    ForEach(recipes) { recipe in
+
+                       /*NavigationLink {
+                            destination(for: recipe)
+                        } label: {
+
+                            VStack(alignment: .leading, spacing: 6) {
+
+                                ZStack(alignment: .topTrailing) {
+                                    Image(recipe.imageName)
+                                        .resizable()
+                                        .scaledToFill()
+                                        .frame(height: 140)
+                                        .frame(maxWidth: .infinity)
+                                        .clipped()
+                                        .cornerRadius(12)
+
+                                    Button {
+                                        recipeToDelete = recipe
+                                        showDeleteAlert = true
+                                    } label: {
+                                        Image(systemName: "bookmark.fill")
+                                            .font(.system(size: 16, weight: .bold))
+                                            .foregroundColor(Color(red: 35/255, green: 170/255, blue: 150/255))
+                                            .padding(8)
+                                            .background(Color.white)
+                                            .clipShape(Circle())
+                                            .shadow(radius: 2)
+                                    }
+                                    .padding(6)
+                                }
+
+                                Text(recipe.title)
+                                    .font(.headline)
+                                    .lineLimit(2)
+
+                                Text(recipe.description)
+                                    .font(.caption)
+                                    .foregroundColor(.gray)
+                                    .lineLimit(2)
+                            }
+                            .padding(8)
+                            .background(Color.white)
+                            .cornerRadius(14)
+                            .shadow(radius: 2)
+                        }*/
+                        
+                        
+                        NavigationLink {
+                            destination(for: recipe)
+                        } label: {
+                            VStack(alignment: .leading, spacing: 6) {
+
+                                ZStack(alignment: .topTrailing) {
+                                    Image(recipe.imageName)
+                                        .resizable()
+                                        .scaledToFill()
+                                        .frame(height: 140)
+                                        .frame(maxWidth: .infinity)
+                                        .clipped()
+                                        .cornerRadius(12)
+
+                                    Button {
+                                        recipeToDelete = recipe
+                                        showDeleteAlert = true
+                                    } label: {
+                                        Image(systemName: "bookmark.fill")
+                                            .font(.system(size: 16, weight: .bold))
+                                            .foregroundColor(Color(red: 35/255, green: 170/255, blue: 150/255))
+                                            .padding(8)
+                                            .background(Color.white)
+                                            .clipShape(Circle())
+                                            .shadow(radius: 2)
+                                    }
+                                    .padding(6)
+                                }
+
+                                Text(recipe.title)
+                                    .font(.headline)
+                                    .lineLimit(2)
+
+                                Text(recipe.description)
+                                    .font(.caption)
+                                    .foregroundColor(.gray)
+                                    .lineLimit(2)
+                            }
+                            .padding(8)                         // 👈 wichtig für „weißen Rand“
+                            .background(Color.white)            // 👈 das ist die Karte
+                            .cornerRadius(14)
+                            .shadow(color: .black.opacity(0.08), radius: 4, x: 0, y: 2) // 👈 sanfte Umrandung
+                        }
                     }
                 }
                 .padding(.horizontal, 1)
@@ -152,5 +280,7 @@ struct RezepteView2: View {
 }
 
 #Preview {
-    RezepteView2()
+    NavigationStack {
+            RezepteView2()
+    }
 }

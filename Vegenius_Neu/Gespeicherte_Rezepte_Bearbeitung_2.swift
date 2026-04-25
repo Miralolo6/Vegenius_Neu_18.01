@@ -60,7 +60,7 @@ struct MyRecipesView2: View {
                         print("gespeichert")
                     } label: {
                         VStack {
-                            Image( "gH")
+                            Image( "sH")
                                 .resizable()
                                 .scaledToFit()
                                 .frame(width: 30, height: 30)

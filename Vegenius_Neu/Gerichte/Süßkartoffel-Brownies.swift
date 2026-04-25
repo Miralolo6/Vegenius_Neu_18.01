@@ -200,7 +200,8 @@ Rezept aus meiner App Vegenius 🙂
                 imageName: "Süßkartoffel Brownies",
                 category: .suess,
                 filters: [.glutenFree, .lowCarb],
-                isFavorite: false
+                isFavorite: false,
+               // route: .defaultRecipe
             )
         )
     )

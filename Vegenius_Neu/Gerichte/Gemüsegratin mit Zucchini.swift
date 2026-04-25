@@ -204,7 +204,8 @@ Rezept aus meiner App Vegenius 🙂
                 imageName: "Gemüsegratin mit Zucchini",
                 category: .herzhaft,
                 filters: [.glutenFree, .nutFree],
-                isFavorite: false
+                isFavorite: false,
+               // route: .defaultRecipe
             )
         )
     )

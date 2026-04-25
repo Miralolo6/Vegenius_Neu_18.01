@@ -202,7 +202,8 @@ Rezept aus meiner App Vegenius🙂
                 imageName: "Zimtschnecken",
                 category: .suess,
                 filters: [.nutFree],
-                isFavorite: false
+                isFavorite: false,
+               // route: .defaultRecipe
             )
         )
     )

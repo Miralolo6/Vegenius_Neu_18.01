@@ -207,7 +207,8 @@ Rezept aus meiner App Vegenius 🙂
                 imageName: "Gemüse-Lasagne",
                 category: .herzhaft,
                 filters: [.glutenFree, .nutFree],
-                isFavorite: false
+                isFavorite: false,
+                //route: .defaultRecipe
             )
         )
     )

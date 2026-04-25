@@ -205,7 +205,8 @@ Rezept aus meiner App Vegenius 🙂
                 imageName: "Miso-Ramen-Suppe",
                 category: .unter_zwanzig,
                 filters: [.glutenFree],
-                isFavorite: false
+                isFavorite: false,
+               // route: .defaultRecipe
             )
         )
     )
