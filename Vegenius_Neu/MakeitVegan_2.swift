@@ -5,31 +5,32 @@
 //  Created by TA620 on 11.04.26.
 //
 
-import SwiftUI
-import UIKit
+import SwiftUI //moderne UI in Swift
+import UIKit //ältere iOS-Komponenten (hier wichtig für Kamera)
 
 
 
-struct CameraPicker2: UIViewControllerRepresentable {
+struct CameraPicker2: UIViewControllerRepresentable { //UIKit-Kamera-Controller in SwiftUI eingebaut
 
-    @Environment(\.dismiss) var dismiss
-    @Binding var image: UIImage?
+    @Environment(\.dismiss) var dismiss //Ermöglicht das Schließen des Kamera-Fensters
+    @Binding var image: UIImage? //Verbindet das ausgewählte Bild mit der Haupt-View
     
 
-    func makeUIViewController(context: Context) -> UIImagePickerController {
+    func makeUIViewController(context: Context) -> UIImagePickerController { //Erstellt den iOS Kamera-Controller
         let picker = UIImagePickerController()
         picker.sourceType = .camera
-        picker.delegate = context.coordinator
-        return picker
+        //Öffnet direkt die Kamera
+        picker.delegate = context.coordinator //Ergebnis wird vom Coordinator verarbeitet
+        return picker //Kamera-Controller zurückgeben
     }
 
-    func updateUIViewController(_ uiViewController: UIImagePickerController, context: Context) {}
+    func updateUIViewController(_ uiViewController: UIImagePickerController, context: Context) {} //nicht genutzt
 
-    func makeCoordinator() -> Coordinator {
+    func makeCoordinator() -> Coordinator { //Helfer-Objekt
         Coordinator(self)
     }
 
-    class Coordinator: NSObject, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
+    class Coordinator: NSObject, UINavigationControllerDelegate, UIImagePickerControllerDelegate { //Kamera-Ergebnisse kümmern
 
         let parent: CameraPicker2
 
@@ -43,8 +44,8 @@ struct CameraPicker2: UIViewControllerRepresentable {
         ) {
             if let image = info[.originalImage] as? UIImage {
                 parent.image = image
-            }
-            parent.dismiss()
+            } //Speichert das Foto in der Binding-Variable
+            parent.dismiss() //Schließt Kamera
         }
 
         func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
@@ -53,29 +54,28 @@ struct CameraPicker2: UIViewControllerRepresentable {
     }
 }
 
-struct MakeItVeganView2: View {
+struct MakeItVeganView2: View { //Hauptoberfläche
     
-    @Environment(\.dismiss) var dismiss
-    //@State private var recipeText: String = ""
-    @State private var showCamera = false
-    @State private var selectedImage: UIImage?
+    @Environment(\.dismiss) var dismiss //Schließt diese View
+    @State private var showCamera = false //Steuert Kamera-Overlay
+    @State private var selectedImage: UIImage? //Speichert Foto aus Kamera
 
-    @StateObject private var vm = VeganViewModel()
+    @StateObject private var vm = VeganViewModel() //ViewModel für Logik (z.B. veganisieren)
     
     
     
-    @State private var showResult = false
+    @State private var showResult = false //Ergebnisseite anzeigen
     
     var body: some View {
         
-        NavigationStack {
+        NavigationStack { //Navigation wird aktiviert
             
             ZStack {
                 Color(
                     red:247/255,
                     green:253/255,
                     blue:252/252)
-                .ignoresSafeArea()
+                .ignoresSafeArea() //Füllt kompletten Bildschirm
                 
                 
                 
