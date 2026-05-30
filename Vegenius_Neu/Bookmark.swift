@@ -16,28 +16,23 @@
 import SwiftUI
 //import Combine
 
-struct Recipe2: Identifiable, Equatable {
-    let id = UUID()
-    let title: String
-    let description: String
-    let imageName: String
-}
+
 
 struct RezepteView: View {
     
-    let startRecipes: [Recipe2] = [
-        Recipe2(title: "Brownies",
+    let startRecipes: [Recipe] = [
+        Recipe(title: "Brownies",
                description: "Süßkartoffel Brownies, saftig und lecker.",
                imageName: "Brownies_Gespeicherte_Rezepte"),
         
-        Recipe2(title: "Mediterrane Reispfanne",
+        Recipe(title: "Mediterrane Reispfanne",
                description: "Tomaten-Paprika-Basis.",
                imageName: "reis_gespeicherte_rezepte")
     ]
     
-    @State private var recipes: [Recipe2] = []
+    @State private var recipes: [Recipe] = []
     @State private var showDeleteAlert = false
-    @State private var recipeToDelete: Recipe2?
+    @State private var recipeToDelete: Recipe?
     
     let columns = [
         GridItem(.flexible(), spacing: 16),

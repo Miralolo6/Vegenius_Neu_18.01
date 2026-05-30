@@ -58,17 +58,7 @@ final class RecipeStore: ObservableObject {
     }
 }
 
-struct Recipe: Identifiable { //definiert wie Rezept aufgebaut
-    let id = UUID() //edes Rezept eine eindeutige Kennung, damit SwiftUI jedes Element in der Liste sicher erkennen und verwalten kann
-    let title: String
-    let imageName: String
-    let category: Category
-    let filters: Set<FilterType> //für Hashtags nur mit Werten von FilterType (von Hashtag)
-    var isFavorite: Bool //gespeichert oder nicht
-    
-    var isGenerated: Bool = false
 
-}
 
 enum Category: String, CaseIterable { //Variable kann nur ein Element aus dieser Aufzählung haben; CaseIterable --> Programm alle Werte eines Enums durchgehen
     case alle = "Alle"
