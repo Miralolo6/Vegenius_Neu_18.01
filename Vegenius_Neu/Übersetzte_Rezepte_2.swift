@@ -29,6 +29,8 @@ struct VeganResultView2: View {
     
     let text: String
     
+    
+    
     @State private var people: Int = 2
     @State private var basePeople: Int = 2 //  wichtig für Umrechnung
     
@@ -92,8 +94,28 @@ struct VeganResultView2: View {
                         
                         // RIGHT: Toggle Button
                         Button {
-                            store.addGeneratedRecipe(title: text)
+
+                            guard !isSaved else { return }
+
+                            let rawTitle = text
+                                .components(separatedBy: "\n")
+                                .first(where: {
+                                    !$0.lowercased().contains("zutaten")
+                                }) ?? "Veganes Rezept"
+
+                            let recipeTitle = rawTitle
+                                .components(separatedBy: "(")
+                                .first?
+                                .trimmingCharacters(in: .whitespacesAndNewlines)
+                                ?? rawTitle
+
+                            store.addGeneratedRecipe(
+                                title: recipeTitle,
+                                recipeText: text
+                            )
+
                             isSaved = true
+
                         } label: {
                             Image(isSaved ? "gH" : "sH")
                                 .resizable()

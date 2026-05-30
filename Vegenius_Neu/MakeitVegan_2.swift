@@ -198,7 +198,9 @@ struct MakeItVeganView2: View {
     
                 }
                 .navigationDestination(isPresented: $showResult) {
-                    VeganResultView2(text: vm.resultText)
+                    VeganResultView2(
+                        text: vm.resultText
+                    )
                         .environmentObject(store)
                 }
   

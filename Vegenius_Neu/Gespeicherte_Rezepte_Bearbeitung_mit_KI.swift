@@ -1,8 +1,8 @@
 //
-//  Gespeicherte_Rezepte_Bearbeitung_2.swift
+//  Gespeicherte_Rezepte_Bearbeitung_mit_KI.swift
 //  Vegenius_Neu
 //
-//  Created by TA620 on 21.04.26.
+//  Created by Miriam Nguyen on 30.05.26.
 //
 
 import SwiftUI
@@ -10,16 +10,11 @@ import PhotosUI
 
 
 
-struct MyRecipesView2: View {
+struct MyRecipesView3: View {
     
     @Environment(\.dismiss) var dismiss
-
-    @State private var recipes: [Recipe] = [
-        Recipe(title: "Vegane Brownies - saftig und einfach"),
-        Recipe(title: "Saftiger Schoko-Bananen-Kuchen"),
-        Recipe(title: "Veganisierte Lasagne mit Hack-Alternative"),
-        Recipe(title: "Veganisierte Spaghetti Carbonara")
-    ]
+    
+    @EnvironmentObject var store: RecipeStore
 
     let columns = [
         GridItem(.flexible()),
@@ -70,12 +65,31 @@ struct MyRecipesView2: View {
                 
                 ScrollView {
                     LazyVGrid(columns: columns, spacing: 20) {
-                        ForEach($recipes) { $recipe in
-                            RecipeCard(recipe: $recipe)
+
+                        ForEach(store.recipes.filter { $0.isGenerated }) { recipe in
+
+                            if let recipeBinding = store.binding(for: recipe.id) {
+
+                                NavigationLink {
+
+                                    VeganResultView2(
+                                        text: recipe.generatedText ?? ""
+                                        
+                                    )
+                                    .environmentObject(store)
+
+                                } label: {
+
+                                    RecipeCard2(recipe: recipeBinding)
+
+                                }
+
+                            }
+
                         }
+
                     }
                     .padding()
-                    
                 }
             }.background(Color(red: 247/255, green: 253/255, blue: 252/255))
 
@@ -88,7 +102,7 @@ struct MyRecipesView2: View {
     }
 }
 
-struct RecipeCard2: View {
+struct RecipeCard3: View {
 
     @Binding var recipe: Recipe
 
@@ -158,4 +172,5 @@ struct RecipeCard2: View {
 
 #Preview {
     MyRecipesView2()
+        .environmentObject(RecipeStore())
 }

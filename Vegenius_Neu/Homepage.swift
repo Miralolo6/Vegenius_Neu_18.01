@@ -37,17 +37,23 @@ final class RecipeStore: ObservableObject {
             ]
         }
     
-    func addGeneratedRecipe(title: String) {
-            let newRecipe = Recipe(
-                title: title,
-                imageName: "",
-                category: .alle,
-                filters: [],
-                isFavorite: false,
-                isGenerated: true
-            )
-            recipes.append(newRecipe)
-        }
+    func addGeneratedRecipe(
+        title: String,
+        recipeText: String
+    ) {
+
+        let newRecipe = Recipe(
+            title: title,
+            imageName: "",
+            generatedText: recipeText,
+            category: .alle,
+            filters: [],
+            isFavorite: false,
+            isGenerated: true
+        )
+
+        recipes.append(newRecipe)
+    }
 
     func binding(for recipeID: UUID) -> Binding<Recipe>? {
         guard let index = recipes.firstIndex(where: { $0.id == recipeID }) else { return nil }

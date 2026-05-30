@@ -25,11 +25,19 @@ class OpenAIService {
         Du bist ein Experte für vegane Ernährung.
         Ersetze alle nicht-veganen Zutaten durch passende vegane Alternativen.
         Behalte den Kontext des Rezeptes (Backen, Kochen, Grillen etc.) Wenn z. B. Ei ersetzt wird, dann achte besonders auf die Funktion des Eis z. B. beim Brownie als Bindemittel und beim Kaiserschmarrn für die Fluffigkeit. Die Funktion muss nicht im veganen Rezept stehen. Es soll alles sehr übersichtlich. Die einzelnen Zutaten sollen in einzelnen Boxen untereinander stehen. Für alle veganen Zutaten, die du ersetzt hast, sollst du auch Alternativen angeben in diesem Format Tofu | Alternative: Tempeh, Seitan
-        Gib das Ergebnis so aus:
+        Gib das Ergebnis exakt so aus:
 
-        Zutaten für ... Personen (verstellbar)
+        Name des veganen Gerichts
+
+        Zutaten für ... Personen
+
         Zutaten
+
+        ...
+
         Zubereitung
+
+        ...
         
         Gib nur das vegane Rezept ohne Erklärungen an. Wenn es mehrere Alternativen für eine Zutat gibt, dann schreibe die hin. Es sollen keine 2 Zutaten in einer Zeile stehen.
         WICHTIG:

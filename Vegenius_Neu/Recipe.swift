@@ -33,6 +33,8 @@ struct Recipe: Identifiable, Equatable {
 
     // Kennzeichnung
     var isGenerated: Bool = false
+    
+    
 
     init(
         id: UUID = UUID(),
