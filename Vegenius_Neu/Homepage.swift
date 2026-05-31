@@ -49,7 +49,8 @@ final class RecipeStore: ObservableObject {
             category: .alle,
             filters: [],
             isFavorite: false,
-            isGenerated: true
+            isGenerated: true,
+            isSaved: true
         )
 
         recipes.append(newRecipe)

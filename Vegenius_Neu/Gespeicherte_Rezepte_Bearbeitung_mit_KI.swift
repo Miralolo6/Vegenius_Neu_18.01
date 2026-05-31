@@ -73,14 +73,14 @@ struct MyRecipesView3: View {
                                 NavigationLink {
 
                                     VeganResultView2(
-                                        text: recipe.generatedText ?? ""
-                                        
+                                        text: recipe.generatedText ?? "",
+                                        recipe: recipeBinding
                                     )
                                     .environmentObject(store)
 
                                 } label: {
 
-                                    RecipeCard2(recipe: recipeBinding)
+                                    RecipeCard3(recipe: recipeBinding)
 
                                 }
 
@@ -116,6 +116,7 @@ struct RecipeCard3: View {
                 .font(.headline)
                 .foregroundColor(.black)
                 .multilineTextAlignment(.center)
+                .frame(height: 50)
             
 
             // Bild
@@ -165,6 +166,7 @@ struct RecipeCard3: View {
 
         }
         .padding()
+        .frame(height: 260)
         .background(Color.teal.opacity(0.35))
         .cornerRadius(20)
     }

@@ -62,11 +62,14 @@ struct MakeItVeganView2: View {
 
     @StateObject private var vm = VeganViewModel()
     @EnvironmentObject var store: RecipeStore
-    
-    
-    
-    
+
     @State private var showResult = false
+    
+    @State private var tempRecipe = Recipe(
+        title: "",
+        generatedText: "",
+        isGenerated: true
+    )
     
     var body: some View {
         
@@ -152,6 +155,13 @@ struct MakeItVeganView2: View {
                                 
                                 Button {
                                     vm.veganize {
+
+                                        tempRecipe = Recipe(
+                                            title: "",
+                                            generatedText: vm.resultText,
+                                            isGenerated: true
+                                        )
+
                                         showResult = true
                                     }
                                 } label: {
@@ -198,10 +208,12 @@ struct MakeItVeganView2: View {
     
                 }
                 .navigationDestination(isPresented: $showResult) {
+
                     VeganResultView2(
-                        text: vm.resultText
+                        text: vm.resultText,
+                        recipe: $tempRecipe
                     )
-                        .environmentObject(store)
+                    .environmentObject(store)
                 }
   
                 

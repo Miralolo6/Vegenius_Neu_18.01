@@ -48,7 +48,7 @@ struct VeganResultView2: View {
     @Environment(\.dismiss) var dismiss
     
     @EnvironmentObject var store: RecipeStore
-    @State private var isSaved = false
+    @Binding var recipe: Recipe
     
     
     // MARK: - STEPS
@@ -95,7 +95,7 @@ struct VeganResultView2: View {
                         // RIGHT: Toggle Button
                         Button {
 
-                            guard !isSaved else { return }
+                            guard !recipe.isSaved else { return }
 
                             let rawTitle = text
                                 .components(separatedBy: "\n")
@@ -114,15 +114,16 @@ struct VeganResultView2: View {
                                 recipeText: text
                             )
 
-                            isSaved = true
+                            recipe.isSaved = true
+                            recipe.isGenerated = true
 
                         } label: {
-                            Image(isSaved ? "gH" : "sH")
+
+                            Image(recipe.isSaved ? "gH" : "sH")
                                 .resizable()
                                 .scaledToFit()
                                 .frame(width: 30, height: 30)
-                        }
-                    }
+                        }                    }
                     .padding(.horizontal)
                     .frame(height: 44) //sorgt für gleiche Höhe!
                     

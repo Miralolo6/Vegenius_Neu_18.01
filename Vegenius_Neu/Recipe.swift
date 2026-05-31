@@ -34,6 +34,7 @@ struct Recipe: Identifiable, Equatable {
     // Kennzeichnung
     var isGenerated: Bool = false
     
+    var isSaved: Bool = false
     
 
     init(
@@ -47,7 +48,8 @@ struct Recipe: Identifiable, Equatable {
         category: Category = .alle,
         filters: Set<FilterType> = [],
         isFavorite: Bool = false,
-        isGenerated: Bool = false
+        isGenerated: Bool = false,
+        isSaved: Bool = false
     ) {
         self.id = id
         self.title = title
@@ -59,5 +61,6 @@ struct Recipe: Identifiable, Equatable {
         self.filters = filters
         self.isFavorite = isFavorite
         self.isGenerated = isGenerated
+        self.isSaved = isSaved
     }
 }
