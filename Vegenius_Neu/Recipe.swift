@@ -36,6 +36,10 @@ struct Recipe: Identifiable, Equatable {
     
     var isSaved: Bool = false
     
+    //Änderung von Speicherung
+    var savedPeople: Int = 2
+    var savedAlternatives: [String:String] = [:]
+    
 
     init(
         id: UUID = UUID(),
@@ -49,7 +53,9 @@ struct Recipe: Identifiable, Equatable {
         filters: Set<FilterType> = [],
         isFavorite: Bool = false,
         isGenerated: Bool = false,
-        isSaved: Bool = false
+        isSaved: Bool = false,
+        savedPeople: Int = 2,
+        savedAlternatives: [String:String] = [:]
     ) {
         self.id = id
         self.title = title
@@ -62,5 +68,7 @@ struct Recipe: Identifiable, Equatable {
         self.isFavorite = isFavorite
         self.isGenerated = isGenerated
         self.isSaved = isSaved
+        self.savedPeople = savedPeople
+        self.savedAlternatives = savedAlternatives
     }
 }

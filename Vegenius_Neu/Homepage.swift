@@ -40,7 +40,7 @@ final class RecipeStore: ObservableObject {
     func addGeneratedRecipe(
         title: String,
         recipeText: String
-    ) {
+    ) -> UUID {
 
         let newRecipe = Recipe(
             title: title,
@@ -53,7 +53,9 @@ final class RecipeStore: ObservableObject {
             isSaved: true
         )
 
+        
         recipes.append(newRecipe)
+        return newRecipe.id
     }
 
     func binding(for recipeID: UUID) -> Binding<Recipe>? {

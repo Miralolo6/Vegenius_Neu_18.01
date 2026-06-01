@@ -95,8 +95,6 @@ struct VeganResultView2: View {
                         // RIGHT: Toggle Button
                         Button {
 
-                            guard !recipe.isSaved else { return }
-
                             let rawTitle = text
                                 .components(separatedBy: "\n")
                                 .first(where: {
@@ -109,14 +107,17 @@ struct VeganResultView2: View {
                                 .trimmingCharacters(in: .whitespacesAndNewlines)
                                 ?? rawTitle
 
-                            store.addGeneratedRecipe(
-                                title: recipeTitle,
-                                recipeText: text
-                            )
+                            
+
+                            recipe.savedPeople = people
+
+                            for ingredient in ingredients {
+                                if let alt = ingredient.selectedAlternative {
+                                    recipe.savedAlternatives[ingredient.name] = alt
+                                }
+                            }
 
                             recipe.isSaved = true
-                            recipe.isGenerated = true
-
                         } label: {
 
                             Image(recipe.isSaved ? "gH" : "sH")
@@ -177,7 +178,8 @@ struct VeganResultView2: View {
                                 break
                             }
                         }
-                    }
+                    }//ende von if lower
+                
 
                     let components = mainPart.components(separatedBy: " ")
 
@@ -198,6 +200,17 @@ struct VeganResultView2: View {
                             name: mainPart,
                             alternatives: alternatives
                         )
+                    }
+                    
+                }
+                people = recipe.savedPeople
+
+                for index in ingredients.indices {
+
+                    let ingredientName = ingredients[index].name
+
+                    if let alt = recipe.savedAlternatives[ingredientName] {
+                        ingredients[index].selectedAlternative = alt
                     }
                 }
             }
@@ -236,6 +249,10 @@ struct VeganResultView2: View {
                 Stepper("", value: $people, in: 1...24)
                     .labelsHidden()
             }
+            .onChange(of: people) { _, newValue in
+                recipe.isSaved = false
+                recipe.savedPeople = newValue
+            }
             .padding()
             .background(Color(.systemTeal).opacity(0.25))
             .clipShape(RoundedRectangle(cornerRadius: 12))
@@ -245,6 +262,12 @@ struct VeganResultView2: View {
                     ingredient: $ingredient,
                     multiplier: Double(people) / Double(basePeople),
                     onChange: {
+
+                        recipe.isSaved = false
+
+                        recipe.savedAlternatives[ingredient.name] =
+                            ingredient.selectedAlternative
+
                         vm.reprocessWithAlternative(
                             baseRecipe: text,
                             ingredients: ingredients

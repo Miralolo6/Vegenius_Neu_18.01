@@ -65,11 +65,7 @@ struct MakeItVeganView2: View {
 
     @State private var showResult = false
     
-    @State private var tempRecipe = Recipe(
-        title: "",
-        generatedText: "",
-        isGenerated: true
-    )
+    @State private var generatedRecipeID: UUID?
     
     var body: some View {
         
@@ -156,11 +152,12 @@ struct MakeItVeganView2: View {
                                 Button {
                                     vm.veganize {
 
-                                        tempRecipe = Recipe(
-                                            title: "",
-                                            generatedText: vm.resultText,
-                                            isGenerated: true
+                                        let newID = store.addGeneratedRecipe(
+                                            title: "Veganes Rezept",
+                                            recipeText: vm.resultText
                                         )
+
+                                        generatedRecipeID = newID
 
                                         showResult = true
                                     }
@@ -209,11 +206,15 @@ struct MakeItVeganView2: View {
                 }
                 .navigationDestination(isPresented: $showResult) {
 
-                    VeganResultView2(
-                        text: vm.resultText,
-                        recipe: $tempRecipe
-                    )
-                    .environmentObject(store)
+                    if let recipeID = generatedRecipeID,
+                       let binding = store.binding(for: recipeID) {
+
+                        VeganResultView2(
+                            text: vm.resultText,
+                            recipe: binding
+                        )
+                        .environmentObject(store)
+                    }
                 }
   
                 
