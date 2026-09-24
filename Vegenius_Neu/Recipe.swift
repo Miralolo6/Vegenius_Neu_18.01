@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct Recipe: Identifiable, Equatable {
+struct Recipe: Identifiable, Equatable, Codable {
 
     let id: UUID
 
@@ -19,7 +19,23 @@ struct Recipe: Identifiable, Equatable {
 
     // Für AI-generierte Rezepte
     var generatedText: String? = nil
-
+    
+    enum CodingKeys: String, CodingKey {
+        case id
+        case title
+        case description
+        case imageName
+        case generatedText
+        case note
+        case category
+        case filters
+        case isFavorite
+        case isGenerated
+        case isSaved
+        case savedPeople
+        case savedAlternatives
+    }
+    
     // Für selbst erstellte Rezepte
     var image: UIImage? = nil
     var note: String = ""

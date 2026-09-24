@@ -89,13 +89,35 @@ Rezept aus meiner App 🙂
                                 
                                 Button {
                                     recipe.isFavorite.toggle()
+
+                                    if recipe.isFavorite {
+                                        RecipeStorage.addRecipe(recipe)
+                                    } else {
+                                        RecipeStorage.removeRecipe(recipe)
+                                    }
                                 } label: {
-                                    Image(systemName: recipe.isFavorite ? "bookmark.fill" : "bookmark")
-                                        .font(.system(size: 15, weight: .bold))
-                                        .foregroundColor(Color(red: 82/255, green: 199/255, blue: 185/255))
-                                        .padding(12)
-                                        .background(Color(red: 247/255, green: 253/255, blue: 252/255))
-                                        .clipShape(Circle())
+                                    Image(
+                                        systemName: recipe.isFavorite
+                                            ? "bookmark.fill"
+                                            : "bookmark"
+                                    )
+                                    .font(.system(size: 15, weight: .bold))
+                                    .foregroundColor(
+                                        Color(
+                                            red: 82 / 255,
+                                            green: 199 / 255,
+                                            blue: 185 / 255
+                                        )
+                                    )
+                                    .padding(12)
+                                    .background(
+                                        Color(
+                                            red: 247 / 255,
+                                            green: 253 / 255,
+                                            blue: 252 / 255
+                                        )
+                                    )
+                                    .clipShape(Circle())
                                 }
                                 .padding(10)
                             }

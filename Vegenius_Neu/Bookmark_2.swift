@@ -14,15 +14,8 @@ struct RezepteView2: View {
     
     @Environment(\.dismiss) var dismiss
     
-    let startRecipes: [Recipe] = [
-        Recipe(title: "Brownies",
-                description: "Süßkartoffel Brownies, saftig und lecker",
-                imageName: "Süßkartoffel Brownies"),
-        
-        Recipe(title: "Mediterrane Reispfanne",
-                description: "Tomaten-Paprika-Basis",
-                imageName: "Mediterrane Reispfanne")
-    ]
+    
+    
     
     @State private var recipes: [Recipe] = []
     @State private var showDeleteAlert = false
@@ -68,12 +61,7 @@ struct RezepteView2: View {
             }
             .padding(.top, 12)
             
-            Button("Gelöschte Rezepte wiederherstellen") {
-                recipes = startRecipes
-            }
-            .font(.caption)
-            .foregroundColor(Color(red: 35/255, green: 170/255, blue: 150/255))
-            .frame(maxWidth: .infinity, alignment: .center)
+            
             
             ScrollView {
                 LazyVGrid(columns: columns, spacing: 20) {
@@ -130,18 +118,37 @@ struct RezepteView2: View {
                 .ignoresSafeArea()
         )
         .onAppear {
-            recipes = startRecipes
+            loadSavedRecipes()
         }
-        .alert("Willst du das Rezept aus deiner Sammlung entfernen?", isPresented: $showDeleteAlert) {
-            Button("Nein", role: .cancel) { }
+        .alert(
+            "Willst du das Rezept aus deiner Sammlung entfernen?",
+            isPresented: $showDeleteAlert
+        ) {
+            Button("Nein", role: .cancel) {
+                recipeToDelete = nil
+            }
+
             Button("Ja", role: .destructive) {
                 if let recipeToDelete {
-                    recipes.removeAll { $0.id == recipeToDelete.id }
+                    // Aus der Anzeige entfernen
+                    recipes.removeAll {
+                        $0.id == recipeToDelete.id
+                    }
+
+                    // Dauerhaft aus dem Speicher entfernen
+                    RecipeStorage.removeRecipe(recipeToDelete)
+
+                    self.recipeToDelete = nil
                 }
             }
         }
         .navigationBarBackButtonHidden(true)
     }
+    
+    private func loadSavedRecipes() {
+        recipes = RecipeStorage.loadRecipes()
+    }
+    
 }
 
 #Preview {

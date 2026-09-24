@@ -15,7 +15,7 @@ final class RecipeStore: ObservableObject {
 
     
         init() {
-            self.recipes = [
+            let initialRecipes: [Recipe] = [
                 Recipe(title: "Twisted Potatoes", imageName: "Twisted Potatoe", category: .herzhaft,filters: [.glutenFree, .nutFree], isFavorite: false),
                 Recipe(title: "Mediterrane Reispfanne", imageName: "Mediterrane Reispfanne", category: .unter_zwanzig, filters: [.glutenFree, .nutFree], isFavorite: false),
                 Recipe(title: "Soychicken mit Couscous", imageName: "Soychicken Couscous", category: .herzhaft,  filters: [.highProtein], isFavorite: false),
@@ -35,6 +35,15 @@ final class RecipeStore: ObservableObject {
                 Recipe(title: "Tex-Mex-Salat", imageName: "Tex-Mex-Salat", category: .unter_zwanzig, filters: [.nutFree, .highProtein, .glutenFree], isFavorite: false),
                 Recipe(title: "Pasta mit Pistazienpesto & Pilzen", imageName: "Pistazienpesto", category: .unter_zwanzig, filters: [], isFavorite: false)
             ]
+            self.recipes = initialRecipes
+            self.refreshFavorites()
+        }
+        func refreshFavorites() {
+            recipes = recipes.map { recipe in
+                var updatedRecipe = recipe
+                updatedRecipe.isFavorite = RecipeStorage.isSaved(recipe)
+                return updatedRecipe
+            }
         }
     
     func addGeneratedRecipe(
@@ -69,14 +78,14 @@ final class RecipeStore: ObservableObject {
 
 
 
-enum Category: String, CaseIterable { //Variable kann nur ein Element aus dieser Aufzählung haben; CaseIterable --> Programm alle Werte eines Enums durchgehen
+enum Category: String, CaseIterable, Codable { //Variable kann nur ein Element aus dieser Aufzählung haben; CaseIterable --> Programm alle Werte eines Enums durchgehen
     case alle = "Alle"
     case herzhaft = "Herzhaft"
     case suess = "Süß"
     case unter_zwanzig = "<20 min"
 }
 
-enum FilterType: String, CaseIterable, Identifiable { //enum = Liste mit vorgegebenen Werten
+enum FilterType: String, CaseIterable, Identifiable, Codable { //enum = Liste mit vorgegebenen Werten
     var id: String { rawValue } //SwiftUI braucht für Listen (ForEach) eine eindeutige ID pro Element
 
     case highProtein = "# highprotein" //Diese Auswahlmöglichkeiten sind fest
@@ -500,16 +509,22 @@ struct HomeView: View {
     }
     
     struct FavoriteButton: View {
-        @Binding var isSet: Bool
+        @Binding var recipe: Recipe
         var body: some View {
             Button {
-                isSet.toggle()
+                recipe.isFavorite.toggle()
+
+                if recipe.isFavorite {
+                    RecipeStorage.addRecipe(recipe)
+                } else {
+                    RecipeStorage.removeRecipe(recipe)
+                }
             } label: {
-                Image(systemName: isSet ? "bookmark.fill" : "bookmark")
+                Image(systemName: recipe.isFavorite ? "bookmark.fill" : "bookmark")
                     .font(.system(size: 15, weight: .bold))
                     .foregroundColor(Color(red: 82/255, green: 199/255, blue: 185/255))
                     .padding(12)
-                    .background(Color(red: 247/255,    green: 253/255,  blue: 252/255))
+                    .background(Color(red: 247/255, green: 253/255, blue: 252/255))
                     .clipShape(Circle())
                     .contentShape(Circle())
             }
@@ -530,7 +545,7 @@ struct HomeView: View {
                         .clipped()
                         .cornerRadius(15)
                     
-                    FavoriteButton(isSet: $recipe.isFavorite)
+                    FavoriteButton(recipe: $recipe)
                         .padding(10)
                 }
                 
