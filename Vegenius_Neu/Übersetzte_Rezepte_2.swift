@@ -84,11 +84,13 @@ struct VeganResultView2: View {
                         Spacer()
                         
                         // CENTER: Titel
-                        Text("Vegan Edition")
+                        Text(recipe.title)
                             .font(.system(size: 26, weight: .bold))
                             .foregroundColor(
                                 Color(red: 231/255, green: 161/255, blue: 176/255)
                             )
+                            .lineLimit(1)
+                            .minimumScaleFactor(0.7)
                         
                         Spacer()
                         

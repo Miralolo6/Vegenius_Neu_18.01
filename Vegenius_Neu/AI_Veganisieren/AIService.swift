@@ -18,7 +18,7 @@ class OpenAIService {
     }()
     
     func veganize(recipe: String) async throws -> String {
-        let url = URL(string: "https://api.openai.com/v1/chat/completions")!
+        let url = URL(string: "https://api.openai.com/v1/responses")!
         
         // Prompt für die AI
         let prompt = """
@@ -53,13 +53,10 @@ class OpenAIService {
         
         // Request-Body
         let body: [String: Any] = [
-            "model": "gpt-4o-mini", // Modell aus deiner Key-Ausgabe
-            "messages": [
-                ["role": "user", "content": prompt]
-            ],
-            "temperature": 0.5
+            "model": "gpt-5.6-terra",
+            "input": prompt
         ]
-        
+
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.addValue("Bearer \(apiKey)", forHTTPHeaderField: "Authorization")
@@ -75,15 +72,51 @@ class OpenAIService {
         }
         
         // Antwort parsen
-        guard
-            let json = try JSONSerialization.jsonObject(with: data) as? [String: Any],
-            let choices = json["choices"] as? [[String: Any]],
-            let message = choices.first?["message"] as? [String: Any],
-            let content = message["content"] as? String
-        else {
-            throw NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "Ungültige API-Antwort"])
+        guard let json = try JSONSerialization.jsonObject(with: data) as? [String: Any] else {
+            throw NSError(
+                domain: "OpenAI",
+                code: -1,
+                userInfo: [
+                    NSLocalizedDescriptionKey: "Ungültige API-Antwort"
+                ]
+            )
         }
-        
-        return content
+
+        // Responses API liefert den fertigen Text über output_text
+        // Antwort aus der Responses API auslesen
+        guard let output = json["output"] as? [[String: Any]] else {
+            print("❌ Kein output in der API-Antwort gefunden:")
+            print(String(data: data, encoding: .utf8) ?? "")
+            throw NSError(
+                domain: "OpenAI",
+                code: -1,
+                userInfo: [
+                    NSLocalizedDescriptionKey: "Kein output in der API-Antwort gefunden"
+                ]
+            )
+        }
+
+        for item in output {
+            guard let content = item["content"] as? [[String: Any]] else {
+                continue
+            }
+
+            for part in content {
+                if let text = part["text"] as? String {
+                    return text
+                }
+            }
+        }
+
+        print("❌ Kein Rezepttext gefunden:")
+        print(String(data: data, encoding: .utf8) ?? "")
+
+        throw NSError(
+            domain: "OpenAI",
+            code: -1,
+            userInfo: [
+                NSLocalizedDescriptionKey: "Kein Rezepttext in der API-Antwort gefunden"
+            ]
+        )
     }
 }

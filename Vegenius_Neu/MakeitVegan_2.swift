@@ -152,13 +152,24 @@ struct MakeItVeganView2: View {
                                 Button {
                                     vm.veganize {
 
+                                        let rawTitle = vm.resultText
+                                            .components(separatedBy: "\n")
+                                            .first(where: {
+                                                !$0.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+                                            }) ?? "Veganes Rezept"
+
+                                        let recipeTitle = rawTitle
+                                            .components(separatedBy: "(")
+                                            .first?
+                                            .trimmingCharacters(in: .whitespacesAndNewlines)
+                                            ?? rawTitle
+
                                         let newID = store.addGeneratedRecipe(
-                                            title: "Veganes Rezept",
+                                            title: recipeTitle,
                                             recipeText: vm.resultText
                                         )
 
                                         generatedRecipeID = newID
-
                                         showResult = true
                                     }
                                 } label: {
