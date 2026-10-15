@@ -8,14 +8,27 @@
 import SwiftUI
 
 // MARK: - Hilfsfunktion für Titel Farbe
+
 func setTitelFarbe() {
     let appearance = UINavigationBarAppearance()
-    appearance.largeTitleTextAttributes = [.foregroundColor: UIColor(Color("TitelRosa"))]
-    appearance.titleTextAttributes = [.foregroundColor: UIColor(Color("TitelRosa"))]
+
+    appearance.largeTitleTextAttributes = [
+        .foregroundColor: UIColor(Color("TitelRosa")),
+        .font: UIFont.systemFont(ofSize: 28, weight: .semibold)
+    ]
+
+    appearance.titleTextAttributes = [
+        .foregroundColor: UIColor(Color("TitelRosa")),
+        .font: UIFont.systemFont(ofSize: 28, weight: .semibold)
+    ]
+
     appearance.backgroundColor = UIColor(Color("BackgroundMint"))
+
+    UINavigationBar.appearance().prefersLargeTitles = false
     UINavigationBar.appearance().standardAppearance = appearance
     UINavigationBar.appearance().scrollEdgeAppearance = appearance
 }
+
 
 // MARK: - Passwort Ändern
 struct PasswortAendernView: View {
@@ -273,9 +286,20 @@ struct AccountView: View {
 struct SicherheitView: View {
     var body: some View {
         Text("Datenschutz- und Sicherheitsbestimmungen")
+            .font(.system(size: 14, weight: .regular))
             .navigationTitle("Sicherheit & Privatsphäre")
+            .navigationBarTitleDisplayMode(.inline)
             .background(Color("BackgroundMint").ignoresSafeArea())
-            .onAppear { setTitelFarbe() }
+                .toolbar {
+                    ToolbarItem(placement: .principal) {
+                        Text("Sicherheit & Privatsphäre")
+                            .font(.system(size: 24, weight: .semibold))
+                            .foregroundColor(Color("TitelRosa"))
+                            .lineLimit(1)
+                            .minimumScaleFactor(0.7)
+                            }
+                        }
+                        .onAppear { setTitelFarbe() }
     }
 }
 
@@ -413,8 +437,7 @@ struct EinstellungenView: View {
                         Spacer()
 
                         Text("Einstellungen")
-                            .font(.largeTitle)
-                            .fontWeight(.semibold)
+                            .font(.system(size: 28, weight: .semibold))
                             .foregroundColor(Color("TitelRosa"))
 
                         Spacer()
