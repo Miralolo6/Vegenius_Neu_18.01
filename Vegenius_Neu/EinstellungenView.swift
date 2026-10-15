@@ -41,7 +41,7 @@ struct PasswortAendernView: View {
         VStack(alignment: .leading, spacing: 15) {
 
             Text("Altes Passwort")
-                .fontWeight(.medium)
+                .font(.system(size: 20, weight: .medium))
             if altesAnzeigen {
                 TextField("", text: $altesPasswort)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
@@ -54,9 +54,10 @@ struct PasswortAendernView: View {
             }
             .foregroundColor(.secondary)
             .font(.footnote)
+            .padding(.top, -8)
 
             Text("Neues Passwort")
-                .fontWeight(.medium)
+                .font(.system(size: 20, weight: .medium))
             if neuesAnzeigen {
                 TextField("", text: $neuesPasswort)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
@@ -69,12 +70,14 @@ struct PasswortAendernView: View {
             }
             .foregroundColor(.secondary)
             .font(.footnote)
+            .padding(.top, -8)
 
             Button {
                 print("Passwort geändert")
             } label: {
                 Text("Passwort ändern")
                     .foregroundColor(.white)
+                    .font(.system(size: 20, weight: .medium))
                     .frame(maxWidth: .infinity)
                     .padding()
                     .background(Color(red: 126/255, green: 222/255, blue: 211/255))
@@ -96,6 +99,7 @@ struct PasswortAendernView: View {
 struct AnmeldungView: View {
     @State private var email = ""
     @State private var passwort = ""
+    @State private var passwortAnzeigen = false
     @State private var fehler = ""
 
     func emailGueltig() -> Bool {
@@ -106,21 +110,31 @@ struct AnmeldungView: View {
         VStack(alignment: .leading, spacing: 15) {
 
             Text("E-Mail")
-                .fontWeight(.medium)
+                .font(.system(size: 20, weight: .medium))
             TextField("", text: $email)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .keyboardType(.emailAddress)
 
+            
             Text("Passwort")
-                .fontWeight(.medium)
-            SecureField("", text: $passwort)
-                .textFieldStyle(RoundedBorderTextFieldStyle())
+                .font(.system(size: 20, weight: .medium))
 
-            if !fehler.isEmpty {
-                Text(fehler)
-                    .foregroundColor(.red)
-                    .font(.footnote)
+            if passwortAnzeigen {
+                TextField("", text: $passwort)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+            } else {
+                SecureField("", text: $passwort)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
             }
+
+            Button("Passwort anzeigen") {
+                passwortAnzeigen.toggle()
+            }
+            .foregroundColor(.secondary)
+            .font(.footnote)
+            .padding(.top, -8)
+
+            
 
             Button {
                 if !emailGueltig() {
@@ -132,6 +146,7 @@ struct AnmeldungView: View {
             } label: {
                 Text("Anmelden")
                     .foregroundColor(.white)
+                    .font(.system(size: 20, weight: .medium))
                     .frame(maxWidth: .infinity)
                     .padding()
                     .background(Color(red: 126/255, green: 222/255, blue: 211/255))
@@ -154,6 +169,8 @@ struct RegistrierenView: View {
     @State private var email = ""
     @State private var passwort = ""
     @State private var passwortWiederholen = ""
+    @State private var passwortAnzeigen = false
+    @State private var passwortWiederholenAnzeigen = false
     @State private var fehler = ""
 
     func emailGueltig() -> Bool {
@@ -164,20 +181,48 @@ struct RegistrierenView: View {
         VStack(alignment: .leading, spacing: 15) {
 
             Text("E-Mail")
-                .fontWeight(.medium)
+                .font(.system(size: 20, weight: .medium))
             TextField("", text: $email)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .keyboardType(.emailAddress)
 
+            
             Text("Passwort")
-                .fontWeight(.medium)
-            SecureField("", text: $passwort)
-                .textFieldStyle(RoundedBorderTextFieldStyle())
+                .font(.system(size: 20, weight: .medium))
+
+            if passwortAnzeigen {
+                TextField("", text: $passwort)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+            } else {
+                SecureField("", text: $passwort)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+            }
+
+            Button("Passwort anzeigen") {
+                passwortAnzeigen.toggle()
+            }
+            .foregroundColor(.secondary)
+            .font(.footnote)
+            .padding(.top, -8)
 
             Text("Passwort wiederholen")
-                .fontWeight(.medium)
-            SecureField("", text: $passwortWiederholen)
-                .textFieldStyle(RoundedBorderTextFieldStyle())
+                .font(.system(size: 20, weight: .medium))
+
+            if passwortWiederholenAnzeigen {
+                TextField("", text: $passwortWiederholen)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+            } else {
+                SecureField("", text: $passwortWiederholen)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+            }
+
+            Button("Passwort anzeigen") {
+                passwortWiederholenAnzeigen.toggle()
+            }
+            .foregroundColor(.secondary)
+            .font(.footnote)
+            .padding(.top, -8)
+
 
             if !fehler.isEmpty {
                 Text(fehler)
@@ -195,6 +240,7 @@ struct RegistrierenView: View {
             } label: {
                 Text("Registrieren")
                     .foregroundColor(.white)
+                    .font(.system(size: 20, weight: .medium))
                     .frame(maxWidth: .infinity)
                     .padding()
                     .background(Color(red: 126/255, green: 222/255, blue: 211/255))
@@ -222,6 +268,7 @@ struct AccountView: View {
             NavigationLink(destination: PasswortAendernView()) {
                 HStack {
                     Text("Passwort ändern")
+                        .font(.system(size: 20, weight: .medium))
                         .foregroundColor(.primary)
                     Spacer()
                     Image(systemName: "chevron.right")
@@ -235,6 +282,7 @@ struct AccountView: View {
                     HStack {
                         Text("Anmelden")
                             .foregroundColor(.primary)
+                            .font(.system(size: 20, weight: .medium))
                         Spacer()
                         Image(systemName: "chevron.right")
                             .foregroundColor(.secondary)
@@ -246,6 +294,7 @@ struct AccountView: View {
                     HStack {
                         Text("Registrieren")
                             .foregroundColor(.primary)
+                            .font(.system(size: 20, weight: .medium))
                         Spacer()
                         Image(systemName: "chevron.right")
                             .foregroundColor(.secondary)
@@ -467,7 +516,7 @@ struct EinstellungenView: View {
                         NavigationLink(destination: AccountView()) {
                             HStack {
                                 Text("Account")
-                                    .font(.body)
+                                    .font(.system(size: 20, weight: .medium))
                                     .fontWeight(.medium)
                                     .foregroundColor(.primary)
                                 Spacer()
@@ -478,7 +527,7 @@ struct EinstellungenView: View {
 
                         HStack {
                             Text("Benachrichtigungen")
-                                .font(.body)
+                                .font(.system(size: 20, weight: .medium))
                                 .fontWeight(.medium)
                             Spacer()
                             Toggle("", isOn: $notificationsOn)
@@ -489,7 +538,7 @@ struct EinstellungenView: View {
                         NavigationLink(destination: SicherheitView()) {
                             HStack {
                                 Text("Sicherheit & Privatsphäre")
-                                    .font(.body)
+                                    .font(.system(size: 20, weight: .medium))
                                     .fontWeight(.medium)
                                     .foregroundColor(.primary)
                                 Spacer()
@@ -501,7 +550,7 @@ struct EinstellungenView: View {
                         NavigationLink(destination: SupportView()) {
                             HStack {
                                 Text("Support")
-                                    .font(.body)
+                                    .font(.system(size: 20, weight: .medium))
                                     .fontWeight(.medium)
                                     .foregroundColor(.primary)
                                 Spacer()
@@ -513,7 +562,7 @@ struct EinstellungenView: View {
                         NavigationLink(destination: TutorialView()) {
                             HStack {
                                 Text("Tutorial")
-                                    .font(.body)
+                                    .font(.system(size: 20, weight: .medium))
                                     .fontWeight(.medium)
                                     .foregroundColor(.primary)
                                 Spacer()
