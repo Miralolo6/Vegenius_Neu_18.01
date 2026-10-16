@@ -869,6 +869,8 @@ struct ProblemMeldenView: View {
 
 }
 
+
+
 import SwiftUI
 import AVKit
 
@@ -881,6 +883,11 @@ struct CustomVideoPlayer: UIViewControllerRepresentable {
         let controller = AVPlayerViewController()
         controller.player = player
         controller.showsPlaybackControls = true
+
+        // Native Steuerelemente bleiben sichtbar.
+        // Das native Lautsprecher-Symbol lässt sich
+        // nicht separat über AVPlayerViewController ausblenden.
+
         return controller
     }
 
@@ -888,9 +895,12 @@ struct CustomVideoPlayer: UIViewControllerRepresentable {
         _ controller: AVPlayerViewController,
         context: Context
     ) {
-        controller.player = player
+        if controller.player !== player {
+            controller.player = player
+        }
     }
 }
+
 
 // MARK: - Tutorial
 import SwiftUI
@@ -911,6 +921,7 @@ struct TutorialView: View {
     @State private var player: AVPlayer?
     @State private var videoLoadError = false
     @State private var videoImVollbild = false
+    @State private var istStumm = false
 
    var body: some View {
        ScrollView(showsIndicators: false) {
@@ -1019,7 +1030,11 @@ struct TutorialView: View {
            setTitelFarbe()
 
            if let url = videoURL {
-               player = AVPlayer(url: url)
+               let neuerPlayer = AVPlayer(url: url)
+               neuerPlayer.isMuted = false
+
+               player = neuerPlayer
+               istStumm = false
                videoLoadError = false
            } else {
                videoLoadError = true
@@ -1058,6 +1073,10 @@ struct TutorialView: View {
            }
        }
    }
+    private func tonUmschalten() {
+        istStumm.toggle()
+        player?.isMuted = istStumm
+    }
 }
 
 
