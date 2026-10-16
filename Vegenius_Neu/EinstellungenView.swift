@@ -781,43 +781,141 @@ struct ProblemMeldenView: View {
 }
 
 
+
 // MARK: - Tutorial
+import SwiftUI
+import AVKit
+
 struct TutorialView: View {
-    var body: some View {
-        ZStack(alignment: .bottom) {
-            
-            Color("BackgroundMint")
-                .ignoresSafeArea()
-            Text("Tutorial Video")
-                .navigationTitle("Tutorial")
-                .background(Color("BackgroundMint").ignoresSafeArea())
-                .onAppear { setTitelFarbe() }
-        }
-        .padding(.horizontal, 25)
-        .padding(.top, 30)
-        .navigationTitle("Support")
-        .background(Color("BackgroundMint").ignoresSafeArea())
-        .onAppear { setTitelFarbe() }
-        ZStack(alignment: .bottom) {
-            
-            Color("BackgroundMint")
-                .ignoresSafeArea()
-            VStack(alignment: .leading, spacing: 35) {
-                Text("Hilfe/FAQ")
-                Text("Kontakt/Support")
-                NavigationLink(destination: ProblemMeldenView()) {
-                    Text("Problem melden")
-                        .foregroundColor(.primary)
-                }
-                Text("App Version")
-                Spacer()
-            }
-        }
-    }
+
+   private let titelFarbe = Color("TitelRosa")
+   private let hintergrundFarbe = Color("BackgroundMint")
+
+   // Hier später die URL deines Tutorial-Videos einsetzen
+   private let videoURL = URL(
+       string: "https://DEINE-VIDEO-URL.mp4"
+   )!
+
+   var body: some View {
+       ScrollView(showsIndicators: false) {
+           VStack(alignment: .leading, spacing: 22) {
+
+               Text("Willkommen bei Vegenius!")
+                   .font(.system(size: 27, weight: .bold))
+                   .foregroundColor(.black)
+
+               Text("""
+               In diesem Tutorial erfährst du, wie du Vegenius
+               verwendest und vegane Rezepte entdecken kannst.
+               """)
+               .font(.system(size: 16))
+               .foregroundColor(.black.opacity(0.75))
+               .fixedSize(horizontal: false, vertical: true)
+
+               // Videokarte
+               VStack(alignment: .leading, spacing: 14) {
+
+                   Label("Tutorial-Video", systemImage: "play.circle.fill")
+                       .font(.system(size: 20, weight: .semibold))
+                       .foregroundColor(titelFarbe)
+
+                   VideoPlayer(
+                       player: AVPlayer(url: videoURL)
+                   )
+                   .aspectRatio(16 / 9, contentMode: .fit)
+                   .clipShape(RoundedRectangle(cornerRadius: 14))
+
+                   Text("Sieh dir das Video an, um die wichtigsten Funktionen kennenzulernen.")
+                       .font(.system(size: 15))
+                       .foregroundColor(.black.opacity(0.75))
+                       .fixedSize(horizontal: false, vertical: true)
+               }
+               .padding(18)
+               .frame(maxWidth: .infinity, alignment: .leading)
+               .background(Color.white)
+               .clipShape(RoundedRectangle(cornerRadius: 18))
+
+               // Kurze Anleitung
+               VStack(alignment: .leading, spacing: 16) {
+
+                   Text("Das kannst du in Vegenius machen")
+                       .font(.system(size: 20, weight: .semibold))
+                       .foregroundColor(.black)
+
+                   tutorialPunkt(
+                       symbol: "magnifyingglass",
+                       titel: "Rezepte entdecken",
+                       text: "Finde vegane Rezepte passend zu deinen Vorlieben."
+                   )
+
+                   tutorialPunkt(
+                       symbol: "camera",
+                       titel: "Gerichte veganisieren",
+                       text: "Lerne die Funktionen kennen, mit denen du Gerichte vegan gestalten kannst."
+                   )
+
+                   tutorialPunkt(
+                       symbol: "bookmark",
+                       titel: "Rezepte speichern",
+                       text: "Speichere interessante Rezepte, damit du sie später wiederfindest."
+                   )
+               }
+               .padding(18)
+               .frame(maxWidth: .infinity, alignment: .leading)
+               .background(Color.white)
+               .clipShape(RoundedRectangle(cornerRadius: 18))
+
+           }
+           .padding(.horizontal, 22)
+           .padding(.vertical, 20)
+       }
+       .background(hintergrundFarbe.ignoresSafeArea())
+       .navigationTitle("Tutorial")
+       .navigationBarTitleDisplayMode(.inline)
+       .toolbar {
+           ToolbarItem(placement: .principal) {
+               Text("Tutorial")
+                   .font(.system(size: 22, weight: .semibold))
+                   .foregroundColor(titelFarbe)
+           }
+       }
+       .onAppear {
+           setTitelFarbe()
+       }
+   }
+
+   private func tutorialPunkt(
+       symbol: String,
+       titel: String,
+       text: String
+   ) -> some View {
+       HStack(alignment: .top, spacing: 13) {
+
+           Image(systemName: symbol)
+               .font(.system(size: 22))
+               .foregroundColor(titelFarbe)
+               .frame(width: 42, height: 42)
+               .background(titelFarbe.opacity(0.10))
+               .clipShape(RoundedRectangle(cornerRadius: 12))
+
+           VStack(alignment: .leading, spacing: 5) {
+               Text(titel)
+                   .font(.system(size: 17, weight: .semibold))
+                   .foregroundColor(.black)
+
+               Text(text)
+                   .font(.system(size: 15))
+                   .foregroundColor(.black.opacity(0.75))
+                   .fixedSize(horizontal: false, vertical: true)
+           }
+       }
+   }
 }
+
 
 // MARK: - Einstellungen (Hauptseite)
 struct EinstellungenView: View {
+    @Environment(\.dismiss) private var dismiss
 
     @State private var notificationsOn = false
 
@@ -838,15 +936,12 @@ struct EinstellungenView: View {
                         .foregroundColor(.black)*/
                         
                         Button {
-                            print("Close tapped")
+                            dismiss()
                         } label: {
-                            VStack {
-                                Image(systemName: "xmark")
-                                    .foregroundColor(.black)
-                                    .font(.title)
-                                    .scaledToFit()
-                                    .frame(width: 50, height: 50)
-                            }
+                            Image(systemName: "xmark")
+                                .foregroundColor(.black)
+                                .font(.title)
+                                .frame(width: 50, height: 50)
                         }
 
                         Spacer()
@@ -944,6 +1039,7 @@ struct EinstellungenView: View {
                 .padding(.top, 20)
             }
         }
+        .toolbar(.hidden, for: .navigationBar)
         .onAppear { setTitelFarbe() }
     }
 }
