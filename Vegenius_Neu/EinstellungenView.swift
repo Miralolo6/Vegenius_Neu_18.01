@@ -665,9 +665,10 @@ struct SupportView: View {
 // MARK: - Problem melden
 struct ProblemMeldenView: View {
 
-   @State private var betreff = "Technisches Problem"
-   @State private var nachricht = ""
-   @State private var rueckmeldung = ""
+    @State private var betreff = "Technisches Problem"
+    @State private var nachricht = ""
+    @State private var rueckmeldung = ""
+    @State private var wirdGesendet = false
 
    private let titelFarbe = Color("TitelRosa")
 
@@ -736,26 +737,31 @@ struct ProblemMeldenView: View {
                        .foregroundColor(.black)
                }
 
+               
                Button {
-                   if nachricht.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-                       rueckmeldung = "Bitte beschreibe zuerst dein Anliegen."
-                   } else {
-                       rueckmeldung = "Deine Nachricht ist vorbereitet. Sie wurde noch nicht versendet."
-                       print("Betreff: \(betreff)")
-                       print("Nachricht: \(nachricht)")
+                   Task {
+                       await supportNachrichtSenden()
                    }
                } label: {
                    HStack {
-                       Image(systemName: "paperplane.fill")
-                       Text("Nachricht absenden")
+                       if wirdGesendet {
+                           ProgressView()
+                               .tint(.white)
+                       } else {
+                           Image(systemName: "paperplane.fill")
+                       }
+
+                       Text(wirdGesendet ? "Wird gesendet ..." : "Nachricht absenden")
                    }
-                   .font(.system(size: 20, weight: .semibold))
+                   .font(.headline)
                    .foregroundColor(.white)
                    .frame(maxWidth: .infinity)
-                   .padding(17)
-                   .background(Color(red: 126/255, green: 222/255, blue: 211/255))
-                   .clipShape(RoundedRectangle(cornerRadius: 14))
+                   .padding()
+                   .background(Color("TitelRosa"))
+                   .cornerRadius(12)
                }
+               .disabled(wirdGesendet)
+
 
                Text("Gib bitte keine Passwörter oder anderen sensiblen persönlichen Daten ein.")
                    .font(.system(size: 13))
@@ -778,6 +784,89 @@ struct ProblemMeldenView: View {
            setTitelFarbe()
        }
    }
+    
+    private func supportNachrichtSenden() async {
+        let text = nachricht.trimmingCharacters(
+            in: .whitespacesAndNewlines
+        )
+
+        guard !text.isEmpty else {
+            rueckmeldung = "Bitte beschreibe zuerst dein Anliegen."
+            return
+        }
+
+        // HIER die echte HTTPS-Adresse deines Servers eintragen.
+        guard let url = URL(
+            string: "https://dvpcxahnwmaxyguymtaa.supabase.co/functions/v1/support"
+        ) else {
+            rueckmeldung = "Die Server-Adresse ist ungültig."
+            return
+        }
+
+        wirdGesendet = true
+        rueckmeldung = ""
+
+        defer {
+            wirdGesendet = false
+        }
+
+        do {
+            var request = URLRequest(url: url)
+            request.httpMethod = "POST"
+            request.setValue(
+                "application/json",
+                forHTTPHeaderField: "Content-Type"
+            )
+
+            
+            let daten: [String: String] = [
+                "betreff": betreff,
+                "nachricht": text
+            ]
+
+            request.httpBody = try JSONSerialization.data(
+                withJSONObject: daten
+            )
+
+            
+            let (responseData, response) = try await URLSession.shared.data(
+                for: request
+            )
+
+            guard let httpResponse = response as? HTTPURLResponse else {
+                rueckmeldung = "Ungültige Serverantwort."
+                return
+            }
+
+            print("Support HTTP-Status: \(httpResponse.statusCode)")
+
+            let serverText = String(
+                data: responseData,
+                encoding: .utf8
+            ) ?? "(Keine Antwortdetails)"
+
+            print("Support Serverantwort: \(serverText)")
+
+            guard (200...299).contains(httpResponse.statusCode) else {
+                rueckmeldung = "Versand fehlgeschlagen (HTTP \(httpResponse.statusCode))."
+                return
+            }
+
+
+            nachricht = ""
+            rueckmeldung = "Deine Nachricht wurde erfolgreich übermittelt."
+
+        } catch {
+            let fehler = error as NSError
+
+            rueckmeldung = "Verbindungsfehler: \(fehler.localizedDescription)"
+
+            print("Support-Fehler Domain: \(fehler.domain)")
+            print("Support-Fehler Code: \(fehler.code)")
+            print("Support-Fehler Beschreibung: \(fehler.localizedDescription)")
+        }
+    }
+
 }
 
 
