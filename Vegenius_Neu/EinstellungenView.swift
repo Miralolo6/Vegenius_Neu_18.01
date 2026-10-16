@@ -331,26 +331,172 @@ struct AccountView: View {
     }
 }
 
-// MARK: - Sicherheit
+
+// MARK: - Sicherheit & Privatsphäre
 struct SicherheitView: View {
-    var body: some View {
-        Text("Datenschutz- und Sicherheitsbestimmungen")
-            .font(.system(size: 14, weight: .regular))
-            .navigationTitle("Sicherheit & Privatsphäre")
-            .navigationBarTitleDisplayMode(.inline)
-            .background(Color("BackgroundMint").ignoresSafeArea())
-                .toolbar {
-                    ToolbarItem(placement: .principal) {
-                        Text("Sicherheit & Privatsphäre")
-                            .font(.system(size: 24, weight: .semibold))
-                            .foregroundColor(Color("TitelRosa"))
-                            .lineLimit(1)
-                            .minimumScaleFactor(0.7)
-                            }
-                        }
-                        .onAppear { setTitelFarbe() }
-    }
+
+   private let titelFarbe = Color("TitelRosa")
+   private let hintergrundFarbe = Color("BackgroundMint")
+
+   var body: some View {
+       ScrollView(showsIndicators: false) {
+           VStack(alignment: .leading, spacing: 24) {
+
+               // Kopfbereich
+               VStack(alignment: .leading, spacing: 10) {
+
+
+                   Text("Deine Privatsphäre zählt")
+                       .font(.system(size: 27, weight: .bold))
+                       .foregroundColor(.black)
+
+                   Text("""
+                   Bei Vegenius legen wir Wert auf einen \
+                   verantwortungsvollen Umgang mit deinen \
+                   persönlichen Daten und deiner Privatsphäre.
+                   """)
+                   .font(.system(size: 16))
+                   .foregroundColor(Color(red: 0.20, green: 0.20, blue: 0.20))
+                   .fixedSize(horizontal: false, vertical: true)
+               }
+               .padding(.top, 20)
+
+               // Datenschutzbereiche
+               VStack(spacing: 14) {
+
+                   datenschutzKarte(
+                       symbol: "person.crop.circle",
+                       titel: "Persönliche Daten",
+                       text: """
+                       Informiere dich darüber, welche persönlichen \
+                       Daten bei der Nutzung von Vegenius verarbeitet \
+                       werden und zu welchen Zwecken dies geschieht.
+                       """
+                   )
+
+                   datenschutzKarte(
+                       symbol: "lock.shield",
+                       titel: "Account & Passwort",
+                       text: """
+                       Verwende ein sicheres Passwort und teile es \
+                       nicht mit anderen. Schütze deine Zugangsdaten \
+                       vor unbefugtem Zugriff.
+                       """
+                   )
+
+                   datenschutzKarte(
+                       symbol: "sparkles",
+                       titel: "KI-Funktionen",
+                       text: """
+                       Bei KI-gestützten Funktionen können eingegebene \
+                       Inhalte an externe Dienste übermittelt werden. \
+                       Gib keine sensiblen persönlichen Informationen \
+                       ein, bevor du die geltenden Datenschutzhinweise \
+                       geprüft hast.
+                       """
+                   )
+
+                   datenschutzKarte(
+                       symbol: "doc.text",
+                       titel: "Deine Datenschutzrechte",
+                       text: """
+                       Du kannst im Rahmen der geltenden Gesetze \
+                       Rechte auf Auskunft, Berichtigung und Löschung \
+                       deiner personenbezogenen Daten haben.
+                       """
+                   )
+               }
+
+               // Abschlusshinweis
+               HStack(alignment: .top, spacing: 12) {
+                   Image(systemName: "info.circle.fill")
+                       .font(.system(size: 20))
+                       .foregroundColor(titelFarbe)
+
+                   VStack(alignment: .leading, spacing: 5) {
+                       Text("Fragen zum Datenschutz?")
+                           .font(.system(size: 16, weight: .semibold))
+                           .foregroundColor(.primary)
+
+                       Text("""
+                       Wende dich bei Fragen zur Verarbeitung deiner \
+                       Daten an den zuständigen Ansprechpartner.
+                       """)
+                       .font(.system(size: 14))
+                       .foregroundColor(Color(red: 0.20, green: 0.20, blue: 0.20))
+                       .fixedSize(horizontal: false, vertical: true)
+                   }
+               }
+               .padding(16)
+               .frame(maxWidth: .infinity, alignment: .leading)
+               .background(Color.white)
+               .clipShape(RoundedRectangle(cornerRadius: 16))
+               .overlay {
+                   RoundedRectangle(cornerRadius: 16)
+                       .stroke(titelFarbe.opacity(0.12), lineWidth: 1)
+               }
+               .padding(.top, 4)
+               .padding(.bottom, 24)
+           }
+           .padding(.horizontal, 22)
+       }
+       .background(hintergrundFarbe.ignoresSafeArea())
+       .navigationTitle("Sicherheit & Privatsphäre")
+       .navigationBarTitleDisplayMode(.inline)
+       .toolbar {
+           ToolbarItem(placement: .principal) {
+               Text("Sicherheit & Privatsphäre")
+                   .font(.system(size: 21, weight: .semibold))
+                   .foregroundColor(titelFarbe)
+                   .lineLimit(1)
+                   .minimumScaleFactor(0.7)
+           }
+       }
+       .onAppear {
+           setTitelFarbe()
+       }
+   }
+
+   // MARK: - Datenschutzkarte
+   private func datenschutzKarte(
+       symbol: String,
+       titel: String,
+       text: String
+   ) -> some View {
+       HStack(alignment: .top, spacing: 15) {
+
+           Image(systemName: symbol)
+               .font(.system(size: 23, weight: .medium))
+               .foregroundColor(titelFarbe)
+               .frame(width: 46, height: 46)
+               .background(titelFarbe.opacity(0.10))
+               .clipShape(RoundedRectangle(cornerRadius: 13))
+
+           VStack(alignment: .leading, spacing: 8) {
+               Text(titel)
+                   .font(.system(size: 18, weight: .semibold))
+                   .foregroundColor(.black)
+
+               Text(text)
+                   .font(.system(size: 15))
+                   .foregroundColor(Color(red: 0.20, green: 0.20, blue: 0.20))
+                   .lineSpacing(4)
+                   .fixedSize(horizontal: false, vertical: true)
+           }
+
+           Spacer(minLength: 0)
+       }
+       .padding(18)
+       .frame(maxWidth: .infinity, alignment: .leading)
+       .background(Color.white)
+       .clipShape(RoundedRectangle(cornerRadius: 18))
+       .overlay {
+           RoundedRectangle(cornerRadius: 18)
+               .stroke(Color.black.opacity(0.035), lineWidth: 1)
+       }
+   }
 }
+
 
 // MARK: - Support
 struct SupportView: View {
@@ -399,6 +545,7 @@ struct ProblemMeldenView: View {
             } label: {
                 Text("Absenden")
                     .foregroundColor(.white)
+                    .font(.system(size: 20, weight: .medium))
                     .frame(maxWidth: .infinity)
                     .padding()
                     .background(Color(red: 126/255, green: 222/255, blue: 211/255))
