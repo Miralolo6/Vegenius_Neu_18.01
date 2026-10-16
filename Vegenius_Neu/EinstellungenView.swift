@@ -869,7 +869,28 @@ struct ProblemMeldenView: View {
 
 }
 
+import SwiftUI
+import AVKit
 
+struct CustomVideoPlayer: UIViewControllerRepresentable {
+    let player: AVPlayer
+
+    func makeUIViewController(
+        context: Context
+    ) -> AVPlayerViewController {
+        let controller = AVPlayerViewController()
+        controller.player = player
+        controller.showsPlaybackControls = true
+        return controller
+    }
+
+    func updateUIViewController(
+        _ controller: AVPlayerViewController,
+        context: Context
+    ) {
+        controller.player = player
+    }
+}
 
 // MARK: - Tutorial
 import SwiftUI
@@ -880,10 +901,16 @@ struct TutorialView: View {
    private let titelFarbe = Color("TitelRosa")
    private let hintergrundFarbe = Color("BackgroundMint")
 
-   // Hier später die URL deines Tutorial-Videos einsetzen
-   private let videoURL = URL(
-       string: "https://DEINE-VIDEO-URL.mp4"
-   )!
+    private var videoURL: URL? {
+        Bundle.main.url(
+            forResource: "Vegenius_App_Tutorial",
+            withExtension: "mp4"
+        )
+    }
+
+    @State private var player: AVPlayer?
+    @State private var videoLoadError = false
+    @State private var videoImVollbild = false
 
    var body: some View {
        ScrollView(showsIndicators: false) {
@@ -908,11 +935,31 @@ struct TutorialView: View {
                        .font(.system(size: 20, weight: .semibold))
                        .foregroundColor(titelFarbe)
 
-                   VideoPlayer(
-                       player: AVPlayer(url: videoURL)
-                   )
-                   .aspectRatio(16 / 9, contentMode: .fit)
-                   .clipShape(RoundedRectangle(cornerRadius: 14))
+                   
+                   if let player = player {
+                       CustomVideoPlayer(player: player)
+                           .aspectRatio(16.0 / 9.0, contentMode: .fit)
+                           .clipShape(RoundedRectangle(cornerRadius: 14))
+                           .fullScreenCover(isPresented: $videoImVollbild) {
+                               ZStack(alignment: .topLeading) {
+                                   Color.black
+                                       .ignoresSafeArea()
+
+                                   CustomVideoPlayer(player: player)
+                                       .ignoresSafeArea()
+
+                                   Button {
+                                       videoImVollbild = false
+                                   } label: {
+                                       Image(systemName: "xmark.circle.fill")
+                                           .font(.system(size: 32))
+                                           .foregroundColor(.white)
+                                           .padding()
+                                   }
+                               }
+                               .statusBarHidden()
+                           }
+                   }
 
                    Text("Sieh dir das Video an, um die wichtigsten Funktionen kennenzulernen.")
                        .font(.system(size: 15))
@@ -970,6 +1017,18 @@ struct TutorialView: View {
        }
        .onAppear {
            setTitelFarbe()
+
+           if let url = videoURL {
+               player = AVPlayer(url: url)
+               videoLoadError = false
+           } else {
+               videoLoadError = true
+               print("Fehler: Vegenius_App_Tutorial.mp4 wurde nicht gefunden.")
+           }
+       }
+       .onDisappear {
+           player?.pause()
+           player = nil
        }
    }
 
