@@ -498,69 +498,288 @@ struct SicherheitView: View {
 }
 
 
+
 // MARK: - Support
 struct SupportView: View {
-    var body: some View {
-        ZStack(alignment: .bottom) {
-            
-            Color("BackgroundMint")
-                .ignoresSafeArea()
-            VStack(alignment: .leading, spacing: 35) {
-                Text("Hilfe/FAQ")
-                Text("Kontakt/Support")
-                NavigationLink(destination: ProblemMeldenView()) {
-                    Text("Problem melden")
-                        .foregroundColor(.primary)
-                }
-                Text("App Version")
-                Spacer()
-            }
-        }
-        .padding(.horizontal, 25)
-        .padding(.top, 30)
-        .navigationTitle("Support")
-        .background(Color("BackgroundMint").ignoresSafeArea())
-        .onAppear { setTitelFarbe() }
-    }
+
+   private let titelFarbe = Color("TitelRosa")
+   private let hintergrundFarbe = Color("BackgroundMint")
+
+   var body: some View {
+       ScrollView(showsIndicators: false) {
+           VStack(alignment: .leading, spacing: 24) {
+
+               // Kopfbereich
+               VStack(alignment: .leading, spacing: 10) {
+                   Text("Wie können wir dir helfen?")
+                       .font(.system(size: 27, weight: .bold))
+                       .foregroundColor(.black)
+
+                   Text("Hier findest du Hilfe und Möglichkeiten, uns zu kontaktieren.")
+                       .font(.system(size: 16))
+                       .foregroundColor(Color(red: 0.20, green: 0.20, blue: 0.20))
+                       .fixedSize(horizontal: false, vertical: true)
+               }
+               .padding(.top, 20)
+
+               // Hilfe und FAQ
+               supportKarte(
+                   symbol: "questionmark.circle",
+                   titel: "Hilfe & FAQ",
+                   beschreibung: "Antworten auf häufige Fragen zur Nutzung von Vegenius."
+               ) {
+                   
+               }
+
+               // Kontakt
+               VStack(alignment: .leading, spacing: 14) {
+                   Text("Kontakt")
+                       .font(.system(size: 21, weight: .semibold))
+                       .foregroundColor(.black)
+
+                   HStack(alignment: .top, spacing: 14) {
+                       Image(systemName: "envelope")
+                           .font(.system(size: 23))
+                           .foregroundColor(titelFarbe)
+                           .frame(width: 46, height: 46)
+                           .background(titelFarbe.opacity(0.10))
+                           .clipShape(RoundedRectangle(cornerRadius: 13))
+
+                       VStack(alignment: .leading, spacing: 6) {
+                           Text("Kontakt & Support")
+                               .font(.system(size: 18, weight: .semibold))
+                               .foregroundColor(.black)
+
+                           Text("Du hast eine Frage oder benötigst Unterstützung? Sende uns eine Nachricht über „Problem melden“.")
+                               .font(.system(size: 15))
+                               .foregroundColor(Color(red: 0.20, green: 0.20, blue: 0.20))
+                               .fixedSize(horizontal: false, vertical: true)
+
+                           NavigationLink(destination: ProblemMeldenView()) {
+                               HStack {
+                                   Text("Problem melden")
+                                   Image(systemName: "arrow.right")
+                               }
+                               .font(.system(size: 16, weight: .semibold))
+                               .foregroundColor(.black)
+                               .padding(.top, 8)
+                           }
+                       }
+
+                       Spacer(minLength: 0)
+                   }
+                   .padding(18)
+                   .frame(maxWidth: .infinity, alignment: .leading)
+                   .background(Color.white)
+                   .clipShape(RoundedRectangle(cornerRadius: 18))
+               }
+
+               // App-Version
+               HStack(spacing: 14) {
+                   Image(systemName: "iphone")
+                       .font(.system(size: 23))
+                       .foregroundColor(titelFarbe)
+                       .frame(width: 46, height: 46)
+                       .background(titelFarbe.opacity(0.10))
+                       .clipShape(RoundedRectangle(cornerRadius: 13))
+
+                   VStack(alignment: .leading, spacing: 5) {
+                       Text("Vegenius")
+                           .font(.system(size: 18, weight: .semibold))
+                           .foregroundColor(.black)
+
+                       Text("App-Version")
+                           .font(.system(size: 14))
+                           .foregroundColor(.secondary)
+                   }
+
+                   Spacer()
+
+                   Text(Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "Nicht verfügbar")
+                       .font(.system(size: 15, weight: .medium))
+                       .foregroundColor(.black)
+               }
+               .padding(18)
+               .frame(maxWidth: .infinity, alignment: .leading)
+               .background(Color.white)
+               .clipShape(RoundedRectangle(cornerRadius: 18))
+               .padding(.bottom, 24)
+           }
+           .padding(.horizontal, 22)
+       }
+       .background(hintergrundFarbe.ignoresSafeArea())
+       .navigationTitle("Support")
+       .navigationBarTitleDisplayMode(.inline)
+       .toolbar {
+           ToolbarItem(placement: .principal) {
+               Text("Support")
+                   .font(.system(size: 22, weight: .semibold))
+                   .foregroundColor(titelFarbe)
+           }
+       }
+       .onAppear {
+           setTitelFarbe()
+       }
+   }
+
+   // MARK: - Support-Karte
+   private func supportKarte<Inhalt: View>(
+       symbol: String,
+       titel: String,
+       beschreibung: String,
+       @ViewBuilder inhalt: () -> Inhalt
+   ) -> some View {
+       VStack(alignment: .leading, spacing: 12) {
+           HStack(alignment: .top, spacing: 14) {
+               Image(systemName: symbol)
+                   .font(.system(size: 23))
+                   .foregroundColor(titelFarbe)
+                   .frame(width: 46, height: 46)
+                   .background(titelFarbe.opacity(0.10))
+                   .clipShape(RoundedRectangle(cornerRadius: 13))
+
+               VStack(alignment: .leading, spacing: 6) {
+                   Text(titel)
+                       .font(.system(size: 18, weight: .semibold))
+                       .foregroundColor(.black)
+
+                   Text(beschreibung)
+                       .font(.system(size: 15))
+                       .foregroundColor(Color(red: 0.20, green: 0.20, blue: 0.20))
+                       .fixedSize(horizontal: false, vertical: true)
+               }
+               Spacer(minLength: 0)
+           }
+
+           inhalt()
+       }
+       .padding(18)
+       .frame(maxWidth: .infinity, alignment: .leading)
+       .background(Color.white)
+       .clipShape(RoundedRectangle(cornerRadius: 18))
+   }
 }
 
-// MARK: - Problem Melden
+
+
+// MARK: - Problem melden
 struct ProblemMeldenView: View {
-    @State private var nachricht = ""
 
-    var body: some View {
-        VStack(alignment: .leading, spacing: 15) {
+   @State private var betreff = "Technisches Problem"
+   @State private var nachricht = ""
+   @State private var rueckmeldung = ""
 
-            Text("Hast Du ein Problem in der App gefunden? Bitte beschreibe das Problem, dass Du siehst.")
-                .foregroundColor(.secondary)
+   private let titelFarbe = Color("TitelRosa")
 
-            TextEditor(text: $nachricht)
-                .frame(height: 200)
-                .padding(8)
-                .background(Color(.systemGray6))
-                .cornerRadius(12)
+   var body: some View {
+       ScrollView {
+           VStack(alignment: .leading, spacing: 22) {
 
-            Button {
-                print("Nachricht: \\(nachricht)")
-            } label: {
-                Text("Absenden")
-                    .foregroundColor(.white)
-                    .font(.system(size: 20, weight: .medium))
-                    .frame(maxWidth: .infinity)
-                    .padding()
-                    .background(Color(red: 126/255, green: 222/255, blue: 211/255))
-                    .cornerRadius(12)
-            }
+               Text("Wir helfen dir gerne")
+                   .font(.system(size: 27, weight: .bold))
+                   .foregroundColor(.black)
 
-            Spacer()
-        }
-        .padding(.horizontal, 25)
-        .padding(.top, 30)
-        .navigationTitle("Problem melden")
-        .background(Color("BackgroundMint").ignoresSafeArea())
-        .onAppear { setTitelFarbe() }
-    }
+               Text("Beschreibe möglichst genau, wobei du Unterstützung benötigst.")
+                   .font(.system(size: 16))
+                   .foregroundColor(Color(red: 0.20, green: 0.20, blue: 0.20))
+
+               VStack(alignment: .leading, spacing: 9) {
+                   Text("Thema")
+                       .font(.system(size: 17, weight: .semibold))
+                       .foregroundColor(.black)
+
+                   Picker("Thema", selection: $betreff) {
+                       Text("Technisches Problem").tag("Technisches Problem")
+                       Text("Rezept oder KI-Funktion").tag("Rezept oder KI-Funktion")
+                       Text("Account").tag("Account")
+                       Text("Feedback und Verbesserung").tag("Feedback und Verbesserung")
+                       Text("Sonstiges").tag("Sonstiges")
+                   }
+                   .pickerStyle(.menu)
+                   .tint(.black)
+                   .frame(maxWidth: .infinity, alignment: .leading)
+                   .padding(10)
+                   .background(Color.white)
+                   .clipShape(RoundedRectangle(cornerRadius: 12))
+               }
+
+               VStack(alignment: .leading, spacing: 9) {
+                   Text("Deine Nachricht")
+                       .font(.system(size: 17, weight: .semibold))
+                       .foregroundColor(.black)
+
+                   ZStack(alignment: .topLeading) {
+                       if nachricht.isEmpty {
+                           Text("Beschreibe hier dein Anliegen ...")
+                               .foregroundColor(.gray)
+                               .padding(.horizontal, 13)
+                               .padding(.vertical, 17)
+                       }
+
+                       TextEditor(text: $nachricht)
+                           .frame(minHeight: 180)
+                           .padding(6)
+                           .scrollContentBackground(.hidden)
+                           .background(Color.clear)
+                   }
+                   .background(Color.white)
+                   .clipShape(RoundedRectangle(cornerRadius: 14))
+                   .overlay {
+                       RoundedRectangle(cornerRadius: 14)
+                           .stroke(Color.black.opacity(0.10), lineWidth: 1)
+                   }
+               }
+
+               if !rueckmeldung.isEmpty {
+                   Text(rueckmeldung)
+                       .font(.system(size: 14, weight: .medium))
+                       .foregroundColor(.black)
+               }
+
+               Button {
+                   if nachricht.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+                       rueckmeldung = "Bitte beschreibe zuerst dein Anliegen."
+                   } else {
+                       rueckmeldung = "Deine Nachricht ist vorbereitet. Sie wurde noch nicht versendet."
+                       print("Betreff: \(betreff)")
+                       print("Nachricht: \(nachricht)")
+                   }
+               } label: {
+                   HStack {
+                       Image(systemName: "paperplane.fill")
+                       Text("Nachricht absenden")
+                   }
+                   .font(.system(size: 20, weight: .semibold))
+                   .foregroundColor(.white)
+                   .frame(maxWidth: .infinity)
+                   .padding(17)
+                   .background(Color(red: 126/255, green: 222/255, blue: 211/255))
+                   .clipShape(RoundedRectangle(cornerRadius: 14))
+               }
+
+               Text("Gib bitte keine Passwörter oder anderen sensiblen persönlichen Daten ein.")
+                   .font(.system(size: 13))
+                   .foregroundColor(Color(red: 0.25, green: 0.25, blue: 0.25))
+                   .fixedSize(horizontal: false, vertical: true)
+           }
+           .padding(22)
+       }
+       .background(Color("BackgroundMint").ignoresSafeArea())
+       .navigationTitle("Problem melden")
+       .navigationBarTitleDisplayMode(.inline)
+       .toolbar {
+           ToolbarItem(placement: .principal) {
+               Text("Problem melden")
+                   .font(.system(size: 22, weight: .semibold))
+                   .foregroundColor(titelFarbe)
+           }
+       }
+       .onAppear {
+           setTitelFarbe()
+       }
+   }
 }
+
 
 // MARK: - Tutorial
 struct TutorialView: View {
