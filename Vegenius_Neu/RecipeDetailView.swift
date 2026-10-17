@@ -108,16 +108,26 @@ struct RecipeDetailView: View {
             } label: {
                 Image(systemName: "arrow.left")
                     .font(.system(size: 20, weight: .medium))
-                    .foregroundStyle(.primary)
+                    .foregroundStyle(accentColor)
                     .frame(width: 44, height: 44)
                     .background(.white, in: Circle())
+                    .overlay {
+                        Circle()
+                            .stroke(Color.black.opacity(0.04), lineWidth: 1)
+                    }
+                    .shadow(
+                        color: Color.black.opacity(0.10),
+                        radius: 5,
+                        x: 0,
+                        y: 3
+                    )
             }
             .accessibilityLabel("Zurück")
 
             Spacer()
 
             Text(recipe.title)
-                .font(.headline)
+                .font(.title3.weight(.semibold))
                 .lineLimit(2)
                 .multilineTextAlignment(.center)
 

@@ -1106,15 +1106,34 @@ struct EinstellungenView: View {
                             dismiss()
                         } label: {
                             Image(systemName: "xmark")
-                                .foregroundColor(.black)
-                                .font(.title)
-                                .frame(width: 50, height: 50)
+                                .font(.system(size: 20, weight: .medium))
+                                .foregroundStyle(
+                                    Color(
+                                        red: 82.0 / 255.0,
+                                        green: 199.0 / 255.0,
+                                        blue: 185.0 / 255.0
+                                    )
+                                )
+                                .frame(width: 44, height: 44)
+                                .background(.white, in: Circle())
+                                .overlay {
+                                    Circle()
+                                        .stroke(Color.black.opacity(0.04), lineWidth: 1)
+                                }
+                                .shadow(
+                                    color: Color.black.opacity(0.10),
+                                    radius: 5,
+                                    x: 0,
+                                    y: 3
+                                )
                         }
+                        .accessibilityLabel("Schließen")
 
                         Spacer()
 
                         Text("Einstellungen")
-                            .font(.system(size: 28, weight: .semibold))
+                            .font(.largeTitle)
+                            .fontWeight(.semibold)
                             .foregroundColor(Color("TitelRosa"))
 
                         Spacer()
@@ -1128,14 +1147,19 @@ struct EinstellungenView: View {
                         Button {
                             print("Settings tapped")
                         } label: {
-                            VStack {
-                                Image(systemName: "gearshape")
-                                    .foregroundColor(.black)
-                                    .font(.title)
-                                    .scaledToFit()
-                                    .frame(width: 55, height: 55)
-                            }
+                            Image(systemName: "gearshape")
+                                .font(.system(size: 28, weight: .medium))
+                                .foregroundStyle(
+                                    Color(
+                                        red: 82.0 / 255.0,
+                                        green: 199.0 / 255.0,
+                                        blue: 185.0 / 255.0
+                                    )
+                                )
+                                .frame(width: 55, height: 55)
+                                .contentShape(Rectangle())
                         }
+                        .accessibilityLabel("Einstellungen")
                     }
                     .padding(.horizontal)
 
@@ -1203,7 +1227,7 @@ struct EinstellungenView: View {
 
                     Spacer()
                 }
-                .padding(.top, 20)
+                .padding(.top)
             }
         }
         .toolbar(.hidden, for: .navigationBar)

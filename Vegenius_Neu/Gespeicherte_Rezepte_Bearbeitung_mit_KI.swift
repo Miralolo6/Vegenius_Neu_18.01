@@ -20,6 +20,12 @@ struct MyRecipesView3: View {
         GridItem(.flexible()),
         GridItem(.flexible())
     ]
+    
+    private let accentColor = Color(
+        red: 82.0 / 255.0,
+        green: 199.0 / 255.0,
+        blue: 185.0 / 255.0
+    )
 
     var body: some View {
 
@@ -31,9 +37,22 @@ struct MyRecipesView3: View {
                         dismiss()
                     } label: {
                         Image(systemName: "arrow.left")
-                            .font(.title3)
-                            .foregroundColor(.black)
+                            .font(.system(size: 20, weight: .medium))
+                            .foregroundStyle(accentColor)
+                            .frame(width: 44, height: 44)
+                            .background(.white, in: Circle())
+                            .overlay {
+                                Circle()
+                                    .stroke(Color.black.opacity(0.04), lineWidth: 1)
+                            }
+                            .shadow(
+                                color: Color.black.opacity(0.10),
+                                radius: 5,
+                                x: 0,
+                                y: 3
+                            )
                     }
+                    .accessibilityLabel("Zurück")
                     
                     Spacer()
                     
@@ -107,6 +126,8 @@ struct RecipeCard3: View {
     @Binding var recipe: Recipe
 
     @State private var selectedItem: PhotosPickerItem?
+    
+    
 
     var body: some View {
 
@@ -173,6 +194,6 @@ struct RecipeCard3: View {
 }
 
 #Preview {
-    MyRecipesView2()
+    MyRecipesView3()
         .environmentObject(RecipeStore())
 }

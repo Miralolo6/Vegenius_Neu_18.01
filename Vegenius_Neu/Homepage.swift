@@ -33,7 +33,16 @@ final class RecipeStore: ObservableObject {
                 Recipe(title: "Spaghetti Aglio e Olio", imageName: "Spaghetti", category: .unter_zwanzig, filters: [.nutFree], isFavorite: false),
                 Recipe(title: "Miso-Ramen-Suppe", imageName: "Miso-Ramen-Suppe", category: .unter_zwanzig, filters: [.nutFree, .highProtein], isFavorite: false),
                 Recipe(title: "Tex-Mex-Salat", imageName: "Tex-Mex-Salat", category: .unter_zwanzig, filters: [.nutFree, .highProtein, .glutenFree], isFavorite: false),
-                Recipe(title: "Pasta mit Pistazienpesto & Pilzen", imageName: "Pistazienpesto", category: .unter_zwanzig, filters: [], isFavorite: false)
+                Recipe(title: "Pasta mit Pistazienpesto & Pilzen", imageName: "Pistazienpesto", category: .unter_zwanzig, filters: [], isFavorite: false),
+                Recipe(title: "Snickers Overnight Oats", imageName: "Snickers_overnight_oats", category: .suess, filters: [], isFavorite: false),
+                Recipe(title: "Papaya Boote", imageName: "Papaya_Boot", category: .suess, filters: [], isFavorite: false),
+                Recipe(title: "Mousse au Chocolat", imageName: "Mousse_au_chocolat", category: .suess, filters: [], isFavorite: false),
+                Recipe(title: "Stracciatella-Eis", imageName: "Eis_am_Stiel", category: .suess, filters: [], isFavorite: false),
+                Recipe(title: "Schoko-Eis", imageName: "Eis_am_Stiel", category: .suess, filters: [], isFavorite: false),
+                Recipe(title: "Pflaumensaft-Wassereis", imageName: "Eis_am_Stiel", category: .suess, filters: [], isFavorite: false),
+                Recipe(title: "Grüner Borschtsch", imageName: "Gruener_Borschtsch", category: .herzhaft, filters: [], isFavorite: false),
+                Recipe(title: "Vegane Bananenwaffeln", imageName: "Waffeln", category: .suess, filters: [], isFavorite: false)
+
             ]
             self.recipes = initialRecipes
             self.refreshFavorites()
@@ -471,6 +480,78 @@ struct HomeView: View {
                                                                NavigationLink {
                                                                    RecipeDetailWrapper(recipe: recipeBinding) {
                                                                        ZitronenBlaubeerTorteView(recipe: recipeBinding)
+                                                                   }
+                                                               } label: {
+                                                                   RecipeCard(recipe: recipeBinding)
+                                                               }
+                                                               .buttonStyle(.plain)
+                                                           } else if recipe.title == "Snickers Overnight Oats" {
+                                                               NavigationLink {
+                                                                   RecipeDetailWrapper(recipe: recipeBinding) {
+                                                                       SnickersOvernightOatsView(recipe: recipeBinding)
+                                                                   }
+                                                               } label: {
+                                                                   RecipeCard(recipe: recipeBinding)
+                                                               }
+                                                               .buttonStyle(.plain)
+                                                           } else if recipe.title == "Papaya Boote" {
+                                                               NavigationLink {
+                                                                   RecipeDetailWrapper(recipe: recipeBinding) {
+                                                                       PapayaBooteView(recipe: recipeBinding)
+                                                                   }
+                                                               } label: {
+                                                                   RecipeCard(recipe: recipeBinding)
+                                                               }
+                                                               .buttonStyle(.plain)
+                                                           } else if recipe.title == "Mousse au Chocolat" {
+                                                               NavigationLink {
+                                                                   RecipeDetailWrapper(recipe: recipeBinding) {
+                                                                       ZweiZutatenMousseAuChocolatView(recipe: recipeBinding)
+                                                                   }
+                                                               } label: {
+                                                                   RecipeCard(recipe: recipeBinding)
+                                                               }
+                                                               .buttonStyle(.plain)
+                                                           } else if recipe.title == "Stracciatella-Eis" {
+                                                               NavigationLink {
+                                                                   RecipeDetailWrapper(recipe: recipeBinding) {
+                                                                       StracciatellaEisView(recipe: recipeBinding)
+                                                                   }
+                                                               } label: {
+                                                                   RecipeCard(recipe: recipeBinding)
+                                                               }
+                                                               .buttonStyle(.plain)
+                                                           } else if recipe.title == "Schoko-Eis" {
+                                                               NavigationLink {
+                                                                   RecipeDetailWrapper(recipe: recipeBinding) {
+                                                                       SchokoEisView(recipe: recipeBinding)
+                                                                   }
+                                                               } label: {
+                                                                   RecipeCard(recipe: recipeBinding)
+                                                               }
+                                                               .buttonStyle(.plain)
+                                                           } else if recipe.title == "Pflaumensaft-Wassereis" {
+                                                               NavigationLink {
+                                                                   RecipeDetailWrapper(recipe: recipeBinding) {
+                                                                       PflaumensaftWassereisView(recipe: recipeBinding)
+                                                                   }
+                                                               } label: {
+                                                                   RecipeCard(recipe: recipeBinding)
+                                                               }
+                                                               .buttonStyle(.plain)
+                                                           } else if recipe.title == "Grüner Borschtsch" {
+                                                               NavigationLink {
+                                                                   RecipeDetailWrapper(recipe: recipeBinding) {
+                                                                       GruenerBorschtschView(recipe: recipeBinding)
+                                                                   }
+                                                               } label: {
+                                                                   RecipeCard(recipe: recipeBinding)
+                                                               }
+                                                               .buttonStyle(.plain)
+                                                           } else if recipe.title == "Vegane Bananenwaffeln" {
+                                                               NavigationLink {
+                                                                   RecipeDetailWrapper(recipe: recipeBinding) {
+                                                                       VeganeBananenwaffelnView(recipe: recipeBinding)
                                                                    }
                                                                } label: {
                                                                    RecipeCard(recipe: recipeBinding)
