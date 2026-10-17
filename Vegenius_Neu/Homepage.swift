@@ -37,6 +37,14 @@ final class RecipeStore: ObservableObject {
             ]
             self.recipes = initialRecipes
             self.refreshFavorites()
+            
+            NotificationCenter.default.addObserver(
+                forName: .favoritesDidChange,
+                object: nil,
+                queue: .main
+            ) { [weak self] _ in
+                self?.refreshFavorites()
+            }
         }
         func refreshFavorites() {
             recipes = recipes.map { recipe in
@@ -390,7 +398,7 @@ struct HomeView: View {
                                                            } else if recipe.title == "Mediterrane Reispfanne" {
                                                                NavigationLink {
                                                                    RecipeDetailWrapper(recipe: recipeBinding) {
-                                                                       RezeptDetailView(recipe: recipeBinding)
+                                                                       RecipeDetailHost(recipe: recipeBinding)
                                                                    }
                                                                } label: {
                                                                    RecipeCard(recipe: recipeBinding)

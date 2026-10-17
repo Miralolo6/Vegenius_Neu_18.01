@@ -6,7 +6,12 @@
 //
 
 import SwiftUI
-//import Combine
+import Combine
+
+// MARK: - Benachrichtigung bei Favoritenänderungen
+extension Notification.Name {
+    static let favoritesDidChange = Notification.Name("favoritesDidChange")
+}
 
 
 
@@ -128,15 +133,22 @@ struct RezepteView2: View {
                 recipeToDelete = nil
             }
 
+            
             Button("Ja", role: .destructive) {
                 if let recipeToDelete {
-                    // Aus der Anzeige entfernen
+                    // Aus dem dauerhaften Speicher entfernen
+                    RecipeStorage.removeRecipe(recipeToDelete)
+
+                    // Lokale Anzeige aktualisieren
                     recipes.removeAll {
                         $0.id == recipeToDelete.id
                     }
 
-                    // Dauerhaft aus dem Speicher entfernen
-                    RecipeStorage.removeRecipe(recipeToDelete)
+                    // Favoritenstatus im zentralen Store aktualisieren
+                    NotificationCenter.default.post(
+                        name: .favoritesDidChange,
+                        object: nil
+                    )
 
                     self.recipeToDelete = nil
                 }
