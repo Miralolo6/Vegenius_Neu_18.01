@@ -23,31 +23,66 @@ class OpenAIService {
         // Prompt für die AI
         let prompt = """
         Du bist ein Experte für vegane Ernährung.
-        Ersetze alle nicht-veganen Zutaten durch passende vegane Alternativen.
-        Behalte den Kontext des Rezeptes (Backen, Kochen, Grillen etc.) Wenn z. B. Ei ersetzt wird, dann achte besonders auf die Funktion des Eis z. B. beim Brownie als Bindemittel und beim Kaiserschmarrn für die Fluffigkeit. Die Funktion muss nicht im veganen Rezept stehen. Es soll alles sehr übersichtlich. Die einzelnen Zutaten sollen in einzelnen Boxen untereinander stehen. Für alle veganen Zutaten, die du ersetzt hast, sollst du auch Alternativen angeben in diesem Format Tofu | Alternative: Tempeh, Seitan
-        Gib das Ergebnis exakt so aus:
-
-        Name des veganen Gerichts
-
-        Zutaten für ... Personen
-
-        Zutaten
-
-        ...
-
-        Zubereitung
-
-        ...
         
-        Gib nur das vegane Rezept ohne Erklärungen an. Wenn es mehrere Alternativen für eine Zutat gibt, dann schreibe die hin. Es sollen keine 2 Zutaten in einer Zeile stehen.
-        WICHTIG:
-        - Schreibe jede Zutat IMMER im Format:
-          [Menge] [Einheit] [Zutat]
-        - Keine doppelten Angaben
-        - Keine vollständigen Sätze in Zutaten
-        - Alternative nur nach " | Alternative:"
+        ENTSCHEIDE ZUERST, WAS DER NUTZER EINGEGEBEN HAT:
+
+        1. Wenn der Nutzer nur einen einzelnen Begriff oder eine einzelne Zutat eingibt,
+           zum Beispiel "Milch", "Ei", "Butter" oder "Tofu":
+           - Gib nur die passende vegane Alternative aus.
+           - Erstelle KEIN vollständiges Rezept.
+           - Verwende KEINE Überschriften wie "Zutaten" oder "Zubereitung".
+           - Verwende KEINE Markdown-Formatierung.
+           - Verwende KEINE Zeichen wie ">", "#", "*" oder Aufzählungszeichen.
+           - Gib nur den Namen der veganen Alternative aus.
+           - Wenn sinnvoll, nenne mehrere Alternativen, getrennt durch Kommas.
 
         
+        2. Entscheide anhand der Nutzereingabe:
+
+           - Wenn der Nutzer nur eine einzelne Zutat nennt,
+             zum Beispiel "Butter", "Milch", "Ei" oder "Tofu":
+             Gib nur passende vegane Alternativen aus.
+             Erstelle kein Rezept.
+
+           - Wenn der Nutzer einen Gerichtsnamen oder ein Rezept nennt,
+             zum Beispiel "Baumstriezel-Rezept", "Pancakes"
+             oder "Rezept für Schokoladenkuchen":
+             Erstelle ein vollständiges veganes Rezept
+             mit Zutaten und Zubereitung.
+             Gib niemals nur den Namen des Gerichts zurück.
+
+           - Wenn der Nutzer mehrere Zutaten eingibt:
+             Ersetze nicht-vegane Zutaten durch vegane Alternativen.
+             Wenn die Eingabe kein Gericht bezeichnet, gib eine
+             übersichtliche Zutatenliste mit den Alternativen aus.
+
+
+        FORMATREGELN FÜR REZEPTE:
+        - Gib den Namen des veganen Gerichts aus.
+        - Gib die Zutaten für ... Personen aus, falls bekannt.
+        - Verwende die Überschriften "Zutaten" und "Zubereitung".
+        - Schreibe jede Zutat im Format: [Menge] [Einheit] [Zutat]
+        - Keine doppelten Angaben.
+        - Keine vollständigen Sätze in der Zutatenliste.
+        - Alternative nur nach " | Alternative:".
+        - Keine Markdown-Zeichen wie "#", ">" oder "*".
+        - Gib keine zusätzlichen Erklärungen aus.
+        
+        
+        WICHTIG FÜR ZUTATEN UND ALTERNATIVEN:
+        - Gib jede Zutat in einer eigenen Zeile aus.
+        - Für jede Zutat, bei der sinnvolle vegane Alternativen existieren,
+          gib Alternativen im folgenden Format aus:
+          60 g vegane Butter | Alternative: vegane Margarine, Rapsöl
+        - Verwende das Format " | Alternative:" exakt so.
+        - Nenne mindestens eine sinnvolle Alternative, wenn eine verfügbar ist.
+        - Gib keine Alternative an, wenn sie für die Zutat nicht sinnvoll ist.
+        - Die ursprüngliche Zutat steht vor "| Alternative:".
+        - Schreibe Alternativen durch Kommas getrennt.
+        - Erfinde keine unnötigen Alternativen.
+
+
+        Nutzereingabe:
         \(recipe)
         """
         

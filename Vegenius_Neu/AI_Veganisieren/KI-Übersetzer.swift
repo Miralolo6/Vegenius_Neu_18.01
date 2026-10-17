@@ -17,7 +17,7 @@ class VeganViewModel: ObservableObject {
                 let result = try await service.veganize(recipe: inputText)
 
                 await MainActor.run {
-                    self.resultText = result
+                    self.resultText = cleanResult(result)
                     self.isLoading = false
                     completion?()
                 }
@@ -52,4 +52,19 @@ class VeganViewModel: ObservableObject {
             }
         }
     }
+    
+    private func cleanResult(_ text: String) -> String {
+        text
+            .components(separatedBy: .newlines)
+            .map { line in
+                line.replacingOccurrences(
+                    of: #"^\s*>\s*"#,
+                    with: "",
+                    options: .regularExpression
+                )
+            }
+            .joined(separator: "\n")
+            .trimmingCharacters(in: .whitespacesAndNewlines)
+    }
+
 }

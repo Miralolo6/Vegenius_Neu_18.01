@@ -21,7 +21,7 @@ struct Ingredient: Identifiable {
             selectedAlternative ?? name
     }
     var isGenerated: Bool = false
-
+ 
 }
 
 // MARK: - VIEW
@@ -52,6 +52,49 @@ struct VeganResultView2: View {
     
     
     // MARK: - STEPS
+    
+    
+    
+    private var isSingleIngredientResult: Bool {
+        let lines = text
+            .components(separatedBy: .newlines)
+            .map {
+                $0.trimmingCharacters(in: .whitespacesAndNewlines)
+            }
+            .filter { !$0.isEmpty }
+
+        let lowerText = text.lowercased()
+
+        // Ein vollständiges Rezept enthält typischerweise
+        // diese Überschriften.
+        let hasRecipeSections =
+            lowerText.contains("zutaten") ||
+            lowerText.contains("zubereitung")
+
+        if hasRecipeSections {
+            return false
+        }
+
+        // Wenn die Antwort nur aus einem Titel besteht,
+        // darf sie nicht als vegane Alternative gelten.
+        let firstLine = lines.first?.lowercased() ?? ""
+
+        let looksLikeRecipeTitle =
+            firstLine.contains("rezept") ||
+            firstLine.contains("kuchen") ||
+            firstLine.contains("pancake") ||
+            firstLine.contains("baumstriezel")
+
+        if looksLikeRecipeTitle {
+            return false
+        }
+
+        // Einzelne Begriffe oder kurze Alternativen
+        // werden als einzelne Ergebnisse behandelt.
+        return !lines.isEmpty
+    }
+
+
     
     var steps: [String] {
         extractSection(title: "zubereitung").map { step in
@@ -132,83 +175,144 @@ struct VeganResultView2: View {
                     
                     
                     // MARK: Zutaten
-                    DisclosureGroup(isExpanded: $showIngredients) {
-                        ingredientsCard
-                    } label: {
-                        header("Zutaten")
-                    }
-                    .cardStyle()
                     
-                    // MARK: Zubereitung
-                    DisclosureGroup(isExpanded: $showInstructions) {
-                        stepsCard
-                    } label: {
-                        header("Zubereitung")
+                    if isSingleIngredientResult {
+                        VStack(alignment: .leading, spacing: 12) {
+                            Text("Vegane Alternative")
+                                .font(.headline)
+                                .foregroundColor(
+                                    Color(red: 231/255, green: 161/255, blue: 176/255)
+                                )
+
+                            Text(
+                                text
+                                    .replacingOccurrences(
+                                        of: #"^\s*>\s*"#,
+                                        with: "",
+                                        options: .regularExpression
+                                    )
+                                    .trimmingCharacters(in: .whitespacesAndNewlines)
+                            )
+                            .foregroundColor(.black)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .padding()
+                            .background(Color(.systemTeal).opacity(0.25))
+                            .clipShape(RoundedRectangle(cornerRadius: 12))
+                        }
+                        .padding()
+                        .background(Color(.systemTeal).opacity(0.35))
+                        .clipShape(RoundedRectangle(cornerRadius: 14))
+                    } else {
+                        // MARK: Zutaten
+                        DisclosureGroup(isExpanded: $showIngredients) {
+                            ingredientsCard
+                        } label: {
+                            header("Zutaten")
+                        }
+                        .cardStyle()
+
+                        // MARK: Zubereitung
+                        DisclosureGroup(isExpanded: $showInstructions) {
+                            stepsCard
+                        } label: {
+                            header("Zubereitung")
+                        }
+                        .cardStyle()
                     }
-                    .cardStyle()
+
                 }
                 .padding()
             }
             .navigationBarBackButtonHidden(true)
             .onAppear {
-                ingredients = extractSection(title: "zutaten").map { line in
-                    
-                    let cleaned = line
-                        .replacingOccurrences(of: "- ", with: "")
-                        .replacingOccurrences(of: "|", with: "")
-                    
-                    let lower = cleaned.lowercased()
-                    var mainPart = cleaned
-                    var alternatives: [String] = []
+                if !isSingleIngredientResult {
+                    ingredients = extractSection(title: "zutaten").map { line in
+
+                        
+                        let cleaned = line
+                            .replacingOccurrences(
+                                of: #"^\s*[-•]\s*"#,
+                                with: "",
+                                options: .regularExpression
+                            )
+                            .replacingOccurrences(
+                                of: #"\s*\|\s*$"#,
+                                with: "",
+                                options: .regularExpression
+                            )
+                            .trimmingCharacters(in: .whitespacesAndNewlines)
 
 
-                    if lower.contains("alternative") {
-                        
-                        let separators = ["Alternative:", "Alternativen:", "alternative:", "alternativen:"]
-                        
-                        for sep in separators {
-                            if cleaned.contains(sep) {
-                                let split = cleaned.components(separatedBy: sep)
-                                mainPart = split[0]
-                                
-                                if split.count > 1 {
-                                    alternatives = split[1]
+                        let lower = cleaned.lowercased()
+                        var mainPart = cleaned
+                        var alternatives: [String] = []
+
+                        if lower.contains("alternative") {
+                            let separators = [
+                                "Alternative:",
+                                "Alternativen:",
+                                "alternative:",
+                                "alternativen:"
+                            ]
+
+                            for sep in separators {
+                                if let range = cleaned.range(
+                                    of: sep,
+                                    options: .caseInsensitive
+                                ) {
+                                    mainPart = String(cleaned[..<range.lowerBound])
+
+                                    let alternativeText = String(cleaned[range.upperBound...])
+
+                                    
+                                    alternatives = alternativeText
                                         .components(separatedBy: ",")
-                                        .map { $0.trimmingCharacters(in: .whitespaces) }
+                                        .map {
+                                            $0.trimmingCharacters(in: .whitespacesAndNewlines)
+                                        }
                                         .filter { !$0.isEmpty }
+
+                                    // Leere Alternativen und einzelne "|" entfernen
+                                    alternatives = alternatives.filter {
+                                        !$0.isEmpty && $0 != "|"
+                                    }
+
+                                    break
+
                                 }
-                                break
                             }
                         }
-                    }//ende von if lower
-                
 
-                    let components = mainPart.components(separatedBy: " ")
+                        let components = mainPart
+                            .split(whereSeparator: { $0.isWhitespace })
+                            .map(String.init)
 
-                    if let amount = Double(components.first ?? "") {
-                        let unit = components.count > 1 ? components[1] : ""
-                        let name = components.dropFirst(2).joined(separator: " ")
+                        if let amount = Double(components.first ?? "") {
+                            let unit = components.count > 1 ? components[1] : ""
+                            let name = components.dropFirst(2).joined(separator: " ")
 
-                        return Ingredient(
-                            baseAmount: amount,
-                            unit: unit,
-                            name: name,
-                            alternatives: alternatives
-                        )
-                    } else {
-                        return Ingredient(
-                            baseAmount: nil,
-                            unit: "",
-                            name: mainPart,
-                            alternatives: alternatives
-                        )
+                            return Ingredient(
+                                baseAmount: amount,
+                                unit: unit,
+                                name: name,
+                                alternatives: alternatives
+                            )
+                        } else {
+                            return Ingredient(
+                                baseAmount: nil,
+                                unit: "",
+                                name: mainPart.trimmingCharacters(in: .whitespacesAndNewlines),
+                                alternatives: alternatives
+                            )
+                        }
                     }
-                    
+                } else {
+                    ingredients = []
                 }
+
                 people = recipe.savedPeople
 
                 for index in ingredients.indices {
-
                     let ingredientName = ingredients[index].name
 
                     if let alt = recipe.savedAlternatives[ingredientName] {
@@ -216,6 +320,7 @@ struct VeganResultView2: View {
                     }
                 }
             }
+
         }
         /*.toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
