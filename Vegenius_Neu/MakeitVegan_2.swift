@@ -254,6 +254,31 @@ struct MakeItVeganView2: View {
             .sheet(isPresented: $showCamera) {
                 CameraPicker2(image: $selectedImage)
             }
+            
+            .overlay {
+                if vm.isLoading {
+                    VeganLoadingView()
+                        .transition(.opacity)
+                        .zIndex(1)
+                }
+            }
+            
+            .alert(
+                "Rezept konnte nicht übersetzt werden",
+                isPresented: Binding(
+                    get: { vm.errorMessage != nil },
+                    set: { if !$0 { vm.errorMessage = nil } }
+                )
+            ) {
+                Button("OK", role: .cancel) {
+                    vm.errorMessage = nil
+                }
+            } message: {
+                Text(vm.errorMessage ?? "Bitte versuche es erneut.")
+            }
+
+            .animation(.easeInOut(duration: 0.25), value: vm.isLoading)
+
         }
         
     }

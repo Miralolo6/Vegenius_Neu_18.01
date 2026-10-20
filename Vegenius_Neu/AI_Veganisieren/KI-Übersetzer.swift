@@ -6,18 +6,31 @@ class VeganViewModel: ObservableObject {
     @Published var inputText = ""
     @Published var resultText = ""
     @Published var isLoading = false
+    @Published var errorMessage: String?
     
     private let service = OpenAIService()
     
+    
     func veganize(completion: (() -> Void)? = nil) {
+        let recipe = inputText.trimmingCharacters(
+            in: .whitespacesAndNewlines
+        )
+
+        guard !recipe.isEmpty, !isLoading else {
+            return
+        }
+
         isLoading = true
+        errorMessage = nil
 
         Task {
             do {
-                let result = try await service.veganize(recipe: inputText)
+                let result = try await service.veganize(
+                    recipe: recipe
+                )
 
                 await MainActor.run {
-                    self.resultText = cleanResult(result)
+                    self.resultText = self.cleanResult(result)
                     self.isLoading = false
                     completion?()
                 }
@@ -25,10 +38,14 @@ class VeganViewModel: ObservableObject {
             } catch {
                 await MainActor.run {
                     self.isLoading = false
+                    self.errorMessage =
+                        "Das Rezept konnte nicht verarbeitet werden. "
+                        + error.localizedDescription
                 }
             }
         }
     }
+
     func reprocessWithAlternative(baseRecipe: String, ingredients: [Ingredient]) {
         
         let modifiedIngredients = ingredients.map { ing in
